@@ -5,7 +5,7 @@ import { Box, Button, Card, Checkbox, Divider, FormControlLabel, Grid, TextField
 
 const ContentArea: FC = () => (
   <Grid className={styles.ContentArea} size="grow">
-    <Card className='sticky-header' sx={{boxShadow: '0 3px 5px'}}>
+    <Card className='sticky-header' sx={{boxShadow: '0 -3px 5px'}}>
       <Typography variant='h4'>Resume Details</Typography>
       <Divider />
     </Card>
