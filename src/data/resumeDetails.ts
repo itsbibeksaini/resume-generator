@@ -5,7 +5,7 @@ export interface ResumeDetails {
     contactInfo: ResumeContactInfo,    
     summary: string[],
     professionalExperience: ProfessionalExperience[],
-    education: Education[]
+    education: educationDetails[]
 
 }
 
@@ -35,7 +35,7 @@ export interface ProfessionalExperience {
     responsibilities: string[],
 }
 
-export interface Education{
+export interface educationDetails {
     institutionName: string,    
     fieldOfStudy?: string,
     startDate: string,

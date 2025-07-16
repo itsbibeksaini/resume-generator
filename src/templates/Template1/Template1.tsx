@@ -4,9 +4,9 @@ import { useLocation } from 'react-router';
 import { Box, Card, Divider, Grid, Typography } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward, faBriefcase, faEnvelopeOpen, faGlobe, faIdBadge, faLaptopCode, faLocationPin, faMobileAlt, faScrewdriverWrench, faStar, faWrench } from '@fortawesome/free-solid-svg-icons';
-import type { Education, ProfessionalExperience } from '../../data/resumeDetails';
-import ContactInformation from './sections/ContactInformation/ContactInformation';
-import Skills from './sections/Skills/Skills';
+import { ContactInformation, Education, Skills } from './sections';
+import type { ProfessionalExperience } from '../../data/resumeDetails';
+
 
 const Template1: FC = () => {
 
@@ -23,31 +23,7 @@ const Template1: FC = () => {
         <Grid className={`${styles.leftColumn}`}>
           <ContactInformation contactInfo={state.state?.contactInfo} />          
           <Skills />
-          <Card className={`${styles.section}`}>
-            <Grid container gap={1}>
-              <Grid sx={{textAlign:'center'}} size={1.2}>
-                <FontAwesomeIcon icon={faBriefcase}/>
-              </Grid>
-              <Grid>
-                <Typography className='resume-heading'>Education</Typography>
-              </Grid>                          
-              <Grid size={12}>
-                <Divider style={{marginBottom:'0.5rem'}}/>
-              </Grid>
-            </Grid>
-            {
-              state.state?.education && state.state?.education.length > 0 ? 
-                state.state?.education.map((edu:Education, index:number) => (
-                  <Box key={index} sx={{borderLeft:'3px solid', paddingLeft:'1rem', margin:'0.25rem 0.75rem', marginBottom:'0.75rem'}}>
-                    <Typography className='resume-subheading'>{edu.institutionName}</Typography>
-                    <Typography className='resume-body'>{edu.fieldOfStudy}</Typography>
-                    <Typography className='resume-body'>{edu.startDate} - {edu.endDate ? edu.endDate : 'Present'}</Typography>
-                    <Typography className='resume-body'>{edu.location}</Typography>
-                  </Box>
-                )) : 
-                <Typography className='resume-body'>No education details provided.</Typography>
-            }            
-          </Card>
+          <Education education={state.state?.education} />
         </Grid>
         <Grid className={`${styles.rightColumn}`} size='grow'>
           <Box className={`${styles.timeline}`}>
