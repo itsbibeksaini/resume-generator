@@ -7,7 +7,7 @@ import { getDefaultResumeDetails, getTestResumeDetails, type ResumeDetails } fro
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBroom, faCloudArrowUp, faFilePdf, faHome, faUpload } from '@fortawesome/free-solid-svg-icons';
 
-const ContentArea: FC<ResumeDetails> = () => {
+const ContentArea: FC = () => {
 
   const [resumeState, setResumeState] = useState<ResumeDetails>(getDefaultResumeDetails());
   const [name, setName] = React.useState('Cat in the Hat');

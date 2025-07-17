@@ -4,7 +4,7 @@ export interface ResumeDetails {
     jobPosition: string,
     contactInfo: ResumeContactInfo,    
     summary: string[],
-    professionalExperience: ProfessionalExperience[],
+    professionalExperience: professionalExperience[],
     education: educationDetails[]
 
 }
@@ -27,7 +27,7 @@ export interface ResumeContactInfo {
     website?: string,
 }
 
-export interface ProfessionalExperience {
+export interface professionalExperience {
     companyName: string,
     jobTitle: string,
     startDate: string,

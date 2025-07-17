@@ -55,6 +55,12 @@ label{
     display: inline-block;
 }
 
+.vertical-center{
+    position: absolute;
+    top: 50%;    
+    transform: translateY(-50%);
+}
+
 @page{
     padding: 1rem;
 }

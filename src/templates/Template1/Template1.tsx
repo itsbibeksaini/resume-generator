@@ -5,7 +5,7 @@ import { Box, Card, Divider, Grid, Typography } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward, faBriefcase, faEnvelopeOpen, faGlobe, faIdBadge, faLaptopCode, faLocationPin, faMobileAlt, faScrewdriverWrench, faStar, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { ContactInformation, Education, Skills } from './sections';
-import type { ProfessionalExperience } from '../../data/resumeDetails';
+import type { professionalExperience } from '../../data/resumeDetails';
 
 
 const Template1: FC = () => {
@@ -48,20 +48,19 @@ const Template1: FC = () => {
               <Typography className='resume-heading'>PROFESSIONAL EXPERIENCE</Typography>
               <Divider sx={{margin:'0.5rem 0'}} />
               {
-                state.state?.professionalExperience.map((experience:ProfessionalExperience, index:number) => (
+                state.state?.professionalExperience.map((experience:professionalExperience, index:number) => (
                   <Box className={`${styles.subSection}`}>
                     <Grid container sx={{marginBottom:'1rem'}}>
                       <Grid>
                         <Typography className='resume-subtitle'>{experience.companyName}</Typography>
                         <Typography className='resume-body'>{experience.jobTitle}</Typography>
                       </Grid>
-                      <Grid size='grow' sx={{textAlign:'right'}}>
-                        <Typography className='resume-body'>{experience.startDate} - {experience.endDate ? experience.endDate : 'Present'}</Typography>
-                        {/* <Typography className='resume-body'>{experience.jobTitle}</Typography> */}
-                      </Grid>
-                      <Grid>
-                        <Divider sx={{margin:'0.5rem 0'}} />
-                      </Grid>
+                      <Grid size='grow' sx={{textAlign:'right',position:'relative'}}>
+                        <Box className='vertical-center' sx={{right:'0'}}>
+                          <Typography className='resume-body'>{experience.startDate} - {experience.endDate ? experience.endDate : 'Present'}</Typography>
+                          {/* <Typography className='resume-body'>{experience.jobTitle}</Typography> */}
+                        </Box>
+                      </Grid>                      
                     </Grid>                
                     <ul className={`${styles.resumeList}`}>
                       {state.state?.summary?.map((item:string, index:number) => (
@@ -80,6 +79,31 @@ const Template1: FC = () => {
               </Box>
               <Typography className='resume-heading'>Projects</Typography>
               <Divider sx={{margin:'0.5rem 0'}} />
+              <Box className={`${styles.subSection}`}>
+                <Grid container sx={{marginBottom:'1rem'}}>
+                  <Grid>
+                    <Typography className='resume-subtitle'>Project generation</Typography>
+                    <Typography className='resume-body'>Java</Typography>
+                  </Grid>
+                  <Grid size='grow' sx={{textAlign:'right',position:'relative'}}>
+                    <Box className='vertical-center' sx={{right:'0'}}>
+                      {/* <Typography className='resume-body'>{experience.startDate} - {experience.endDate ? experience.endDate : 'Present'}</Typography> */}
+                      {/* <Typography className='resume-body'>{experience.jobTitle}</Typography> */}
+                    </Box>
+                  </Grid>                      
+                </Grid>
+                <ul className={`${styles.resumeList}`}>
+                  <li>
+                    <Typography className='resume-body'>Developed a resume generator using React and TypeScript</Typography>
+                  </li>
+                  <li>
+                    <Typography className='resume-body'>Implemented a user-friendly interface with Material-UI</Typography>
+                  </li>
+                  <li>
+                    <Typography className='resume-body'>Integrated a backend API for resume data storage</Typography>
+                  </li>
+                </ul>
+              </Box>
               
             </Box>
             <Box className={`${styles.section}`}>
@@ -88,7 +112,17 @@ const Template1: FC = () => {
               </Box>
               <Typography className='resume-heading'>Awards & Certification</Typography>
               <Divider sx={{margin:'0.5rem 0'}} />
-              
+              <ul className={`${styles.resumeList}`}>
+                <li>
+                  <Typography className='resume-body'>Certified JavaScript Developer</Typography>
+                </li>
+                <li>
+                  <Typography className='resume-body'>AWS Certified Solutions Architect</Typography>
+                </li>
+                <li>
+                  <Typography className='resume-body'>Scrum Master Certified (SMC)</Typography>
+                </li>
+              </ul>
             </Box>
           </Box>
         </Grid>
