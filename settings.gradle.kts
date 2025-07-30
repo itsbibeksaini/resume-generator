@@ -11,3 +11,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "resume-generator"
+include(":apps:server")
