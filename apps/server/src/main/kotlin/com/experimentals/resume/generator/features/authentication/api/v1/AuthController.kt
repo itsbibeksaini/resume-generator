@@ -10,6 +10,6 @@ class AuthController {
 
     @PostMapping("/signin")
     fun signIn(){
-        
+
     }
 }
