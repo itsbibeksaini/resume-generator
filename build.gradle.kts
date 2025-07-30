@@ -6,7 +6,6 @@ plugins{
 
 allprojects {
     group = "com.experimental.resume.generator"
-    version = "0.0.1-SNAPSHOT"
 }
 
 subprojects {
