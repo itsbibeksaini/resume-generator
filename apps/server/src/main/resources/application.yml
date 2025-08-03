@@ -4,3 +4,5 @@ server:
   port: 8080
   shutdown:
     graceful: true
+  error:
+    include-message: always
