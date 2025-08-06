@@ -6,3 +6,9 @@ server:
     graceful: true
   error:
     include-message: always
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/test
+      database: resumeGeneratorDB

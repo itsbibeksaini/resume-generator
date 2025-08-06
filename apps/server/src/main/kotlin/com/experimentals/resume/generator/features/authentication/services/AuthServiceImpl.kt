@@ -9,15 +9,13 @@ class AuthServiceImpl(
     private val accountRepository: AccountRepository,
     private val credentialsRepository: CredentialsRepository
 ) : AuthService {
-    override fun signIn() {
-        TODO("Not yet implemented")
-    }
+    override fun signIn(username: String) {
+        val useraccount = credentialsRepository.findUser("")
+        if(useraccount == null) {
+            // return from here no user found.
+        }
 
-    override fun createAccount() {
-        TODO("Not yet implemented")
-    }
-
-    override fun createCredentials() {
-        TODO("Not yet implemented")
+        // check password and lock status.
+        // rest lock attempts if it is successful login.
     }
 }

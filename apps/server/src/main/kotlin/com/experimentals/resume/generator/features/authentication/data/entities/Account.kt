@@ -16,9 +16,6 @@ data class Account(
     val EMAIL: String,
 
     @NotNull
-    val credentials: Credentials,
-
-    @NotNull
     val LOCKED: Boolean = false,
     @NotNull
     val LOGIN_ATTEMPTS: Int = 0,

@@ -11,6 +11,6 @@ class AuthController(private val authService: AuthService) {
 
     @PostMapping("/signin")
     fun signIn(){
-
+        authService.signIn(username = "exampleUser")
     }
 }
