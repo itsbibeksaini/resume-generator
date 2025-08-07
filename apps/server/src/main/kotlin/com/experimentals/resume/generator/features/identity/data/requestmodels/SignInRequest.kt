@@ -1,4 +1,4 @@
-package com.experimentals.resume.generator.features.authentication.data.requestmodels
+package com.experimentals.resume.generator.features.identity.data.requestmodels
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern

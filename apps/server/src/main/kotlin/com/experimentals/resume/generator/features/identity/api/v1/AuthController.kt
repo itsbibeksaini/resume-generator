@@ -1,6 +1,6 @@
-package com.experimentals.resume.generator.features.authentication.api.v1
+package com.experimentals.resume.generator.features.identity.api.v1
 
-import com.experimentals.resume.generator.features.authentication.services.AuthService
+import com.experimentals.resume.generator.features.identity.services.AuthService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

@@ -1,7 +1,7 @@
-package com.experimentals.resume.generator.features.authentication.services
+package com.experimentals.resume.generator.features.identity.services
 
-import com.experimentals.resume.generator.features.authentication.domain.repositories.AccountRepository
-import com.experimentals.resume.generator.features.authentication.domain.repositories.CredentialsRepository
+import com.experimentals.resume.generator.features.identity.domain.repositories.AccountRepository
+import com.experimentals.resume.generator.features.identity.domain.repositories.CredentialsRepository
 import org.springframework.stereotype.Service
 
 @Service

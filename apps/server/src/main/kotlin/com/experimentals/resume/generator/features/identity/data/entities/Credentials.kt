@@ -1,4 +1,4 @@
-package com.experimentals.resume.generator.features.authentication.data.entities
+package com.experimentals.resume.generator.features.identity.data.entities
 
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id

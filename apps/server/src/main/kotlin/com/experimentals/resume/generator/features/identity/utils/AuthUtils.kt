@@ -1,7 +1,6 @@
-package com.experimentals.resume.generator.features.authentication.utils
+package com.experimentals.resume.generator.features.identity.utils
 
-import com.experimentals.resume.generator.features.authentication.utils.dto.PasswordHash
-import org.springframework.data.mongodb.core.mapping.ShardingStrategy
+import com.experimentals.resume.generator.features.identity.utils.dto.PasswordHash
 import java.security.SecureRandom
 import java.util.Base64
 import javax.crypto.SecretKeyFactory

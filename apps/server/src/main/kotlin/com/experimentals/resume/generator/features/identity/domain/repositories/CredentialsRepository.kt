@@ -1,7 +1,6 @@
-package com.experimentals.resume.generator.features.authentication.domain.repositories
+package com.experimentals.resume.generator.features.identity.domain.repositories
 
-import com.experimentals.resume.generator.features.authentication.data.entities.Account
-import com.experimentals.resume.generator.features.authentication.data.entities.Credentials
+import com.experimentals.resume.generator.features.identity.data.entities.Credentials
 import org.bson.types.ObjectId
 import org.springframework.data.mongodb.repository.Aggregation
 import org.springframework.data.mongodb.repository.MongoRepository

@@ -1,9 +1,8 @@
-package com.experimentals.resume.generator.features.authentication.api.v1
+package com.experimentals.resume.generator.features.identity.api.v1
 
-import com.experimentals.resume.generator.features.authentication.data.requestmodels.CreateAccountRequest
-import com.experimentals.resume.generator.features.authentication.services.AccountService
+import com.experimentals.resume.generator.features.identity.data.requestmodels.CreateAccountRequest
+import com.experimentals.resume.generator.features.identity.services.AccountService
 import org.springframework.http.HttpStatus
-import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping

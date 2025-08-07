@@ -1,11 +1,11 @@
-package com.experimentals.resume.generator.features.authentication.services
+package com.experimentals.resume.generator.features.identity.services
 
-import com.experimentals.resume.generator.features.authentication.data.entities.Account
-import com.experimentals.resume.generator.features.authentication.data.entities.Credentials
-import com.experimentals.resume.generator.features.authentication.data.requestmodels.CreateAccountRequest
-import com.experimentals.resume.generator.features.authentication.domain.repositories.AccountRepository
-import com.experimentals.resume.generator.features.authentication.domain.repositories.CredentialsRepository
-import com.experimentals.resume.generator.features.authentication.utils.AuthUtils
+import com.experimentals.resume.generator.features.identity.data.entities.Account
+import com.experimentals.resume.generator.features.identity.data.entities.Credentials
+import com.experimentals.resume.generator.features.identity.data.requestmodels.CreateAccountRequest
+import com.experimentals.resume.generator.features.identity.domain.repositories.AccountRepository
+import com.experimentals.resume.generator.features.identity.domain.repositories.CredentialsRepository
+import com.experimentals.resume.generator.features.identity.utils.AuthUtils
 import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.time.Instant

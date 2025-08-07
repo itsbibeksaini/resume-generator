@@ -1,4 +1,4 @@
-package com.experimentals.resume.generator.features.authentication.utils.dto
+package com.experimentals.resume.generator.features.identity.utils.dto
 
 import jakarta.validation.constraints.NotBlank
 
