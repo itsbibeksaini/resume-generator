@@ -12,16 +12,17 @@ data class Credentials (
     val ID: ObjectId?,
 
     @NotNull
-    val PROFILE_ID: ObjectId?,
+    val ACCOUNT_ID: ObjectId?,
 
     @NotNull
     val USERNAME: String?,
 
     @NotNull
-    val SECRET_HASH: String?,
+    val SECRET_HASH: String? = "",
 
     @NotNull
-    val SALT: ByteArray?,
+    val SALT: ByteArray? = byteArrayOf(),
 
-    val account: Account?
+    @Transient
+    val account: Account? = null
 )

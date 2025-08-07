@@ -11,7 +11,7 @@ data class Account(
     @Id
     val ID: ObjectId,
     @NotNull
-    val NAME: String,
+    val FULL_NAME: String,
     @NotNull
     val EMAIL: String,
 
