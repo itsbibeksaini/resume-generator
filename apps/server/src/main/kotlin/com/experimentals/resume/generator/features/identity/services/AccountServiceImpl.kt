@@ -18,8 +18,8 @@ class AccountServiceImpl(
     override fun createAccount(createAccountRequest: CreateAccountRequest): Boolean {
         val newAccount = Account(
             ID = ObjectId(),
-            FULL_NAME = createAccountRequest.fullName,
-            EMAIL = createAccountRequest.email,
+            FULL_NAME = createAccountRequest.FULL_NAME,
+            EMAIL = createAccountRequest.EMAIL,
             LOCKED = false,
             LOGIN_ATTEMPTS = 0,
             CREATED_ON = Instant.now(),
@@ -28,17 +28,17 @@ class AccountServiceImpl(
 
         accountRepository.save(newAccount)
 
-        val passwordHash = AuthUtils.createPasswordHash("", null)
+        val passwordHash = AuthUtils.createPasswordHash(createAccountRequest.PASSWORD, null)
 
-        val newCewdentials = Credentials(
+        val newCredentials = Credentials(
             ID = ObjectId(),
             ACCOUNT_ID = newAccount.ID,
-            USERNAME = createAccountRequest.username,
+            USERNAME = createAccountRequest.USERNAME,
             SECRET_HASH = passwordHash.HASH,
             SALT = passwordHash.SALT
         )
 
-        credentialsRepository.save(newCewdentials)
+        credentialsRepository.save(newCredentials)
 
         return true
     }
