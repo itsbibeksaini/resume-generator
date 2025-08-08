@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -9,6 +10,24 @@ plugins {
 tasks{
     test{
         useJUnitPlatform()
+    }
+
+    jar{
+        enabled = false
+    }
+
+    withType<KotlinCompile>{
+        compilerOptions {
+            freeCompilerArgs.set(listOf("-Xjsr305=strict", "-Xannotation-default-target=param-property"))
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
+    }
+
+    java{
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+            targetCompatibility.seset(JavaLanguageVersion.of(21))
+        }
     }
 }
 
@@ -22,8 +41,4 @@ dependencies {
     runtimeOnly("org.jetbrains.kotlin:kotlin-reflect")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.compilerOptions {
-    freeCompilerArgs.set(listOf("-Xannotation-default-target=param-property"))
 }
