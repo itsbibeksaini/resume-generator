@@ -26,7 +26,6 @@ tasks{
     java{
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(21))
-            targetCompatibility.seset(JavaLanguageVersion.of(21))
         }
     }
 }
