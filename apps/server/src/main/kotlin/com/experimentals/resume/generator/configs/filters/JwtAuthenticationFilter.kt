@@ -17,11 +17,35 @@ import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 import kotlin.jvm.Throws
 
+/**
+ * Spring Security filter responsible for authenticating requests using JWT tokens.
+ *
+ * This filter intercepts each HTTP request, extracts the JWT from the Authorization header,
+ * validates it via [JwtTokenParser], and if valid, places an authenticated
+ * [UsernamePasswordAuthenticationToken] into the [SecurityContextHolder].
+ *
+ * Order: This filter should be registered *before* [UsernamePasswordAuthenticationFilter].
+ *
+ * Behavior:
+ * - Skips filtering for whitelisted/public endpoints
+ * - Extracts "Bearer" token from `Authorization` header
+ * - Validates the token and loads [UserDetails]
+ * - Populates Spring Security's context for downstream filters
+ * - Sends HTTP 401 for invalid or expired tokens
+ *
+ * Example Authorization header:
+ * ```
+ * Authorization: Bearer eyJhbGciOi...
+ * ```
+ *
+ * @property jwtTokenParser Component for parsing and validating JWT tokens.
+ */
 @Component
 class JwtAuthenticationFilter(
     private val jwtTokenParser: JwtTokenParser
 ): OncePerRequestFilter() {
 
+    // Endpoints that bypass JWT authentication
     private val excludedPaths: RequestMatcher = OrRequestMatcher(
         PathPatternRequestMatcher.pathPattern("/swagger-ui.html"),
         PathPatternRequestMatcher.pathPattern("/swagger-ui/**"),

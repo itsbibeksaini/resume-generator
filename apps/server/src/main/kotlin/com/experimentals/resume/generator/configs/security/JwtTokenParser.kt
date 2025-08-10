@@ -9,6 +9,26 @@ import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
+/**
+ * Utility component responsible for parsing and validating JWT tokens.
+ *
+ * This class abstracts away the JWT decoding logic, transforming a raw token string
+ * into a Spring Security [UserDetails] object, ready for authentication.
+ *
+ * Responsibilities:
+ * - Decode JWT using [JwtDecoder]
+ * - Validate required claims (e.g., "name", "role")
+ * - Convert claims into Spring Security's [UserDetails]
+ * - Wrap low-level JWT parsing errors in a domain-specific [JwtTokenValidationException]
+ *
+ * Example:
+ * ```
+ * val userDetails = jwtTokenParser.parseToken(token)
+ * ```
+ *
+ * @property jwtDecoder Spring Security's [JwtDecoder] for validating and decoding JWTs.
+ * @throws JwtTokenValidationException If the token is invalid, expired, or missing required claims.
+ */
 @Component
 class JwtTokenParser(
     private val jwtDecoder: JwtDecoder
