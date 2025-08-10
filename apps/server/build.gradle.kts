@@ -36,6 +36,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 
     runtimeOnly("org.jetbrains.kotlin:kotlin-reflect")
 
