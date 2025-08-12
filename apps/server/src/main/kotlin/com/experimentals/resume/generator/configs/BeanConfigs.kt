@@ -2,7 +2,8 @@ package com.experimentals.resume.generator.configs
 
 
 import com.experimentals.resume.generator.configs.properties.ResumeGeneratorProperties
-import com.experimentals.resume.generator.configs.security.JwtTokenParser
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet
@@ -133,5 +134,21 @@ class BeanConfigs(
         .let { rsaPublicKey ->
             NimbusJwtDecoder.withPublicKey(rsaPublicKey).build()
         }
+
+    /**
+     * Provides a function for creating SLF4J loggers for any given class.
+     *
+     * @return Function that accepts a Class reference and returns a Logger instance.
+     *
+     * Example:
+     * ```
+     * val log = loggerFactory(MyClass::class.java)
+     * log.info("Hello World")
+     * ```
+     */
+    @Bean
+    fun loggerFactory(): (Class<*>) -> Logger {
+        return { LoggerFactory.getLogger(it) }
+    }
 
 }
