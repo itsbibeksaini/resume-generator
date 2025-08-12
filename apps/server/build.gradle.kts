@@ -31,7 +31,11 @@ tasks{
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-web"){
+        exclude("org.springframework.boot","spring-boot-starter-tomcat")
+        because("We are replacing tomcat with undertow as embedded server.")
+    }
+    implementation("org.springframework.boot:spring-boot-starter-undertow")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
