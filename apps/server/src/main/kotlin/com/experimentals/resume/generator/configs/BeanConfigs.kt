@@ -1,6 +1,8 @@
 package com.experimentals.resume.generator.configs
 
 
+import com.experimentals.resume.generator.configs.properties.ResumeGeneratorProperties
+import com.experimentals.resume.generator.configs.security.JwtTokenParser
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet
@@ -11,6 +13,7 @@ import io.swagger.v3.oas.models.info.Contact
 import io.swagger.v3.oas.models.info.Info
 import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.security.SecurityScheme
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.mongodb.MongoDatabaseFactory
@@ -28,7 +31,10 @@ import java.util.Base64
 
 @Configuration
 @EnableTransactionManagement
-class BeanConfigs {
+@ConfigurationPropertiesScan
+class BeanConfigs(
+    private val properties: ResumeGeneratorProperties
+) {
 
     /**
      * Configures the MongoDB transaction manager.
@@ -91,12 +97,12 @@ class BeanConfigs {
     @Bean
     fun jwtEncoder() = KeyFactory.getInstance("RSA").let { keyFactory ->
 
-        val rsaPublicKey = "JWT PUBLIC KEY HERE"
+        val rsaPublicKey = properties.jwtSecret._publicKey
             .let(Base64.getDecoder()::decode)
             .let(::X509EncodedKeySpec)
             .let(keyFactory::generatePublic) as RSAPublicKey
 
-        val rsaPrivateKey = "JWT PRIVATE KEY HERE"
+        val rsaPrivateKey = properties.jwtSecret._privateKey
             .let(Base64.getDecoder()::decode)
             .let(::PKCS8EncodedKeySpec)
             .let(keyFactory::generatePrivate) as RSAPrivateKey
@@ -118,7 +124,7 @@ class BeanConfigs {
      * @return JwtDecoder bean for verifying JWT tokens.
      */
     @Bean
-    fun jwtDecoder(): JwtDecoder = "JWT PUBLIC"
+    fun jwtDecoder(): JwtDecoder = properties.jwtSecret._publicKey
         .let(Base64.getDecoder()::decode)
         .let(::X509EncodedKeySpec)
         .let {

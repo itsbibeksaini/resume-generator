@@ -12,3 +12,11 @@ spring:
     mongodb:
       uri: mongodb://localhost/test
       database: resumeGeneratorDB
+
+resume-regenerator:
+  jwt-secret:
+    public-key: ${RSA_PUBLIC_KEY}
+    private-key: ${RSA_PRIVATE_KEY}
+    issuer: ${JWT_ISSUER:aa}
+    audience: ${JWT_AUDIENCE:aa}
+    ttl: ${JWT_TTL:4}
