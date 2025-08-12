@@ -4,6 +4,7 @@ plugins{
     id("io.spring.dependency-management") version "1.1.7"
     id("org.springframework.boot") version "4.0.0-M1" apply false
     id("com.github.node-gradle.node") version "7.1.0" apply false
+    kotlin("plugin.spring") version "2.2.0" apply false
 }
 
 allprojects {
@@ -27,6 +28,7 @@ subprojects {
                     entry("kotlin-reflect")
                     entry("kotlin-stdlib")
                 }
+                dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
             }
         }
     }

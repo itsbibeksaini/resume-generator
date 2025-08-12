@@ -1,6 +1,26 @@
+application:
+  title: Resume Generator
+  version: 0.0.1-SNAPSHOT
+
 server:
   servlet:
     context-path: /resume-generator
   port: 8080
   shutdown:
     graceful: true
+  error:
+    include-message: always
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/test
+      database: resumeGeneratorDB
+
+resume-regenerator:
+  jwt-secret:
+    public-key: ${RSA_PUBLIC_KEY}
+    private-key: ${RSA_PRIVATE_KEY}
+    issuer: ${JWT_ISSUER:aa}
+    audience: ${JWT_AUDIENCE:aa}
+    ttl: ${JWT_TTL:4}
