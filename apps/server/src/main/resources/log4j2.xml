@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>%style{%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}}{cyan} %highlight{%-5level}{FATAL=bg_red bright_white, ERROR=bright_red, WARN=yellow, INFO=bright_green, DEBUG=bright_blue, TRACE=bright_magenta} %pid{5} --- [%15.15t] %style{%c{1.35}}{magenta} : %msg%n%throwable</Pattern>
+            </PatternLayout>
+        </Console>
+
+        <RollingFile name="FileLog" fileName="logs/app.log"
+                     filePattern="logs/archive/app-%d{yyyy-MM-dd}.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level %pid{5} --- [%15.15t] %c{1.35} : %msg%n%throwable"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+        <Async name="AsyncConsole">
+            <AppenderRef ref="Console"/>
+        </Async>
+        <Async name="AsyncFile">
+            <AppenderRef ref="FileLog"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.example" level="debug" additivity="false">
+            <AppenderRef ref="AsyncConsole"/>
+            <AppenderRef ref="AsyncFile"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="AsyncConsole"/>
+            <AppenderRef ref="AsyncFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

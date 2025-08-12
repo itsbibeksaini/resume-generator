@@ -1,3 +1,7 @@
+application:
+  title: Resume Generator
+  version: 0.0.1-SNAPSHOT
+
 server:
   servlet:
     context-path: /resume-generator

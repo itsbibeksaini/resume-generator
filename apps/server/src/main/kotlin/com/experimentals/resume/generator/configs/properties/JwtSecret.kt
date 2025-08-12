@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotBlank
 
 data class JwtSecret(
     @NotBlank
-    val publicKey: String,
+    private val publicKey: String,
 
     @NotBlank
-    val privateKey: String,
+    private val privateKey: String,
 
     @NotBlank
     val issuer: String,
