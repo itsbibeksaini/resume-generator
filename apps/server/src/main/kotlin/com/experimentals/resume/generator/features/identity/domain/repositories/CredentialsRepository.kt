@@ -20,6 +20,6 @@ interface CredentialsRepository: MongoRepository<Credentials, ObjectId> {
         $$"{$unwind:  {path: $account, preserveNullAndEmptyArrays: true}}",
 
     ])
-    fun findUser(username: String): Credentials?
+    fun findUser(username: String?): Credentials?
 
 }

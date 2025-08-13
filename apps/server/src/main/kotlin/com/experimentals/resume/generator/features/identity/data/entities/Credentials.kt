@@ -24,5 +24,5 @@ data class Credentials (
     val SALT: ByteArray? = byteArrayOf(),
 
     @Transient
-    val account: Account? = null
+    val ACCOUNT: Account? = null
 )
