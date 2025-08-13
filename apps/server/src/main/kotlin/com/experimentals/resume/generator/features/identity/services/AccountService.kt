@@ -1,7 +1,7 @@
 package com.experimentals.resume.generator.features.identity.services
 
-import com.experimentals.resume.generator.features.identity.data.requestmodels.CreateAccountRequest
+import com.experimentals.resume.generator.features.identity.data.requestmodels.AccountCreationRequest
 
 interface AccountService {
-    fun createAccount(createAccountRequest: CreateAccountRequest): Boolean
+    fun createAccount(accountCreationRequest: AccountCreationRequest): Boolean
 }

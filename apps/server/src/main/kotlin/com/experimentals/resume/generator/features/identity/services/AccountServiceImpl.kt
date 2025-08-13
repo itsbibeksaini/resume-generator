@@ -2,7 +2,7 @@ package com.experimentals.resume.generator.features.identity.services
 
 import com.experimentals.resume.generator.features.identity.data.entities.Account
 import com.experimentals.resume.generator.features.identity.data.entities.Credentials
-import com.experimentals.resume.generator.features.identity.data.requestmodels.CreateAccountRequest
+import com.experimentals.resume.generator.features.identity.data.requestmodels.AccountCreationRequest
 import com.experimentals.resume.generator.features.identity.domain.repositories.AccountRepository
 import com.experimentals.resume.generator.features.identity.domain.repositories.CredentialsRepository
 import com.experimentals.resume.generator.features.identity.utils.AuthUtils
@@ -15,11 +15,11 @@ class AccountServiceImpl(
     private val accountRepository: AccountRepository,
     private val credentialsRepository: CredentialsRepository
 ): AccountService {
-    override fun createAccount(createAccountRequest: CreateAccountRequest): Boolean {
+    override fun createAccount(accountCreationRequest: AccountCreationRequest): Boolean {
         val newAccount = Account(
             ID = ObjectId(),
-            FULL_NAME = createAccountRequest.FULL_NAME,
-            EMAIL = createAccountRequest.EMAIL,
+            FULL_NAME = accountCreationRequest.FULL_NAME,
+            EMAIL = accountCreationRequest.EMAIL,
             LOCKED = false,
             LOGIN_ATTEMPTS = 0,
             CREATED_ON = Instant.now(),
@@ -28,12 +28,12 @@ class AccountServiceImpl(
 
         accountRepository.save(newAccount)
 
-        val passwordHash = AuthUtils.createPasswordHash(createAccountRequest.PASSWORD, null)
+        val passwordHash = AuthUtils.createPasswordHash(accountCreationRequest.PASSWORD, null)
 
         val newCredentials = Credentials(
             ID = ObjectId(),
             ACCOUNT_ID = newAccount.ID,
-            USERNAME = createAccountRequest.USERNAME,
+            USERNAME = accountCreationRequest.USERNAME,
             SECRET_HASH = passwordHash.HASH,
             SALT = passwordHash.SALT
         )

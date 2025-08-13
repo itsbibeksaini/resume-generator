@@ -1,6 +1,6 @@
 package com.experimentals.resume.generator.features.identity.api.v1
 
-import com.experimentals.resume.generator.features.identity.data.requestmodels.CreateAccountRequest
+import com.experimentals.resume.generator.features.identity.data.requestmodels.AccountCreationRequest
 import com.experimentals.resume.generator.features.identity.data.responsemodels.AccountCreationResponse
 import com.experimentals.resume.generator.features.identity.services.AccountService
 import io.swagger.v3.oas.annotations.Operation
@@ -44,8 +44,8 @@ class AccountController(
             ),
         ]
     )
-    fun createAccount(@RequestBody createAccountRequest: CreateAccountRequest): ResponseEntity<AccountCreationResponse> {
-        val isSuccess = accountService.createAccount(createAccountRequest)
+    fun createAccount(@RequestBody accountCreationRequest: AccountCreationRequest): ResponseEntity<AccountCreationResponse> {
+        val isSuccess = accountService.createAccount(accountCreationRequest)
 
         if (!isSuccess) {
             return ResponseEntity
