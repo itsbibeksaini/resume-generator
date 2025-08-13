@@ -4,14 +4,14 @@ import jakarta.validation.constraints.NotBlank
 
 data class AccountCreationRequest(
     @NotBlank
-    val USERNAME: String,
+    val username: String,
 
     @NotBlank
-    val PASSWORD: String,
+    val password: String,
 
     @NotBlank
-    val FULL_NAME: String,
+    val fullName: String,
 
     @NotBlank
-    val EMAIL: String,
+    val email: String,
 )

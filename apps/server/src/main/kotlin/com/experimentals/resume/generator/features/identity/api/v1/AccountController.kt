@@ -51,7 +51,7 @@ class AccountController(
             return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(AccountCreationResponse(
-                    MESSAGE = "Account created successfully."
+                    message = "Account created successfully."
                 ))
         }
 

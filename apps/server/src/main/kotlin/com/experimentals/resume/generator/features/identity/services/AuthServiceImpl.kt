@@ -12,16 +12,16 @@ class AuthServiceImpl(
     private val credentialsRepository: CredentialsRepository
 ) : AuthService {
     override fun signIn(signInRequest: SignInRequest) {
-        val userAccount = credentialsRepository.findUser(signInRequest.USERNAME)
+        val userAccount = credentialsRepository.findUser(signInRequest.username)
         if(userAccount == null) {
             // return from here no user found.
         }
 
         // check password and lock status.
-        AuthUtils.createPasswordHash(signInRequest.PASSWORD, userAccount?.SALT)
+        AuthUtils.createPasswordHash(signInRequest.password, userAccount?.salt)
             .takeIf {
-                val isAccountLocked = userAccount?.ACCOUNT?.LOCKED ?: false
-                it.HASH == userAccount?.SECRET_HASH && !isAccountLocked
+                val isAccountLocked = userAccount?.account?.locked ?: false
+                it.hash == userAccount?.secretHash && !isAccountLocked
             }
             ?.also {
                 print("MATCHED")

@@ -1,7 +1,6 @@
 package com.experimentals.resume.generator.features.identity.api.v1
 
 import com.experimentals.resume.generator.features.identity.data.requestmodels.SignInRequest
-import com.experimentals.resume.generator.features.identity.data.responsemodels.SignInResponse
 import com.experimentals.resume.generator.features.identity.services.AuthService
 import jakarta.annotation.security.PermitAll
 import org.springframework.http.ResponseEntity
@@ -18,6 +17,6 @@ class AuthController(private val authService: AuthService) {
     @PermitAll
     fun signIn(@RequestBody signInRequest: SignInRequest): ResponseEntity<String> {
         authService.signIn(signInRequest)
-        return ResponseEntity.ok("Hello, ${signInRequest.USERNAME}!")
+        return ResponseEntity.ok("Hello, ${signInRequest.username}!")
     }
 }

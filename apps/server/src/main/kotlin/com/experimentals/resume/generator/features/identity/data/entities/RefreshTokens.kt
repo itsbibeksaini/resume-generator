@@ -7,16 +7,16 @@ import java.time.Instant
 data class RefreshTokens(
 
     @Id
-    val ID: ObjectId,
-    val TOKEN: String,
-    val LIFE_SPAN: Int,
-    val DEVICE: String,
-    val BROWSER: String,
-    val OS: String,
-    val IPV4: String,
-    val SHA: String,
+    val id: ObjectId,
+    val token: String,
+    val lifeSpan: Int,
+    val device: String,
+    val browser: String,
+    val os: String,
+    val ipv4: String,
+    val sha: String,
     val isActive: Boolean,
-    val REFRESHED_ON: Instant,
+    val refreshedOn: Instant,
 //    val STATUS:
-    val GENERATED_ON: String
+    val generatedOn: String
 )
