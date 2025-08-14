@@ -22,4 +22,6 @@ interface CredentialsRepository: MongoRepository<Credentials, ObjectId> {
     ])
     fun findUser(username: String?): Credentials?
 
+    fun findAnyByUsername(username: String?): Credentials?
+
 }

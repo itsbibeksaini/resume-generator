@@ -4,6 +4,6 @@ import com.experimentals.resume.generator.apiresponse.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus
 
-@ResponseStatus(HttpStatus.UNAUTHORIZED)
-class ApiUnauthorizedException(apiResponse: ApiResponse): ApiException(apiResponse) {
+@ResponseStatus(HttpStatus.CONFLICT)
+class ApiConflictException(apiResponse: ApiResponse): ApiException(apiResponse) {
 }

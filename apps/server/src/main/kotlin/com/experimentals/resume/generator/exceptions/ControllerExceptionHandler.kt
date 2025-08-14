@@ -1,5 +1,6 @@
 package com.experimentals.resume.generator.exceptions
 
+import com.experimentals.resume.generator.apiresponse.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -16,5 +17,10 @@ class ControllerExceptionHandler {
     @ExceptionHandler(ApiForbiddenException::class)
     fun apiForbidden(exception: ApiForbiddenException): ResponseEntity<String> {
         return ResponseEntity(exception.message, HttpStatus.FORBIDDEN)
+    }
+
+    @ExceptionHandler(ApiConflictException::class)
+    fun apiConflict(exception: ApiConflictException): ResponseEntity<ApiResponse> {
+        return ResponseEntity(ApiResponse(exception.message), HttpStatus.CONFLICT)
     }
 }

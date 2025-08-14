@@ -16,9 +16,9 @@ spring:
     mongodb:
       uri: mongodb://localhost/test
       database: resumeGeneratorDB
-  jackson:
-    mapper:
-      accept-case-insensitive-properties: true
+#  jackson:
+#    mapper:
+#      accept-case-insensitive-properties: true
 
 resume-regenerator:
   jwt-secret:

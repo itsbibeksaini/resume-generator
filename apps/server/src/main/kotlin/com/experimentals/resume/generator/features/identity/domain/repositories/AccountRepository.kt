@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface AccountRepository: MongoRepository<Account, ObjectId> {
 
-    fun findByID(id: ObjectId): Account
+//    fun findById(id: ObjectId): Account
 }
