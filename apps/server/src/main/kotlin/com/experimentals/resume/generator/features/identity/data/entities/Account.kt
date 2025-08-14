@@ -9,19 +9,19 @@ import java.time.Instant
 @Document("account")
 data class Account(
     @Id
-    val ID: ObjectId,
+    val id: ObjectId,
     @NotNull
-    val FULL_NAME: String,
+    val fullName: String,
     @NotNull
-    val EMAIL: String,
+    val email: String,
 
     @NotNull
-    val LOCKED: Boolean = false,
+    val locked: Boolean = false,
     @NotNull
-    val LOGIN_ATTEMPTS: Int = 0,
+    val loginAttempts: Int = 0,
 
     @NotNull
-    val CREATED_ON: Instant,
+    val createdOn: Instant,
     @NotNull
-    val UPDATED_ON: Instant
+    val updatedOn: Instant
 )

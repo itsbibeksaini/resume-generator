@@ -4,8 +4,8 @@ import jakarta.validation.constraints.NotBlank
 
 data class PasswordHash(
     @NotBlank
-    val HASH: String,
+    val hash: String,
 
     @NotBlank
-    val SALT: ByteArray,
+    val salt: ByteArray,
 )

@@ -1,6 +1,7 @@
 package com.experimentals.resume.generator.configs.filters
 
 import com.experimentals.resume.generator.configs.security.JwtTokenParser
+import com.experimentals.resume.generator.configs.security.PublicEndpoints
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
@@ -47,11 +48,7 @@ class JwtAuthenticationFilter(
 
     // Endpoints that bypass JWT authentication
     private val excludedPaths: RequestMatcher = OrRequestMatcher(
-        PathPatternRequestMatcher.pathPattern("/swagger-ui.html"),
-        PathPatternRequestMatcher.pathPattern("/swagger-ui/**"),
-        PathPatternRequestMatcher.pathPattern("/swagger-resources/**"),
-        PathPatternRequestMatcher.pathPattern("/*/api-docs/**"),
-        PathPatternRequestMatcher.pathPattern("/api/v1/auth")
+        *PublicEndpoints.Companion.PUBLIC_ENDPOINTS.map { PathPatternRequestMatcher.pathPattern(it) }.toTypedArray()
     )
 
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {

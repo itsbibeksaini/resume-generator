@@ -9,19 +9,19 @@ import org.jetbrains.annotations.NotNull
 data class Credentials (
 
     @Id
-    val ID: ObjectId?,
+    val id: ObjectId?,
 
     @NotNull
-    val ACCOUNT_ID: ObjectId?,
+    val accountId: ObjectId?,
 
     @NotNull
-    val USERNAME: String?,
+    val username: String?,
 
     @NotNull
-    val SECRET_HASH: String? = "",
+    val secretHash: String? = "",
 
     @NotNull
-    val SALT: ByteArray? = byteArrayOf(),
+    val salt: ByteArray? = byteArrayOf(),
 
     @Transient
     val account: Account? = null

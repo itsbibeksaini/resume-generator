@@ -1,16 +1,12 @@
 package com.experimentals.resume.generator.features.identity.data.requestmodels
 
 import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.Pattern
-import org.jetbrains.annotations.NotNull
 
 data class SignInRequest(
-    @NotNull
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z0-9_]+")
-    val USERNAME: String,
+//    @Pattern(regexp = "[a-zA-Z0-9_]+")
+    val username: String,
 
-    @NotNull
     @NotBlank
-    val PASSWORD: String
+    val password: String
 )

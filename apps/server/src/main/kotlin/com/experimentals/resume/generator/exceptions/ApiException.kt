@@ -1,5 +1,7 @@
 package com.experimentals.resume.generator.exceptions
 
+import com.experimentals.resume.generator.apiresponse.ApiResponse
+
 open class ApiException(
-    override val message: String,
-): RuntimeException(message)
+    apiResponse: ApiResponse
+): RuntimeException(apiResponse.message)

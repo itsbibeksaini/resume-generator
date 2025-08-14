@@ -1,6 +1,7 @@
 package com.experimentals.resume.generator.configs.security
 
 import com.experimentals.resume.generator.configs.filters.JwtAuthenticationFilter
+import com.experimentals.resume.generator.configs.security.PublicEndpoints.Companion.PUBLIC_ENDPOINTS
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -15,7 +16,6 @@ class SecurityConfig(
     private val restAuthenticationEntryPoint: RestAuthenticationEntryPoint,
     private val jwtAuthenticationFilter: JwtAuthenticationFilter
 ) {
-
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
 
@@ -62,13 +62,7 @@ class SecurityConfig(
              */
             .authorizeHttpRequests{
                 it.requestMatchers(
-                    "/api/v1/account/test",
-                            "/actuator/**",
-                    "/swagger-ui.html",
-                    "/swagger-ui/",
-                    "/swagger-ui/**",
-                    "/swagger-resources/**",
-                    "/*/api-docs/**"
+                    *PUBLIC_ENDPOINTS
                 ).permitAll()
                     .anyRequest().authenticated()
             }
