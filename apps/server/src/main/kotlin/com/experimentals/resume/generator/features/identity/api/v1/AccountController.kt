@@ -1,16 +1,21 @@
 package com.experimentals.resume.generator.features.identity.api.v1
 
+import com.experimentals.resume.generator.exceptions.ApiArgumentsNotValidException
 import com.experimentals.resume.generator.features.identity.data.requestmodels.AccountCreationRequest
 import com.experimentals.resume.generator.features.identity.data.responsemodels.AccountCreationResponse
 import com.experimentals.resume.generator.features.identity.services.AccountService
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.validation.Valid
+import org.springframework.core.MethodParameter
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -44,18 +49,23 @@ class AccountController(
             ),
         ]
     )
-    fun createAccount(@RequestBody accountCreationRequest: AccountCreationRequest): ResponseEntity<AccountCreationResponse> {
-        val isSuccess = accountService.createAccount(accountCreationRequest)
+    fun createAccount( @Valid @RequestBody accountCreationRequest: AccountCreationRequest, bindingResult: BindingResult): ResponseEntity<AccountCreationResponse> {
 
-        if (!isSuccess) {
-            return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(AccountCreationResponse(
-                    message = "Account created successfully."
-                ))
+        if( bindingResult.hasErrors()) {
+            throw ApiArgumentsNotValidException(
+                methodParameter = MethodParameter(
+                    AccountController::class.java.getMethod("createAccount", AccountCreationRequest::class.java, BindingResult::class.java),
+                     0
+                ),
+                bindingResult
+            )
         }
 
-        return TODO("Provide the return value")
+        val response = accountService.createAccount(accountCreationRequest)
+
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(response)
     }
 
     @GetMapping("/test")

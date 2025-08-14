@@ -5,6 +5,7 @@ import com.experimentals.resume.generator.exceptions.ApiConflictException
 import com.experimentals.resume.generator.features.identity.data.entities.Account
 import com.experimentals.resume.generator.features.identity.data.entities.Credentials
 import com.experimentals.resume.generator.features.identity.data.requestmodels.AccountCreationRequest
+import com.experimentals.resume.generator.features.identity.data.responsemodels.AccountCreationResponse
 import com.experimentals.resume.generator.features.identity.domain.repositories.AccountRepository
 import com.experimentals.resume.generator.features.identity.domain.repositories.CredentialsRepository
 import com.experimentals.resume.generator.features.identity.utils.AuthUtils
@@ -17,16 +18,14 @@ class AccountServiceImpl(
     private val accountRepository: AccountRepository,
     private val credentialsRepository: CredentialsRepository
 ): AccountService {
-    override fun createAccount(accountCreationRequest: AccountCreationRequest): Boolean {
-
-        /**
-         * Check if username or email already exists.
-         * If exists, return false or throw an exception.
-         * If not exists, proceed to create a new account.
-         */
+    override fun createAccount(accountCreationRequest: AccountCreationRequest): AccountCreationResponse {
 
         credentialsRepository.findAnyByUsername(accountCreationRequest.username)?.let {
             throw ApiConflictException(ApiResponse(message = "Username already exists."))
+        }
+
+        accountRepository.findByEmail(accountCreationRequest.email)?.let {
+            throw ApiConflictException(ApiResponse(message = "Email already exists."))
         }
 
         val newAccount = Account(
@@ -34,9 +33,7 @@ class AccountServiceImpl(
             fullName = accountCreationRequest.fullName,
             email = accountCreationRequest.email,
             locked = false,
-            loginAttempts = 0,
-            createdOn = Instant.now(),
-            updatedOn = Instant.now()
+            loginAttempts = 0
         )
 
         accountRepository.save(newAccount)
@@ -53,7 +50,7 @@ class AccountServiceImpl(
 
         credentialsRepository.save(newCredentials)
 
-        return true
+        return AccountCreationResponse("Account created successfully.")
     }
 
 }

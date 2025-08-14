@@ -2,6 +2,9 @@ package com.experimentals.resume.generator.configs
 
 
 import com.experimentals.resume.generator.configs.properties.ResumeGeneratorProperties
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import com.nimbusds.jose.jwk.JWKSet
@@ -29,6 +32,7 @@ import java.security.interfaces.RSAPublicKey
 import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
 import java.util.Base64
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 
 @Configuration
 @EnableTransactionManagement
@@ -149,6 +153,20 @@ class BeanConfigs(
     @Bean
     fun loggerFactory(): (Class<*>) -> Logger {
         return { LoggerFactory.getLogger(it) }
+    }
+
+    /**
+     * Primary ObjectMapper used by Spring Boot for JSON serialization/deserialization.
+     *
+     * @return configured ObjectMapper
+     */
+    @Bean
+    fun objectMapper(): ObjectMapper {
+        return ObjectMapper().apply {
+            setSerializationInclusion(JsonInclude.Include.NON_NULL)
+            configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+
+        }
     }
 
 }

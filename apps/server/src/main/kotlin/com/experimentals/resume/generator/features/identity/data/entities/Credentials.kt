@@ -4,6 +4,7 @@ import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.jetbrains.annotations.NotNull
+import java.time.Instant
 
 @Document("credentials")
 data class Credentials (
@@ -22,6 +23,12 @@ data class Credentials (
 
     @NotNull
     val salt: ByteArray? = byteArrayOf(),
+
+    @NotNull
+    val createdOn: Instant = Instant.now(),
+
+    @NotNull
+    val updatedOn: Instant = Instant.now(),
 
     @Transient
     val account: Account? = null

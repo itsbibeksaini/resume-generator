@@ -1,5 +1,6 @@
 package com.experimentals.resume.generator.configs.security
 
+import com.experimentals.resume.generator.apiresponse.ErrorResponse
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component
  *
  * This component is invoked when an unauthenticated client attempts
  * to access a protected resource. It responds with a JSON-formatted
- * [ErrorResponse] instead of redirecting to a login page (which is the
+ * [com.experimentals.resume.generator.apiresponse.ErrorResponse] instead of redirecting to a login page (which is the
  * default Spring Security behavior for browser-based clients).
  *
  * This implementation is stateless and designed for APIs that use
@@ -41,12 +42,11 @@ class RestAuthenticationEntryPoint: AuthenticationEntryPoint {
             characterEncoding = "UTF-8"
             status = HttpServletResponse.SC_UNAUTHORIZED
             writer.write(
-                objectMapper.writeValueAsString(ErrorResponse(
-                    status = HttpServletResponse.SC_UNAUTHORIZED,
-                    error = "Unauthorized",
-                    message = authException.message ?: "Authentication required",
-                    path = request.requestURI
-                ))
+                objectMapper.writeValueAsString(
+                    ErrorResponse(
+                        message = authException.message ?: "Authentication required",
+                    )
+                )
             )
         }
     }

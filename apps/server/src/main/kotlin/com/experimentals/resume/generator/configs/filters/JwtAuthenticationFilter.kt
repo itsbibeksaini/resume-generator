@@ -61,38 +61,78 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+//        val authorizationHeader = request.getHeader("Authorization")
+//
+//        if (!authorizationHeader.startsWith("Bearer ")) {
+////            logger.debug("Authorization header does not start with Bearer")
+//            filterChain.doFilter(request, response)
+//            return
+//        }
+
         val authorizationHeader = request.getHeader("Authorization")
 
-        if (!authorizationHeader.startsWith("Bearer ")) {
-//            logger.debug("Authorization header does not start with Bearer")
+        authorizationHeader
+            ?.takeIf { it.startsWith("Bearer ") }
+            ?.let { tokenHeader ->
+                // Process the Bearer token here
+                val token = tokenHeader.removePrefix("Bearer ").trim()
+
+                runCatching {
+                    jwtTokenParser.parseToken(token)
+                }
+                    .onSuccess {
+                        if(SecurityContextHolder.getContext().authentication == null) {
+                            val authentication = UsernamePasswordAuthenticationToken(
+                                it,null, it.authorities
+                            ).apply {
+                                details = WebAuthenticationDetailsSource().buildDetails(request)
+                            }
+                        }
+                        filterChain.doFilter(request, response)
+                    }
+                    .onFailure {
+                        when(it){
+                            is JwtException, is IllegalArgumentException ->{
+                                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired JWT token")
+                            }
+                            else -> {
+                                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed")
+                            }
+                        }
+                    }
+                // e.g., validate token, set security context, etc.
+            } ?: run {
+            // If header is null or doesn't start with "Bearer", just continue the filter chain
+//        logger.debug("Authorization header missing or does not start with Bearer")
             filterChain.doFilter(request, response)
             return
         }
 
-        val token = authorizationHeader.removePrefix("Bearer ").trim()
 
-        runCatching {
-            jwtTokenParser.parseToken(token)
-        }
-            .onSuccess {
-                if(SecurityContextHolder.getContext().authentication == null) {
-                    val authentication = UsernamePasswordAuthenticationToken(
-                        it,null, it.authorities
-                    ).apply {
-                        details = WebAuthenticationDetailsSource().buildDetails(request)
-                    }
-                }
-                filterChain.doFilter(request, response)
-            }
-            .onFailure {
-                when(it){
-                    is JwtException, is IllegalArgumentException ->{
-                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired JWT token")
-                    }
-                    else -> {
-                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed")
-                    }
-                }
-            }
+//        val token = authorizationHeader.removePrefix("Bearer ").trim()
+//
+//        runCatching {
+//            jwtTokenParser.parseToken(token)
+//        }
+//            .onSuccess {
+//                if(SecurityContextHolder.getContext().authentication == null) {
+//                    val authentication = UsernamePasswordAuthenticationToken(
+//                        it,null, it.authorities
+//                    ).apply {
+//                        details = WebAuthenticationDetailsSource().buildDetails(request)
+//                    }
+//                }
+//                filterChain.doFilter(request, response)
+//            }
+//            .onFailure {
+//                when(it){
+//                    is JwtException, is IllegalArgumentException ->{
+//                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired JWT token")
+//                    }
+//                    else -> {
+//                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed")
+//                    }
+//                }
+//            }
     }
 }
