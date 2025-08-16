@@ -3,6 +3,7 @@ package com.experimentals.resume.generator.features.identity.utils
 import com.experimentals.resume.generator.features.identity.utils.dto.PasswordHash
 import java.security.SecureRandom
 import java.util.Base64
+import java.util.Random
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
@@ -22,6 +23,17 @@ class AuthUtils {
             val secureRandom = SecureRandom()
             secureRandom.nextBytes(salt)
             return salt
+        }
+
+        fun generateRandomSecuredString(): String{
+
+            val stringLength = 32
+
+            val chars: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+
+            return (1..stringLength).map{
+                Random().nextInt(0, chars.size).let { chars[it] }
+            }.joinToString().replace(", ", "")
         }
     }
 }

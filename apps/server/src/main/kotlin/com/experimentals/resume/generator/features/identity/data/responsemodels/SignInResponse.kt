@@ -5,4 +5,6 @@ import io.swagger.v3.oas.annotations.media.Schema
 
 data class SignInResponse(
     override val message: String,
+    val accessToken: String,
+    val refreshToken: String
 ): ApiResponse(message)
