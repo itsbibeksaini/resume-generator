@@ -19,12 +19,12 @@ data class JwtSecret(
     val ttl: Long
 ){
     val _publicKey: String
-        get() = test(publicKey, "PUBLIC")
+        get() = formatRsaKey(publicKey, "PUBLIC")
 
     val _privateKey: String
-        get() = test(privateKey, "PRIVATE")
+        get() = formatRsaKey(privateKey, "PRIVATE")
 
-    fun test(pem: String, keyType: String): String {
+    fun formatRsaKey(pem: String, keyType: String): String {
         val cleanPem = pem
             .replace("-----BEGIN $keyType KEY-----", "")
             .replace("-----END $keyType KEY-----", "")
