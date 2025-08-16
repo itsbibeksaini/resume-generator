@@ -11,10 +11,10 @@ interface CredentialsRepository: MongoRepository<Credentials, ObjectId> {
 
 
     @Aggregation(pipeline = [
-        $$"{$match: {USERNAME: ?0}}",
+        $$"{$match: {username: ?0}}",
         $$"{ '$lookup': " +
                 "{ 'from': 'account', " +
-                "   'localField': 'PROFILE_ID', " +
+                "   'localField': 'account_id', " +
                 "   'foreignField': '_id', " +
                 "   'as': 'account' } }",
         $$"{$unwind:  {path: $account, preserveNullAndEmptyArrays: true}}",

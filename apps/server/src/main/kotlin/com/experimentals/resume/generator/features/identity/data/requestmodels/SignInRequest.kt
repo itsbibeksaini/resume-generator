@@ -1,13 +1,31 @@
 package com.experimentals.resume.generator.features.identity.data.requestmodels
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Pattern
 
 data class SignInRequest @JsonCreator constructor (
-    @NotBlank
-//    @Pattern(regexp = "[a-zA-Z0-9_]+")
+
+    @Schema(
+        description = "Username for the account.",
+        example = "john_doe",
+        pattern = "^\\S{5,}$"
+    )
+    @field: Pattern(regexp = "^\\S{5,}$")
+    @field: NotBlank
     val username: String,
 
+    @Schema(
+        description = "Password for the account.",
+        example = "Myp@ssw0rd!",
+        pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$"
+    )
+    @field:Pattern(
+        regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$",
+        message = "Password must be at least 8 characters long and contain uppercase, lowercase, digit, and special character"
+    )
+    @field:NotBlank
     @NotBlank
     val password: String
 )

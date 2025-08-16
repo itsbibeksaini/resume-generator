@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 class ControllerExceptionHandler {
 
     @ExceptionHandler(ApiUnauthorizedException::class)
-    fun apiUnauthorized(exception: ApiUnauthorizedException): ResponseEntity<String>{
-        return ResponseEntity(exception.message, HttpStatus.UNAUTHORIZED)
+    fun apiUnauthorized(exception: ApiUnauthorizedException): ResponseEntity<ErrorResponse>{
+        return ResponseEntity(ErrorResponse(exception.message), HttpStatus.UNAUTHORIZED)
     }
 
     @ExceptionHandler(ApiForbiddenException::class)
@@ -47,4 +47,7 @@ class ControllerExceptionHandler {
             HttpStatus.BAD_REQUEST,
         )
     }
+
+    @ExceptionHandler(ApiNotFoundException::class)
+    fun apiNotFound(exception: ApiNotFoundException): ResponseEntity<ErrorResponse> = ResponseEntity(ErrorResponse(exception.message), HttpStatus.NOT_FOUND)
 }
