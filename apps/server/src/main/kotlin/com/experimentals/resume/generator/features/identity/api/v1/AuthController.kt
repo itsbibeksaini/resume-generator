@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController(private val authService: AuthService) {
 
     @PostMapping("/signin")
-    @PermitAll
     fun signIn(@RequestBody signInRequest: SignInRequest): ResponseEntity<String> {
         authService.signIn(signInRequest)
         return ResponseEntity.ok("Hello, ${signInRequest.username}!")
