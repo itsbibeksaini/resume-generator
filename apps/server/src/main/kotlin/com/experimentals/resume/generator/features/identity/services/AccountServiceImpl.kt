@@ -6,12 +6,11 @@ import com.experimentals.resume.generator.features.identity.data.entities.Accoun
 import com.experimentals.resume.generator.features.identity.data.entities.Credentials
 import com.experimentals.resume.generator.features.identity.data.requestmodels.AccountCreationRequest
 import com.experimentals.resume.generator.features.identity.data.responsemodels.AccountCreationResponse
-import com.experimentals.resume.generator.features.identity.domain.repositories.AccountRepository
-import com.experimentals.resume.generator.features.identity.domain.repositories.CredentialsRepository
+import com.experimentals.resume.generator.features.identity.domain.account.repositories.AccountRepository
+import com.experimentals.resume.generator.features.identity.domain.auth.repositories.CredentialsRepository
 import com.experimentals.resume.generator.features.identity.utils.AuthUtils
 import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
-import java.time.Instant
 
 @Service
 class AccountServiceImpl(

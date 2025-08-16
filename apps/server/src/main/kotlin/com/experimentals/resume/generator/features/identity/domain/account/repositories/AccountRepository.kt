@@ -1,4 +1,4 @@
-package com.experimentals.resume.generator.features.identity.domain.repositories
+package com.experimentals.resume.generator.features.identity.domain.account.repositories
 
 import com.experimentals.resume.generator.features.identity.data.entities.Account
 import org.bson.types.ObjectId
