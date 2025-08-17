@@ -1,5 +1,6 @@
 package com.experimentals.resume.generator.features.identity.api.v1
 
+import com.experimentals.resume.generator.apiresponse.ErrorResponse
 import com.experimentals.resume.generator.exceptions.ApiArgumentsNotValidException
 import com.experimentals.resume.generator.features.identity.data.requestmodels.AccountCreationRequest
 import com.experimentals.resume.generator.features.identity.data.responsemodels.AccountCreationResponse
@@ -47,6 +48,24 @@ class AccountController(
                     )
                 ]
             ),
+            ApiResponse(
+                responseCode = "400",
+                description = "Invalid arguments.",
+                content = [
+                    Content(
+                        schema = Schema(implementation = ErrorResponse::class)
+                    )
+                ]
+            ),
+        ApiResponse(
+            responseCode = "409",
+            description = "Username or email already exists.",
+            content = [
+                Content(
+                    schema = Schema(implementation = ErrorResponse::class)
+                )
+            ]
+        )
         ]
     )
     fun createAccount( @Valid @RequestBody accountCreationRequest: AccountCreationRequest, bindingResult: BindingResult): ResponseEntity<AccountCreationResponse> {
