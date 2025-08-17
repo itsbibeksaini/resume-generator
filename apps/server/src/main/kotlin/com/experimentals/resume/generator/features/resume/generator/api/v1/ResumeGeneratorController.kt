@@ -7,9 +7,5 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/resume")
 class ResumeGeneratorController {
-
-    @GetMapping("/test")
-    fun test(): String{
-        return "Hello, Resume Generator!"
-    }
+    
 }

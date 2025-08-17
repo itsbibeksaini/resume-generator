@@ -67,9 +67,4 @@ class AccountController(
             .status(HttpStatus.CREATED)
             .body(response)
     }
-
-    @GetMapping("/test")
-    fun test(): String{
-        return "Endpoints working"
-    }
 }
