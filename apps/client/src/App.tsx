@@ -1,14 +1,18 @@
 import { type FC } from 'react'
-import './App.scss'
 import { RouterProvider } from 'react-router'
 import { PRIVATE_ROUTES } from './core/routing/routes'
 import { Grid } from '@mui/material'
+import styles from './App.module.scss'
+import { Menubar } from './components'
 
 const App:FC = () => {
 
   return(
-    <Grid sx={{border:'1px solid red', height:'100vh'}}>
-      <RouterProvider router={PRIVATE_ROUTES} />
+    <Grid className={`${styles.app}`} container direction={'column'}>
+      <Grid size={12}>
+        <Menubar />
+      </Grid>
+      {/* <RouterProvider router={PRIVATE_ROUTES} /> */}
     </Grid>
   )
 }
