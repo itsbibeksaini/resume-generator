@@ -1,11 +1,14 @@
-import { StrictMode } from 'react'
+import { StrictMode, type FC } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.scss'
-import { RouterProvider } from 'react-router'
-import { PRIVATE_ROUTES } from './core/routing/routes.ts'
+import App from './App.tsx'
 
-createRoot(document.getElementById('root')!).render(
+const Root: FC = () => (
   <StrictMode>
-    <RouterProvider router={PRIVATE_ROUTES} />
-  </StrictMode>,
-)
+    <App />
+  </StrictMode>
+);
+
+const container = document.getElementById("root")!;
+const root = createRoot(container);
+root.render(<Root />);

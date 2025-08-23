@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
-import App from "../../App";
+import SignIn from "../../components/auth/signin";
+import Home from "../../components/home/Home";
 
 // export const PUBLIC_ROUTES = createBrowserRouter([
 //     {
@@ -11,6 +12,10 @@ import App from "../../App";
 export const PRIVATE_ROUTES = createBrowserRouter([
     {
         path: '/',
-        Component: App
+        Component: SignIn
+    },
+    {
+        path: '/home',
+        Component: Home
     }
 ]);
