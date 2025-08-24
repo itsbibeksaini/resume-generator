@@ -8,11 +8,14 @@ import { Menubar } from './components'
 const App:FC = () => {
 
   return(
-    <Grid className={`${styles.app}`} container direction={'column'}>
-      <Grid size={12}>
+    <Grid className={`${styles.app}`} container>
+      {/* <Grid size={12}>
         <Menubar />
       </Grid>
-      {/* <RouterProvider router={PRIVATE_ROUTES} /> */}
+      <Grid sx={{border:'1px solid ', padding:'20px 30px'}} size='grow'>
+
+      </Grid> */}
+      <RouterProvider router={PRIVATE_ROUTES} />
     </Grid>
   )
 }

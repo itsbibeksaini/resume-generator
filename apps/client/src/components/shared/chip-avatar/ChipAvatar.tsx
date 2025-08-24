@@ -1,12 +1,13 @@
 import { Avatar, Box, ButtonBase, Grid, Typography } from "@mui/material";
 import styles from "./ChipAvatar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 type ChipProps = {
     name: string,
     avatar: string,
-    position?: string
+    position?: string,
+    showDropDown?: boolean,
     toggleDropDown?: () => void
 }
 
@@ -28,7 +29,7 @@ const ChipAvatar = (props: ChipProps) => {
 
                 <Grid size={1.5}>                    
                     <Box className={`vertical-center`}>
-                        <FontAwesomeIcon icon={faAngleDown} />
+                        <FontAwesomeIcon icon={props.showDropDown ? faAngleUp : faAngleDown} />
                     </Box>
                 </Grid>
 

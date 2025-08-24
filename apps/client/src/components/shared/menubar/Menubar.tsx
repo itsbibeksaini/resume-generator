@@ -18,7 +18,7 @@ const Menubar: FC = () => {
             <Typography variant="h4" className="vertical-center">Resume Generator</Typography>
         </Grid>
         <Grid container size={6} sx={{justifyContent: 'flex-end', position: 'relative'}}>
-            <ChipAvatar name="John Doe" avatar="jd" position="Software Engineer" toggleDropDown={toggleDropDown} />            
+            <ChipAvatar name="John Doe" avatar="jd" position="Software Engineer" toggleDropDown={toggleDropDown} showDropDown={showDropDown} />            
             <DropDownMenu showDropDown={showDropDown}/>
         </Grid>
     </Grid>
