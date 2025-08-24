@@ -7,14 +7,15 @@ type ChipProps = {
     name: string,
     avatar: string,
     position?: string
+    toggleDropDown?: () => void
 }
 
 const ChipAvatar = (props: ChipProps) => {
     return (
-        <ButtonBase sx={{borderRadius:'28px'}}>
+        <ButtonBase sx={{borderRadius:'28px'}} onClick={props.toggleDropDown}>
             <Grid className={styles.chipAvatar} container gap={1}>
                 <Grid sx={{position:'relative'}}>
-                    <Avatar className={`${styles.avatar}`}>
+                    <Avatar className={`${styles.avatar}`} >
                         <Typography variant="h5" className={`${styles.initials}`} >{props.avatar}</Typography>
                     </Avatar>   
                 </Grid>

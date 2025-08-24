@@ -1,0 +1,29 @@
+@use '../../../../../node_modules/animate.css/animate.min.css';
+
+.dropDownMenu{
+    border: 1px solid #ccc;
+    width: 250px;    
+    padding: 1rem 0;
+    position: absolute;
+    top:0px;
+
+    border-top-right-radius: 28px;
+    border-top-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    border-bottom-left-radius: 28px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    // height: 222px;
+    transition: all 0.5s ease-in-out;
+    background-color: #fff;
+
+    animation: fadeInDown 0.5s ease-in-out;
+
+    & .showDropDown{
+        display: block;
+    }
+
+    & .hideDropDown{
+        display: none;
+    }
+
+}
