@@ -1,3 +1,17 @@
 .layout{
     width: 100%;
+
+    & .sidebar {
+        background-color: #121212;
+        
+        position: relative;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        transition: all 0.3s ease-in-out;
+        width: 280px;
+    }
+
+    & .expandSidebar {
+        width: 280px;
+        animation: slideInLeft 0.5s ease-in-out;
+    }
 }
