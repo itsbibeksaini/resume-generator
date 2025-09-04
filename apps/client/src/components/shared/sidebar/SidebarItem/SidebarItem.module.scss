@@ -1,0 +1,23 @@
+.sidebarItem{
+    padding: 0.25rem 0.75rem;
+
+    .item{                
+        width: 56px;
+        transition: all 0.3s ease-in-out;
+        border-radius: 28px;                
+        background-color: rgba(255,255,255,0.1);
+        text-align: left;
+
+        &.expandItem{
+            width: 250px;
+        }
+
+        & .iconContainer{
+            height: 56px;
+            width: 56px;
+            border-radius: 50%;
+            position: relative;
+            background-color: rgba(255,255,255,0.1);
+        }
+    }
+}

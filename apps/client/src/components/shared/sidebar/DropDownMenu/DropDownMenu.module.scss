@@ -5,7 +5,8 @@
     width: 250px;    
     padding: 1rem 0;
     position: absolute;
-    top:0px;
+    bottom:0.25rem;
+    left: .95rem;
 
     border-top-right-radius: 28px;
     border-top-left-radius: 28px;
@@ -15,15 +16,19 @@
     // height: 222px;
     transition: all 0.5s ease-in-out;
     background-color: #fff;
+    color: #121212;
+    // display: none;
+    animation: fadeInUp 0.5s ease-in-out;
 
-    animation: fadeInDown 0.5s ease-in-out;
-
-    & .showDropDown{
+    &.showDropDown{
         display: block;
+        
     }
 
-    & .hideDropDown{
-        display: none;
+    &.hideDropDown{
+        
+        animation: fadeOutDown 0.5s ease-in-out forwards;
+        // display: block;
     }
 
 }

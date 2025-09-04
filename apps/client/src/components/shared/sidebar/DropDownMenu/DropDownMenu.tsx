@@ -5,16 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 type DropDownMenuProps = {
-    showDropDown: boolean   
+    showDropDown: boolean  
+    isTouched?: boolean 
 }
 
-const DropDownMenu: FC<DropDownMenuProps> = ({ showDropDown }) => {
+const DropDownMenu: FC<DropDownMenuProps> = ({ showDropDown, isTouched }) => {
+
+
 
   return (
     <>
-    {showDropDown && (
-        <Box className={`${styles.dropDownMenu} ${styles.hideDropDown}`}>
-            <Box sx={{ marginTop:'46px'}}>
+    {isTouched && (
+        <Box className={`${styles.dropDownMenu} ${showDropDown ? styles.showDropDown : styles.hideDropDown}`}>
+            <Box sx={{ marginBottom:'46px'}}>
                 <Box sx={{ padding:'0 1rem'}}>
                     <ButtonBase sx={{width:'100%', textAlign:'left'}}>
                         <Grid sx={{ borderBottom:'1px solid #ccc', padding:'15px 10px', width:'100%' }} container>

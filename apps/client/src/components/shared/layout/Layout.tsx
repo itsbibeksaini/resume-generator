@@ -1,19 +1,13 @@
-import { Box, Grid, Stack } from "@mui/material";
-import type { FC } from "react";
+import { Grid } from "@mui/material";
+import { type FC } from "react";
 import styles from "./Layout.module.scss";
-import { Outlet } from "react-router";
-import Menubar from "../menubar/Menubar";
+import Sidebar from "../sidebar/Sidebar";
 
 const Layout: FC = () => {
   return (
-    <Stack className={`${styles.layout}`}>
-        <Box>
-            <Menubar/>
-        </Box>
-        <Box>
-            <Outlet/>
-        </Box>
-    </Stack>
+    <Grid className={`${styles.layout}`} container >
+      <Sidebar/>        
+    </Grid>
   );
 };
 
