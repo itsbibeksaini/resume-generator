@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import Home from "../../components/home/Home";
 import Layout from "../../components/shared/layout/Layout";
 import SignIn from "../../components/auth/SignIn";
+import NewResume from "../../components/new-resume/NewResume";
 
 // export const PUBLIC_ROUTES = createBrowserRouter([
 //     {
@@ -21,6 +22,14 @@ export const PRIVATE_ROUTES = createBrowserRouter([
         children: [{
             path: '/home',
             Component: Home
+        }]
+    },
+    {
+        path: '/new-resume',
+        Component: Layout,
+        children: [{
+            path: '/new-resume',
+            Component: NewResume
         }]
     }
 ]);

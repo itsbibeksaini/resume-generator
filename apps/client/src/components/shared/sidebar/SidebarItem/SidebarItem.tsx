@@ -3,18 +3,28 @@ import type { FC } from "react";
 import styles from "./SidebarItem.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { type IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
 
 type SidebarItemProps = {
     isExpanded: boolean,
     icon: IconDefinition,
-    label: string
+    label: string,
+    navigateTo?: string,
 }
 
 const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
   
+    let navigate = useNavigate();
+    
+    const handleNavigation = () => {
+        if (props.navigateTo) {
+            navigate(props.navigateTo);
+        }
+    }
+
     return (
         <Grid className={styles.sidebarItem}>
-            <ButtonBase className={`${styles.item} ${props.isExpanded ? styles.expandItem : ""}`}>
+            <ButtonBase className={`${styles.item} ${props.isExpanded ? styles.expandItem : ""}`} onClick={handleNavigation}>
                 <Grid container size={12} sx={{ position:'relative' }}>
                     <Grid className={styles.iconContainer}>
                         <FontAwesomeIcon icon={props.icon} className="centeralize" style={{ fontSize: "24px" }} />

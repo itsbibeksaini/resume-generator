@@ -33,8 +33,8 @@ const Sidebar = () => {
         <Grid className={`${styles.sidebar} ${isExpanded ? styles.expandSidebar : ''}`} container direction="column">            
 
             <Grid sx={{marginTop:'0.5rem'}}>
-                <SidebarItem isExpanded={isExpanded} icon={faHome} label="Home" />
-                <SidebarItem isExpanded={isExpanded} icon={faFile} label="New Resume" />
+                <SidebarItem isExpanded={isExpanded} icon={faHome} label="Home" navigateTo="/home" />
+                <SidebarItem isExpanded={isExpanded} icon={faFile} label="New Resume" navigateTo="/new-resume" />
                 <SidebarItem isExpanded={isExpanded} icon={faFilePdf} label="View Resumes" />
             </Grid>
 
