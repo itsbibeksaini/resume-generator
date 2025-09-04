@@ -1,7 +1,8 @@
 import { Avatar, Box, ButtonBase, Grid, Typography } from "@mui/material";
 import styles from "./ChipAvatar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons/faAngleDown";
 
 type ChipProps = {
     name: string,
