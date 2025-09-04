@@ -1,9 +1,16 @@
+import { Grid } from "@mui/material";
 import type { FC } from "react";
+import styles from './NewResume.module.scss';
+import DetailsPanel from "./details-panel/DetailsPanel";
+import TemplatePanel from "./template-panel/TemplatePanel";
 
 const NewResume:FC = () => {
 
     return(
-        <div>New Resume</div>
+        <Grid container className={`${styles.newResume}`} gap={2}>
+            <TemplatePanel />
+            <DetailsPanel/>
+        </Grid>
     )
 }
 
