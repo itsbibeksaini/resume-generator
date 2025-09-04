@@ -4,10 +4,12 @@ import { Box, Button, Card, Grid, TextField, Typography } from "@mui/material";
 
 const SignIn: FC = () => {
   return (
+
     <Box className={`${styles.signin}`}>
-      <div className={`${styles.signinCard} centeralize`}>
-        <Typography variant="h3">Sign In</Typography>
-        <Grid container size={12} gap={2} sx={{padding:'10px 15px', marginTop:'1rem'}}>
+      <Grid className={`${styles.signInCardWrapper} centeralize`} container>
+        <Grid className={`${styles.signInCard}`}>
+          <Typography variant="h3">Sign In</Typography>
+          <Grid container size={12} gap={2} sx={{padding:'10px 15px', marginTop:'1rem'}}>
             <Grid size={12}>
                 <TextField label='Username' sx={{ width: '80%' }} />
             </Grid>
@@ -18,8 +20,11 @@ const SignIn: FC = () => {
                 <Button variant="contained" color="primary">Sign In</Button>
             </Grid>
         </Grid>
-      </div>
-      {/* <Typography variant="subtitle2">&copy;</Typography> */}
+        </Grid>
+        <Grid className={`${styles.footer}`} size={12}>
+          <Typography variant="subtitle1">&copy; Copyright {new Date().getFullYear()}</Typography>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

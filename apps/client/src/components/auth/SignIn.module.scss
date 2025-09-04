@@ -1,13 +1,21 @@
 .signin{
-    border: 1px solid red;   
     height: 100%;
-    
-    & .signinCard{
-        // border: 1px solid blue;
+    width: 100%;
+
+    & .signInCardWrapper{
         width: 420px;
-        padding: 20px 30px;
         text-align: center;
-        box-shadow: 0 0 40px;
-        border-radius: 0.25rem;
+
+        & .signInCard{
+            width: 420px;
+            padding: 20px 30px;
+            box-shadow: 0 0 40px;
+            border-radius: 0.25rem;
+        }
+
+        & .footer{
+            padding: 0.50rem;
+        }
+    
     }
 }
