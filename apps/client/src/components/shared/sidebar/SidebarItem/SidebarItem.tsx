@@ -1,5 +1,5 @@
 import { Box, ButtonBase, Grid, Typography } from "@mui/material";
-import type { FC } from "react";
+import type { Dispatch, FC, SetStateAction } from "react";
 import styles from "./SidebarItem.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { type IconDefinition } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +10,7 @@ type SidebarItemProps = {
     icon: IconDefinition,
     label: string,
     navigateTo?: string,
+    updateExpanded: Dispatch<SetStateAction<boolean>>
 }
 
 const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
@@ -19,6 +20,7 @@ const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
     const handleNavigation = () => {
         if (props.navigateTo) {
             navigate(props.navigateTo);
+            props.updateExpanded(false)
         }
     }
 
