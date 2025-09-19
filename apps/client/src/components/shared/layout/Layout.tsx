@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { type FC } from "react";
 import styles from "./Layout.module.scss";
 import Sidebar from "../sidebar/Sidebar";
@@ -11,6 +11,11 @@ const Layout: FC = () => {
       <Grid className={styles.outlet} size='grow'>
         <Box className={styles.contentArea} >
           <Outlet/>
+        </Box>
+        <Box className={styles.mobileMessage} >
+          <Typography variant="h4" align="center" color="textSecondary">
+            Please use a device with a larger screen to access this application.
+          </Typography>
         </Box>
       </Grid>
     </Grid>
