@@ -33,14 +33,14 @@ const Sidebar = () => {
         <Grid className={`${styles.sidebar} ${isExpanded ? styles.expandSidebar : ''}`} container direction="column">            
 
             <Grid sx={{marginTop:'0.5rem'}}>
-                <SidebarItem isExpanded={isExpanded} icon={faHome} label="Home" navigateTo="/home" />
-                <SidebarItem isExpanded={isExpanded} icon={faFile} label="New Resume" navigateTo="/new-resume" />
-                <SidebarItem isExpanded={isExpanded} icon={faFilePdf} label="View Resumes" />
+                <SidebarItem isExpanded={isExpanded} icon={faHome} label="Home" navigateTo="/home" updateExpanded={setIsExpanded} />
+                <SidebarItem isExpanded={isExpanded} icon={faFile} label="New Resume" navigateTo="/new-resume" updateExpanded={setIsExpanded} />
+                <SidebarItem isExpanded={isExpanded} icon={faFilePdf} label="View Resumes" updateExpanded={setIsExpanded} />
             </Grid>
 
             <Grid sx={{position:"absolute", bottom:10, left:0, right:0, }}>
                 <Grid sx={{marginBottom:'0.5rem'}}>
-                    <SidebarItem isExpanded={isExpanded} icon={faGear} label="Settings" />
+                    <SidebarItem isExpanded={isExpanded} icon={faGear} label="Settings" updateExpanded={setIsExpanded} />
                 </Grid>
                 
                 <ButtonBase sx={{padding:'0.25rem 0.75rem', width:'100%', backgroundColor:'rgba(255,255,255,0.1)', '&:hover':{backgroundColor:'rgba(255,255,255,0.2)'}}} >

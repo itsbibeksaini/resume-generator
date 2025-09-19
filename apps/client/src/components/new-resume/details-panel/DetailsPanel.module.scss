@@ -7,6 +7,13 @@
         & .row{
             width: 100%;
             padding: 0.5rem 0;
+            transition: all 0.3s ease-in-out;
+
+            & .col{
+                padding: 1rem;
+                padding-bottom: 0;
+                padding-left: 0;
+            }
         }
     }
 }

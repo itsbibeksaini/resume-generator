@@ -8,8 +8,10 @@ export type DynamicFieldProps = {
     type?: DynamicFieldType,
     label: string,
     placeholder?:string,
-    value: string,
-    col: number
+    col: number,
+    helperText?: string,
+    required:boolean,
+    value?: string,    
     onChange?: (evt:React.ChangeEvent) => void
 }
 
@@ -25,6 +27,8 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                     value={props.value}
                     placeholder={props.placeholder}
                     onChange={props.onChange}
+                    helperText = {props.helperText}
+                    required={props.required}
                 />
     })
 }
