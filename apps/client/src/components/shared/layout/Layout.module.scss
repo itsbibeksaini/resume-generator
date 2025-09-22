@@ -15,7 +15,9 @@
         animation: slideInLeft 0.5s ease-in-out;
     }
 
-    & .outlet{        
+    & .outlet{                
+        padding-right: 1rem;
+        overflow: hidden;
         & .contentArea{
             height: 100vh;
             max-width: 1440px;            

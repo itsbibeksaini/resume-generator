@@ -1,7 +1,7 @@
 .newResume {
     height: 100vh;
 
-    header{
+    header, footer {
         padding: 20px 30px;
         box-shadow: 
             0 5px 5px rgba(0, 0, 0, 0.5),     
@@ -11,5 +11,18 @@
             0 0 40px rgba(80, 80, 80, 0.3); 
 
         border-radius: 0.25rem;
+        position: sticky;
+        top: 0;
+        background-color: #f5f5f5;
+        z-index: 1;
+    }
+
+    footer{
+        margin-top: 1rem;
+        text-align: right;
+    }
+
+    & label{
+        z-index: -1;
     }
 }

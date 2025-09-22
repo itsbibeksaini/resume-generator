@@ -1,5 +1,7 @@
 .detailsPanel{
-
+    overflow-y: auto;
+    height: 100vh;    
+    padding: 0 15px;
     & .section{
         padding: 0 30px;
         margin-top: 20px;
@@ -15,5 +17,7 @@
                 padding-left: 0;
             }
         }
+
+        
     }
 }

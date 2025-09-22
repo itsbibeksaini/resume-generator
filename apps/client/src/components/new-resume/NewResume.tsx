@@ -7,7 +7,7 @@ import TemplatePanel from "./template-panel/TemplatePanel";
 const NewResume:FC = () => {
 
     return(
-        <Grid container className={`${styles.newResume}`} gap={2}>
+        <Grid container className={`${styles.newResume}`}>
             <TemplatePanel />
             <DetailsPanel/>
         </Grid>

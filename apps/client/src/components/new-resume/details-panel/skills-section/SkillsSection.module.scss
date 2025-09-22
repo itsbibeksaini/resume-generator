@@ -1,0 +1,52 @@
+.section{
+    padding: 0 30px;
+    margin-top: 20px;
+
+    & .row{
+        width: 100%;
+        padding: 0.5rem 0;
+        transition: all 0.3s ease-in-out;
+
+        & .col{
+            padding: 1rem;
+            padding-bottom: 0;
+            padding-left: 0;
+        }
+    }
+}
+.skillChip{
+    border: 1px solid;
+    // padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+    
+
+    & .skillAction{
+        // border: 1px solid red;
+        padding: 0 0.25rem;
+        display: none;
+        position: relative;
+        width: 1.7rem;
+
+        & .deleteBtn{
+            // border: 1px solid red;
+            border-radius: 50%;
+            height: 1.7rem;
+            width: 1.7rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    &:hover{
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        transform: scale(1.3);
+        border-bottom: 3px solid #121212;
+        & .skillAction{
+            display: block;            
+        }
+    }
+}

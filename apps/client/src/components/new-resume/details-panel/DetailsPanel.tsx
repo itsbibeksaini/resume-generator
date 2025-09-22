@@ -1,8 +1,9 @@
 import { useState, type FC } from "react";
 import styles from './DetailsPanel.module.scss';
-import { Box, Divider, Grid, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
+import SkillsSection from "./skills-section/SkillsSection";
 
 const DetailsPanel: FC = () => {    
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
@@ -71,6 +72,13 @@ const DetailsPanel: FC = () => {
                     )
                 })
             }
+
+            <SkillsSection />
+
+            <footer>
+                <Button sx={{marginRight: '1rem'}}>Save</Button>
+                <Button variant="contained" color="primary">Generate</Button>
+            </footer>
         </Grid>
     );
 };
