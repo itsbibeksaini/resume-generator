@@ -42,22 +42,28 @@ const SkillsSection: FC = () => {
                     />
                 </Grid>
             </Grid>
-            <Grid container className={`${styles.row}`} gap={1}>
+            <Grid container className={`${styles.row}`} gap={1} >
                 {
-                    skills.map((skill, index) => {
-                        return (
-                            <Grid container className={`${styles.skillChip}`} key={index}>
-                                <Grid size='grow' sx={{padding: '0.5rem'}}>
-                                    <Typography>{skill}</Typography>
+                    skills.length === 0 ? (
+                        <Grid sx={{textAlign:'center'}} size={12}>
+                            <Typography variant="h6" color="textSecondary">No skills added</Typography>
+                        </Grid>
+                    ) : (
+                        skills.map((skill, index) => {
+                            return (
+                                <Grid container className={`${styles.skillChip}`} key={index}>
+                                    <Grid size='grow' sx={{padding: '0.5rem'}}>
+                                        <Typography>{skill}</Typography>
+                                    </Grid>
+                                    <Grid className={`${styles.skillAction}`}>
+                                        <ButtonBase className={`${styles.deleteBtn}`} onClick={() => removeSkill(skill)}>
+                                            <FontAwesomeIcon icon={faTrash} style={{fontSize:'1rem', color:'red'}} />
+                                        </ButtonBase>
+                                    </Grid>
                                 </Grid>
-                                <Grid className={`${styles.skillAction}`}>
-                                    <ButtonBase className={`${styles.deleteBtn}`} onClick={() => removeSkill(skill)}>
-                                        <FontAwesomeIcon icon={faTrash} style={{fontSize:'1rem', color:'red'}} />
-                                    </ButtonBase>
-                                </Grid>
-                            </Grid>
-                        )
-                    })
+                            )
+                        })
+                    )
                 }
                 
                 
