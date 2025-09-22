@@ -47,3 +47,19 @@
         }
     }
 }
+
+footer{
+     padding: 1rem;
+     text-align: right;
+     position: absolute;
+     bottom: 1rem;
+     left: 1rem;
+     right: 1rem;     
+     background-color: #fff;
+     box-shadow: 
+            0 -10px 5px rgba(0, 0, 0, 0.5),     
+            0 0 10px rgba(20, 20, 20, 0.45),
+            0 0 5px rgba(40, 40, 40, 0.4), 
+            0 0 5px rgba(60, 60, 60, 0.35),
+            0 0 5px rgba(80, 80, 80, 0.3); 
+}

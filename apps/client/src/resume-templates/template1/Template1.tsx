@@ -5,7 +5,7 @@ import { Box, Button, Divider, Grid, Typography, } from '@mui/material';
 import { useRef } from 'react';
 import html2pdf from 'html2pdf.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBriefcase, faEnvelopeOpen, faGlobe, faIdBadge, faLaptopCode, faLocationPin, faMobileAlt, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faAward, faBriefcase, faEnvelopeOpen, faGlobe, faGraduationCap, faIdBadge, faLaptopCode, faLocationPin, faMobileAlt, faScrewdriverWrench, faStar, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 const Template1: FC = () => {
@@ -29,7 +29,7 @@ const Template1: FC = () => {
 
 
     return (
-       <div style={{width:'1440px'}}>
+       <div style={{width:'1440px', position:'relative', height:'100vh', overflowY:'auto'}}>
             <Grid ref={contentRef} className={styles.template1}>
                 {/* Your HTML content that you want to convert to PDF */}
                 <header>
@@ -101,6 +101,133 @@ const Template1: FC = () => {
                                 </Grid>
                             </Grid>
                         </Box>
+
+                        <Box sx={{border:'1px solid #ccc', padding:'10px', marginBottom:'1rem', backgroundColor:'#f5f5f5', borderRadius:'0.25rem'}}>
+                            <Grid container gap={1}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faScrewdriverWrench}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeHeading}`}>skills</Typography>
+                                </Grid>
+                                <Grid size={12}>
+                                    <Divider sx={{margin: '0.25rem 0.5rem'}} />
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faLocationPin}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>Toronto Ontario, Canada N5V - OC2</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faMobileAlt}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>+1 (123) 456-7890</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faEnvelopeOpen}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>example@example.com</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faLinkedin}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>linkedin.com/in/yourprofile</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faGithub}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>github.com/yourprofile</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faGlobe}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>www.yourwebsite.com</Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>
+
+                        <Box sx={{border:'1px solid #ccc', padding:'10px', marginBottom:'1rem', backgroundColor:'#f5f5f5', borderRadius:'0.25rem'}}>
+                            <Grid container gap={1}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faGraduationCap}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeHeading}`}>education</Typography>
+                                </Grid>
+                                <Grid size={12}>
+                                    <Divider sx={{margin: '0.25rem 0.5rem'}} />
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faLocationPin}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>Toronto Ontario, Canada N5V - OC2</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faMobileAlt}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>+1 (123) 456-7890</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faEnvelopeOpen}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>example@example.com</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faLinkedin}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>linkedin.com/in/yourprofile</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faGithub}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>github.com/yourprofile</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
+                                <Grid sx={{position:'relative'}} size={1}>
+                                    <FontAwesomeIcon icon={faGlobe}/>
+                                </Grid>
+                                <Grid  size='grow'>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>www.yourwebsite.com</Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                       
+                        
+                        
                     </Grid>
                     <Grid size='grow' className={`${styles.timeline}`}>
                         <Box className={`${styles.section}`}>
@@ -133,7 +260,7 @@ const Template1: FC = () => {
                         <Box className={`${styles.section}`}>
                             <Box>
                                 <Box className={`${styles.sectionIcon}`}>
-                                    <FontAwesomeIcon icon={faStar}/>
+                                    <FontAwesomeIcon icon={faAward}/>
                                 </Box>
                                 <Typography className={`${resumeStyles.resumeHeading}`}>awards & certifications</Typography>
                                 <Divider sx={{margin: '0.75rem 0'}} />
@@ -142,7 +269,10 @@ const Template1: FC = () => {
                     </Grid>
                 </Grid>
             </Grid>
-           <Button variant='contained' onClick={convertToPdf}>Convert to PDF</Button>
+
+            <footer >
+                <Button variant="contained" onClick={convertToPdf}>Generate</Button>
+            </footer>
         </div>
     );
 }
