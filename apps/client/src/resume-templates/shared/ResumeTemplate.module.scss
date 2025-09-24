@@ -12,3 +12,22 @@
 .resumeSubHeading{
 
 }
+
+.templateWrapper{
+    width: 100%;
+    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+
+    & .actionHeader{
+        padding: 1rem 0;
+        border-bottom: 1px solid #ccc;
+        position: relative;
+
+        & .headerTitle{
+            display: inline-block;
+            margin-left: 3.8rem;
+            
+        }
+    }
+}
