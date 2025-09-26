@@ -6,7 +6,19 @@ import styles from "./Sidebar.module.scss";
 import { faEnvelopeOpen, faGlobe, faGraduationCap, faIdBadge, faLocationPin, faMobileAlt, faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
-const Sidebar: FC = () => {
+type ResumeSidebarProps = {
+    contactInfo: {
+        location: string;
+        email: string;
+        phone: string;
+        linkedin: string;
+        github: string;
+        website: string;
+    };
+    
+};
+
+const Sidebar: FC<ResumeSidebarProps> = (props: ResumeSidebarProps) => {
   return (
     <Grid className={`${styles.sidebar}`}>
         <Box className={`${styles.section}`}>
@@ -26,7 +38,7 @@ const Sidebar: FC = () => {
                     <FontAwesomeIcon icon={faLocationPin}/>
                 </Grid>
                 <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>Toronto Ontario, Canada N5V - OC2</Typography>
+                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.location}</Typography>
                 </Grid>
             </Grid>
             <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
@@ -34,7 +46,7 @@ const Sidebar: FC = () => {
                     <FontAwesomeIcon icon={faMobileAlt}/>
                 </Grid>
                 <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>+1 (123) 456-7890</Typography>
+                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.phone}</Typography>
                 </Grid>
             </Grid>
             <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
@@ -42,7 +54,7 @@ const Sidebar: FC = () => {
                     <FontAwesomeIcon icon={faEnvelopeOpen}/>
                 </Grid>
                 <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>example@example.com</Typography>
+                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.email}</Typography>
                 </Grid>
             </Grid>
             <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
@@ -50,7 +62,7 @@ const Sidebar: FC = () => {
                     <FontAwesomeIcon icon={faLinkedin}/>
                 </Grid>
                 <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>linkedin.com/in/yourprofile</Typography>
+                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.linkedin}</Typography>
                 </Grid>
             </Grid>
             <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
@@ -58,7 +70,7 @@ const Sidebar: FC = () => {
                     <FontAwesomeIcon icon={faGithub}/>
                 </Grid>
                 <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>github.com/yourprofile</Typography>
+                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.github}</Typography>
                 </Grid>
             </Grid>
             <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
@@ -66,7 +78,7 @@ const Sidebar: FC = () => {
                     <FontAwesomeIcon icon={faGlobe}/>
                 </Grid>
                 <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>www.yourwebsite.com</Typography>
+                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.website}</Typography>
                 </Grid>
             </Grid>
         </Box>

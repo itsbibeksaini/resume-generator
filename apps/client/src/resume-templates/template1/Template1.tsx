@@ -2,23 +2,31 @@ import type { FC } from 'react';
 import styles from './Template1.module.scss';
 import resumeStyles from '../shared/ResumeTemplate.module.scss';
 import { Box, Button, Divider, Grid, IconButton, Typography, } from '@mui/material';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import html2pdf from 'html2pdf.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft  } from '@fortawesome/free-solid-svg-icons';
 
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import Sidebar from './components/sidebar/Sidebar';
 import Timeline from './components/timeline/Timeline';
+import type { TemplateData } from '../../core/template-data/TemplateData';
 
 const Template1: FC = () => {
+
+    const location = useLocation();
+    const [resumeData] = useState<TemplateData>(location.state);
+
+    useEffect(() => {
+        console.log('Resume data in template 1: ', resumeData);
+    }, [resumeData]);
 
     const navigate = useNavigate();
 
     const contentRef = useRef(null);
 
     const pdfOptions: any = {
-        filename: 'my-document.pdf',        
+        filename: resumeData.fullName + '_resume.pdf',        
         image: { type: "jpeg" as "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
         margin: 16,
@@ -45,13 +53,13 @@ const Template1: FC = () => {
             <Grid ref={contentRef} className={styles.template1}>
                 {/* Your HTML content that you want to convert to PDF */}
                 <header>
-                    <Typography variant="h2">Bibek Saini</Typography>
-                    <Typography variant="h6" sx={{textTransform: 'uppercase', marginTop: '0.5rem'}}>Senior fullstack software engineer</Typography>
+                    <Typography variant="h2">{resumeData.fullName}</Typography>
+                    <Typography variant="h6" sx={{textTransform: 'uppercase', marginTop: '0.5rem'}}>{resumeData.jobTitle}</Typography>
                     <Divider sx={{margin: '1rem 0'}}/>
                 </header>
 
                 <Grid container sx={{padding: '0.5rem'}} gap={2}>
-                    <Sidebar/>
+                    <Sidebar contactInfo={resumeData.contactInfo} />
                     <Timeline/>
                 </Grid>
             </Grid>
