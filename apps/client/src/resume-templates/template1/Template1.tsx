@@ -15,11 +15,8 @@ import type { TemplateData } from '../../core/template-data/TemplateData';
 const Template1: FC = () => {
 
     const location = useLocation();
+    
     const [resumeData] = useState<TemplateData>(location.state);
-
-    useEffect(() => {
-        console.log('Resume data in template 1: ', resumeData);
-    }, [resumeData]);
 
     const navigate = useNavigate();
 

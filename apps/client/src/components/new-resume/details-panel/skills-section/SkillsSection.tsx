@@ -8,16 +8,18 @@ const SkillsSection: FC = () => {
 
     const [skills, setSkills] = useState<string[]>([]);
 
-    const addSkill = (e: React.KeyboardEvent<HTMLInputElement>) => {        
+    const addSkill = (e: React.KeyboardEvent<HTMLInputElement>) => {      
+        
         if (e.key === 'Enter') {
             const input = e.target as HTMLInputElement;
             const value = input.value.trim();
-            value.split(',').forEach(skill => {
-                const trimmedSkill = skill.trim();
-                if (trimmedSkill && !skills.includes(trimmedSkill)) {
-                    setSkills(prevSkills => [...prevSkills, trimmedSkill]);
-                }
-            });
+            let newSkills = value
+                            .split(',')
+                            .map(skill => skill.trim())
+                            .filter(skill => skill && !skills.includes(skill));
+
+            setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);                
+            
             input.value = '';
         }
     }
