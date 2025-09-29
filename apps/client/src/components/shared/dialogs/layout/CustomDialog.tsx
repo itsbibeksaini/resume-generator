@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from "react"
-import styles from './DialogLayout.module.scss'
+import styles from './CustomDialog.module.scss'
 import { Button, Dialog, Divider, Grid, IconButton, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleXmark, faGraduationCap, faHome } from "@fortawesome/free-solid-svg-icons"
@@ -12,7 +12,7 @@ type DialogLayoutProps = {
     children: ReactNode
 }
 
-const DialogLayout: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
+const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
     return(
         <Dialog open={props.open}>
             <Grid className={`${styles.dialogLayout}`} container>
@@ -47,4 +47,4 @@ const DialogLayout: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
     )
 }
 
-export default DialogLayout
+export default CustomDialog
