@@ -6,6 +6,8 @@ import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
 import type { TemplateData } from "../../../core/template-data/TemplateData";
+import DialogLayout from "../../shared/dialogs/layout/DialogLayout";
+import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
 const DetailsPanel: FC = () => {    
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
@@ -110,6 +112,9 @@ const DetailsPanel: FC = () => {
                 <Box>
                     <Typography variant="h6">Education</Typography>
                 </Box>
+                <DialogLayout open={true} title="Education" titleIcon={faGraduationCap}>
+                    sds
+                </DialogLayout>
             </Grid>
 
             <footer>
