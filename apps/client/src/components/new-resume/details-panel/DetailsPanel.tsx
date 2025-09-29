@@ -9,6 +9,8 @@ import type { TemplateData } from "../../../core/template-data/TemplateData";
 
 const DetailsPanel: FC = () => {    
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
+    const [skills, setSkills] = useState<string[]>([]);
+
     const navigate = useNavigate();
 
     const updateField = (evt: React.ChangeEvent<Element>, fieldID: string) => {
@@ -34,11 +36,16 @@ const DetailsPanel: FC = () => {
                 phone: '+' + getDataValue('countrycode') + ' (' + getDataValue('areacode') + ') ' + getDataValue('number'),
                 linkedin: getDataValue('linkedin'),
                 github: getDataValue('github'),
-                website: getDataValue('website-portfolio'),
-            }
+                website: getDataValue('website-portfolio')
+            },
+            skills: skills
         }
 
         return templateData;
+    }
+
+    const updateSkills = (newSkills: string[]) => {
+        setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);     
     }
 
     return (
@@ -97,7 +104,13 @@ const DetailsPanel: FC = () => {
                 })
             }
 
-            <SkillsSection />
+            <SkillsSection callback={updateSkills} />
+
+            <Grid className={`${styles.section}`}>
+                <Box>
+                    <Typography variant="h6">Education</Typography>
+                </Box>
+            </Grid>
 
             <footer>
                 <Button sx={{marginRight: '1rem'}}>Save</Button>

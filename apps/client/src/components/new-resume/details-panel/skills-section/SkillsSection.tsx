@@ -4,7 +4,11 @@ import styles from './SkillsSection.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const SkillsSection: FC = () => {
+type SkillSectionProps = {
+    callback: (newSkills: string[]) => void
+}
+
+const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
 
     const [skills, setSkills] = useState<string[]>([]);
 
@@ -18,7 +22,10 @@ const SkillsSection: FC = () => {
                             .map(skill => skill.trim())
                             .filter(skill => skill && !skills.includes(skill));
 
-            setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);                
+            setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);     
+            
+            props.callback(newSkills)
+            
             
             input.value = '';
         }

@@ -15,6 +15,7 @@ type ResumeSidebarProps = {
         github: string;
         website: string;
     };
+    skills: string[]
     
 };
 
@@ -93,6 +94,17 @@ const Sidebar: FC<ResumeSidebarProps> = (props: ResumeSidebarProps) => {
                 </Grid>
                 <Grid size={12}>
                     <Divider sx={{margin: '0.25rem 0.5rem'}} />
+                </Grid>
+                <Grid container size={12} gap={1}>
+                    {
+                        props.skills?.map((skill, index) => {
+                            return(
+                                <Grid size='auto' className={`${styles.skill}`} key={index}>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>{skill}</Typography>
+                                </Grid>
+                            )
+                        })
+                    }
                 </Grid>
             </Grid>
             
