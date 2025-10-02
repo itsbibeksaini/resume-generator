@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import type { TemplateData } from "../../../core/template-data/TemplateData";
 import EducationSection from "./education-section/EducationSection";
 import SummarySection from "./summary-section/SummarySection";
+import ProfessionalExperienceSection from "./professional-experience-section/ProfessionalExperienceSection";
 
 const DetailsPanel: FC = () => {    
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
@@ -111,6 +112,8 @@ const DetailsPanel: FC = () => {
             <EducationSection />
 
             <SummarySection />
+
+            <ProfessionalExperienceSection />
 
             <footer>
                 <Button sx={{marginRight: '1rem'}}>Save</Button>
