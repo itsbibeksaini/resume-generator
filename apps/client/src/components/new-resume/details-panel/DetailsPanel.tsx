@@ -10,6 +10,7 @@ import EducationSection from "./education-section/EducationSection";
 import SummarySection from "./summary-section/SummarySection";
 import ProfessionalExperienceSection from "./professional-experience-section/ProfessionalExperienceSection";
 import ProjectsSection from "./projects-section/ProjectsSection";
+import AwardsSection from "./awards-section/AwardsSection";
 
 const DetailsPanel: FC = () => {    
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
@@ -117,6 +118,8 @@ const DetailsPanel: FC = () => {
             <ProfessionalExperienceSection />
 
             <ProjectsSection />
+
+            <AwardsSection />
 
             <footer>
                 <Button sx={{marginRight: '1rem'}}>Save</Button>
