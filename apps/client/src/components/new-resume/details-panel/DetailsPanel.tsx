@@ -7,6 +7,7 @@ import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
 import type { TemplateData } from "../../../core/template-data/TemplateData";
 import EducationSection from "./education-section/EducationSection";
+import SummarySection from "./summary-section/SummarySection";
 
 const DetailsPanel: FC = () => {    
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
@@ -108,6 +109,8 @@ const DetailsPanel: FC = () => {
             <SkillsSection callback={updateSkills} />
 
             <EducationSection />
+
+            <SummarySection />
 
             <footer>
                 <Button sx={{marginRight: '1rem'}}>Save</Button>
