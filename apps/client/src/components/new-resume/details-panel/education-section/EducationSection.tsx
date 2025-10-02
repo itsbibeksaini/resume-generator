@@ -6,6 +6,8 @@ import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { EDUCATION_SECTIONS } from "./data/EducationFields";
+import { getDyanamicField } from "../../../../core/fields/DynamicField";
 
 const EducationSection: FC = () => {
 
@@ -38,37 +40,34 @@ const EducationSection: FC = () => {
                             Enter your education details as they should appear on your resume. Include your institution, program, dates attended, and location.
                         </Typography>
                     </Grid>
-                    <Grid size={12} container>
-                        <Grid size={6} sx={{padding:'0.5rem'}}>
-                            <TextField fullWidth label='School / College' />
-                        </Grid>
-                        <Grid size={6} sx={{padding:'0.5rem'}}>
-                            <TextField fullWidth label='Course' />
-                        </Grid>
-                    </Grid>
-                    <Grid size={12} container>
-                        <Grid size={6} sx={{padding:'0.5rem'}}>                                
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker sx={{width:'100%'}} views={["year", "month"]} format="MM/YYYY" label='Start date'/>
-                            </LocalizationProvider>
-                        </Grid>
-                        <Grid size={6} sx={{padding:'0.5rem'}}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker sx={{width:'100%'}} views={["year", "month"]} format="MM/YYYY" label='Completion date'/>
-                            </LocalizationProvider>
-                        </Grid>
-                    </Grid>
-                    <Grid size={12} container>
-                        <Grid size={4} sx={{padding:'0.5rem'}}>
-                            <TextField fullWidth label='City' />
-                        </Grid>
-                        <Grid size={4} sx={{padding:'0.5rem'}}>
-                            <TextField fullWidth label='Province / State' />
-                        </Grid>
-                        <Grid size={4} sx={{padding:'0.5rem'}}>
-                            <TextField fullWidth label='Country' />
-                        </Grid>
-                    </Grid>
+
+                    {
+                        EDUCATION_SECTIONS[0].rows.map((row, index) => {
+                            return(
+                                <Grid size={12} container key={index}>
+                                    {
+                                        row.fields.map((field, index) => {
+                                            if (!field.type) return null;
+                                            const FieldComponent = getDyanamicField(field.type);
+                                            return(
+                                                <Grid size={field.col} sx={{padding:'0.5rem'}} key={index}>
+                                                    <FieldComponent 
+                                                        label={field.label} 
+                                                        id={field.id} 
+                                                        name={field.name} 
+                                                        col={0}
+                                                        // value={getDataValue(field.name)}
+                                                        required={field.required}
+                                                        // onChange={(e) => updateField(e, field.name)}
+                                                    />
+                                                </Grid>                        
+                                            )
+                                        })
+                                    }
+                                </Grid>
+                            )
+                        })
+                    }
                 </Grid>
             </CustomDialog>
         </Grid>

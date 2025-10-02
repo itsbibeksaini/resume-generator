@@ -1,4 +1,4 @@
-import { use, useState, type FC } from "react";
+import { use, useState, type ChangeEvent, type FC } from "react";
 import styles from './DetailsPanel.module.scss';
 import { Box, Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
@@ -91,7 +91,7 @@ const DetailsPanel: FC = () => {
                                                                     col={0}
                                                                     value={getDataValue(field.name)}
                                                                     required={field.required}
-                                                                    onChange={(e) => updateField(e, field.name)}
+                                                                    onChange={(e: ChangeEvent<Element>) => updateField(e, field.name)}
                                                                 />
                                                             </Grid>
                                                         );

@@ -45,7 +45,7 @@ const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
                     {props.children}
                 </Grid>
                 <Grid className={`${styles.actionArea}`} size={12}>
-                    <Button variant="contained">
+                    <Button variant="contained" sx={{marginRight:'0.5rem'}}>
                         Save and Add
                     </Button>
                     <Button variant="contained">
