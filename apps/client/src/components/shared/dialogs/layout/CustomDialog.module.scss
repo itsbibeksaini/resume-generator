@@ -1,0 +1,73 @@
+
+.customDialog{
+    width: 600px;
+    
+    
+    
+    & .dialogLayoutHeader{
+        padding:10px 15px;
+        box-shadow: 
+            0 10px 5px rgba(0, 0, 0, 0.5),     
+            0 0 10px rgba(20, 20, 20, 0.45),
+            0 0 5px rgba(40, 40, 40, 0.4), 
+            0 0 5px rgba(60, 60, 60, 0.35),
+            0 0 5px rgba(80, 80, 80, 0.3); 
+
+
+        & .closeButton{
+            height:5px;
+            width:5px;             
+            text-align:center;                        
+            position: absolute;
+            top:50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease-in-out;
+            
+
+            & .closeIcon{
+                transition: all 0.3s ease-in-out;                
+            }
+
+            &:hover{
+                box-shadow: 0 0 10px 5px rgba(183, 28, 28, 0.8);
+
+                & .closeIcon{
+                    color: #F44336;
+                }
+            }
+        }
+    }
+
+    & .actionArea{        
+        padding:10px 15px;
+        text-align: right;
+        box-shadow: 
+            0 -10px 5px rgba(0, 0, 0, 0.5),     
+            0 0 10px rgba(20, 20, 20, 0.45),
+            0 0 5px rgba(40, 40, 40, 0.4), 
+            0 0 5px rgba(60, 60, 60, 0.35),
+            0 0 5px rgba(80, 80, 80, 0.3); 
+    }
+    
+}
+
+.testClass{
+    border: 1px solid red;
+    background: red !important;
+}
+
+@keyframes fadeInUpBig {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2000px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInUpBig {
+  animation: fadeInUpBig 0.5s ease-in-out;
+}

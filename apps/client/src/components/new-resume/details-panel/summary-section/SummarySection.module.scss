@@ -1,0 +1,42 @@
+.section{
+    padding: 0 30px;
+    margin-top: 20px;
+
+    & .row{
+        width: 100%;
+        padding: 0.5rem 0;
+        transition: all 0.3s ease-in-out;
+
+        & .col{
+            padding: 1rem;
+            padding-bottom: 0;
+            padding-left: 0;
+        }
+    }
+}
+
+.timeline{
+    border-left: 2px solid ;
+    width: 100vh;
+    margin-left: 1rem;
+    padding: 20px 30px;
+    list-style-type: none;
+
+    & li {
+        padding: 0;
+        margin: 0;
+        position: relative;
+
+        &::after {
+            content: '-';
+            font-size: 2rem;
+            position: absolute;
+            top: -0.6rem;
+            left: -2.25rem;
+        }
+
+        &:not(:last-of-type){            
+            margin-bottom: 0.5rem;
+        }
+    }
+}

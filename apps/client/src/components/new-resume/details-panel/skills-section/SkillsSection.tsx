@@ -4,20 +4,29 @@ import styles from './SkillsSection.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const SkillsSection: FC = () => {
+type SkillSectionProps = {
+    callback: (newSkills: string[]) => void
+}
+
+const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
 
     const [skills, setSkills] = useState<string[]>([]);
 
-    const addSkill = (e: React.KeyboardEvent<HTMLInputElement>) => {        
+    const addSkill = (e: React.KeyboardEvent<HTMLInputElement>) => {      
+        
         if (e.key === 'Enter') {
             const input = e.target as HTMLInputElement;
             const value = input.value.trim();
-            value.split(',').forEach(skill => {
-                const trimmedSkill = skill.trim();
-                if (trimmedSkill && !skills.includes(trimmedSkill)) {
-                    setSkills(prevSkills => [...prevSkills, trimmedSkill]);
-                }
-            });
+            let newSkills = value
+                            .split(',')
+                            .map(skill => skill.trim())
+                            .filter(skill => skill && !skills.includes(skill));
+
+            setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);     
+            
+            props.callback(newSkills)
+            
+            
             input.value = '';
         }
     }
