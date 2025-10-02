@@ -1,6 +1,6 @@
 import { use, useState, type FC } from "react";
 import styles from './DetailsPanel.module.scss';
-import { Box, Button, Divider, Grid, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
@@ -8,6 +8,10 @@ import { useNavigate } from "react-router";
 import type { TemplateData } from "../../../core/template-data/TemplateData";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import CustomDialog from "../../shared/dialogs/layout/CustomDialog";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import EducationSection from "./education-section/EducationSection";
 
 const DetailsPanel: FC = () => {    
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
@@ -108,14 +112,7 @@ const DetailsPanel: FC = () => {
 
             <SkillsSection callback={updateSkills} />
 
-            <Grid className={`${styles.section}`}>
-                <Box>
-                    <Typography variant="h6">Education</Typography>
-                </Box>
-                <CustomDialog open={true} title="Education" titleIcon={faGraduationCap}>
-                    sds
-                </CustomDialog>
-            </Grid>
+            <EducationSection />
 
             <footer>
                 <Button sx={{marginRight: '1rem'}}>Save</Button>
