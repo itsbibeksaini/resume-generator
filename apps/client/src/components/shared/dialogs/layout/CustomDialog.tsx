@@ -1,8 +1,8 @@
-import { useEffect, useState, type FC, type ReactNode } from "react"
+import { type FC, type ReactNode } from "react"
 import styles from './CustomDialog.module.scss'
 import { Button, Dialog, Divider, Grid, IconButton, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircleXmark, faGraduationCap, faHome } from "@fortawesome/free-solid-svg-icons"
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons"
 import type { IconProp } from "@fortawesome/fontawesome-svg-core"
 
 

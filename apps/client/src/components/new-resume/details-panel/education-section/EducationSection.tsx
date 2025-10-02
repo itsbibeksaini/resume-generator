@@ -1,11 +1,8 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import { useState, type FC } from "react";
 import styles from './EducationSection.module.scss'
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { EDUCATION_SECTIONS } from "./data/EducationFields";
 import { getDyanamicField } from "../../../../core/fields/DynamicField";
 
@@ -20,18 +17,29 @@ const EducationSection: FC = () => {
             <Box>
                 <Typography variant="h6">Education</Typography>
             </Box>
+            
             <Grid container className={`${styles.row}`}>
-                <Typography variant="body2">No education details added yet.</Typography>
+                <Grid sx={{textAlign:'center'}} size={12}>
+                    <Typography variant="h6" color="textSecondary">No education details added yet.</Typography>
+                </Grid>
             </Grid>
 
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setDialogOpen(true)}
-                style={{ marginTop: "15px" }}
-            >
-                Add Education
-            </Button>
+            <Grid container className={`${styles.row}`}>
+                <Grid sx={{textAlign:'center'}} size={12}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setDialogOpen(true)}
+                        style={{ marginTop: "15px" }}
+                    >
+                        Add Education
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <Box sx={{padding:'10px', margin:'1rem 0' }}>
+                <Divider/>
+            </Box>
                 
             <CustomDialog open={dialogOpen} title="Education" titleIcon={faGraduationCap} close={() => setDialogOpen(false)}>
                 <Grid sx={{padding:'20px 30px'}} size={12} container>
