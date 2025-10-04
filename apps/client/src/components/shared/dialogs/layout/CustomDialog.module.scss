@@ -1,11 +1,13 @@
 
 .customDialog{
     width: 600px;
+    // height: 100vh;
     
     
     
     & .dialogLayoutHeader{
         padding:10px 15px;
+        // height: 52px;
         box-shadow: 
             0 10px 5px rgba(0, 0, 0, 0.5),     
             0 0 10px rgba(20, 20, 20, 0.45),
@@ -40,6 +42,7 @@
 
     & .actionArea{        
         padding:10px 15px;
+        // height: 52px;
         text-align: right;
         box-shadow: 
             0 -10px 5px rgba(0, 0, 0, 0.5),     

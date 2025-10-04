@@ -21,7 +21,16 @@ const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
     }
 
     return(
-        <Dialog open={props.open} className={`${styles.fadeInUpBig}`}>
+        <Dialog open={props.open} className={`${styles.fadeInUpBig}`} slotProps={{
+            paper: {
+                sx:{
+                    position:'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: "translate(-50%, -50%)"
+                }
+            }
+        }}>
             <Grid className={`${styles.customDialog}`} container>
                 <Grid size={12} className={`${styles.dialogLayoutHeader}`} container gap={1}>
                     <Grid sx={{position:'relative', width:'16px'}}>

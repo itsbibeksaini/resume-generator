@@ -14,3 +14,21 @@
         }
     }
 }
+
+.timeline{
+    border-left: 2px solid ;
+    padding: 10px 15px;
+    list-style-type: none;
+
+    & li{
+        position: relative;
+        margin-bottom: 0.5rem;
+        &::before{
+            content: '-';
+            position: absolute;
+            font-size: 2rem;
+            left: -1.30rem;
+            top: -0.70rem;
+        }
+    }
+}
