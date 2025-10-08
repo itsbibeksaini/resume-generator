@@ -3,7 +3,7 @@ export type TemplateData = {
     jobTitle: string;
     contactInfo: ContactInfo;
     skills: string[]
-    educationInfo?: EducationInfo[]
+    educationInfo: EducationInfo[]
 }
 
 type ContactInfo = {

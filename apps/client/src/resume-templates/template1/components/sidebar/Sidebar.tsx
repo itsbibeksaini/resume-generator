@@ -5,6 +5,7 @@ import resumeStyles from "../../../shared/ResumeTemplate.module.scss";
 import styles from "./Sidebar.module.scss";
 import { faEnvelopeOpen, faGlobe, faGraduationCap, faIdBadge, faLocationPin, faMobileAlt, faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import type { EducationInfo } from "../../../../core/template-data/TemplateData";
 
 type ResumeSidebarProps = {
     contactInfo: {
@@ -16,6 +17,7 @@ type ResumeSidebarProps = {
         website: string;
     };
     skills: string[]
+    educationalData: EducationInfo[]
     
 };
 
@@ -120,6 +122,23 @@ const Sidebar: FC<ResumeSidebarProps> = (props: ResumeSidebarProps) => {
                 </Grid>
                 <Grid size={12}>
                     <Divider sx={{margin: '0.25rem 0.5rem'}} />
+                </Grid>
+                <Grid gap={1} className={`${styles.educationalSection}`} size={12}>
+                    {
+                        props.educationalData.length === 0 && <Typography>No educational Data</Typography>
+                    }
+                    {
+                        props.educationalData.map((data, index) => {
+                            return(
+                                <Grid className={`${styles.education}`} size={12} key={index}>
+                                    <Typography className={`${resumeStyles.resumeHeading}`} sx={{textTransform: 'none'}}>{data.schoolName}</Typography>
+                                    <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{marginTop:'0.5rem'}}>{data.course}</Typography>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>{data.startDate} - {data.completionDate}</Typography>
+                                    <Typography variant="subtitle2">{data.city} {data.state} - {data.country}</Typography>
+                                </Grid>
+                            )
+                        })
+                    }
                 </Grid>
             </Grid>
             

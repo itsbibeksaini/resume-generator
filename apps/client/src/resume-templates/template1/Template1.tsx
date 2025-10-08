@@ -56,7 +56,11 @@ const Template1: FC = () => {
                 </header>
 
                 <Grid container sx={{padding: '0.5rem'}} gap={2}>
-                    <Sidebar contactInfo={resumeData.contactInfo} skills={resumeData.skills} />
+                    <Sidebar 
+                        contactInfo={resumeData.contactInfo} 
+                        skills={resumeData.skills} 
+                        educationalData={resumeData.educationInfo}
+                    />
                     <Timeline/>
                 </Grid>
             </Grid>

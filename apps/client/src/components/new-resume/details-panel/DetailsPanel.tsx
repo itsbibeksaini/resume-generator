@@ -46,7 +46,7 @@ const DetailsPanel: FC = () => {
                 website: getDataValue('website-portfolio')
             },
             skills: skills,
-            educationInfo: educationData
+            educationInfo: educationData            
         }
 
         return templateData;
