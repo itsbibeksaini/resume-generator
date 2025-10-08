@@ -5,7 +5,7 @@ import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
-import type { TemplateData } from "../../../core/template-data/TemplateData";
+import type { EducationInfo, TemplateData } from "../../../core/template-data/TemplateData";
 import EducationSection from "./education-section/EducationSection";
 import SummarySection from "./summary-section/SummarySection";
 import ProfessionalExperienceSection from "./professional-experience-section/ProfessionalExperienceSection";
@@ -15,12 +15,13 @@ import AwardsSection from "./awards-section/AwardsSection";
 const DetailsPanel: FC = () => {    
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
     const [skills, setSkills] = useState<string[]>([]);
+    const [educationData, setEducationalData] = useState<EducationInfo[]>([]);
 
     const navigate = useNavigate();
 
     const updateField = (evt: React.ChangeEvent<Element>, fieldID: string) => {
-    const value = (evt.target as HTMLInputElement).value;
-    setResumeData((data) => ({ ...data, [fieldID]: value }));
+        const value = (evt.target as HTMLInputElement).value;
+        setResumeData((data) => ({ ...data, [fieldID]: value }));
     };
 
     const getDataValue = (fieldId: string): string => {
@@ -32,6 +33,7 @@ const DetailsPanel: FC = () => {
     }
 
     const compileResumeData = () => {
+        debugger
         let templateData: TemplateData = {
             fullName: resumeData['firstname'] + ' ' + resumeData['lastname'],
             jobTitle: getDataValue('jobtitle'),
@@ -43,7 +45,8 @@ const DetailsPanel: FC = () => {
                 github: getDataValue('github'),
                 website: getDataValue('website-portfolio')
             },
-            skills: skills
+            skills: skills,
+            educationInfo: educationData
         }
 
         return templateData;
@@ -51,6 +54,10 @@ const DetailsPanel: FC = () => {
 
     const updateSkills = (newSkills: string[]) => {
         setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);     
+    }
+
+    const updateEducationalData = (newData: EducationInfo) => {
+        setEducationalData(prevData => [...prevData, newData]);
     }
 
     return (
@@ -111,7 +118,7 @@ const DetailsPanel: FC = () => {
 
             <SkillsSection callback={updateSkills} />
 
-            <EducationSection />
+            <EducationSection callback={updateEducationalData} />
 
             <SummarySection />
 

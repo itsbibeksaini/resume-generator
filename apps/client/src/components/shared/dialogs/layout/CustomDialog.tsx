@@ -11,7 +11,13 @@ type DialogLayoutProps = {
     title: string
     titleIcon: IconProp
     children: ReactNode
+    actionButtons?: ActionButton[]
     close: () => void
+}
+
+type ActionButton = {
+    label:string,
+    clickAction: () => void
 }
 
 const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
@@ -54,12 +60,22 @@ const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
                     {props.children}
                 </Grid>
                 <Grid className={`${styles.actionArea}`} size={12}>
-                    <Button variant="contained" sx={{marginRight:'0.5rem'}}>
+                    {/* <Button variant="contained" sx={{marginRight:'0.5rem'}}>
                         Save and Add
                     </Button>
                     <Button variant="contained">
                         Save
-                    </Button>
+                    </Button> */}
+
+                    {
+                        props.actionButtons?.map((actionButton, index) => {
+                            return(
+                                <Button variant="contained" onClick={actionButton.clickAction} key={index}>
+                                    {actionButton.label}
+                                </Button>
+                            )
+                        })
+                    }
                 </Grid>
             </Grid>
         </Dialog>

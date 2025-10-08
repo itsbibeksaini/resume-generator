@@ -25,8 +25,7 @@ const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
             setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);     
             
             props.callback(newSkills)
-            
-            
+                        
             input.value = '';
         }
     }

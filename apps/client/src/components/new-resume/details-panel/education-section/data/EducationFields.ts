@@ -18,8 +18,8 @@ export const EDUCATION_SECTIONS:EducationSections[] = [
             subSection: false,
             fields: [
                 {
-                    id:'txt-college',
-                    name:'college',
+                    id:'txt-schoolName',
+                    name:'schoolName',
                     type: "text",
                     label:'School / College',
                     col: 6,
@@ -38,18 +38,18 @@ export const EDUCATION_SECTIONS:EducationSections[] = [
             subSection: false,
             fields:  [
                 {
-                    id:'txt-startdate',
-                    name:'startdate',
+                    id:'txt-startDate',
+                    name:'startDate',
                     type: "date-picker",
                     label:'Start date',
                     col: 6,
                     required:true
                 },
                 {
-                    id:'txt-enddate',
-                    name:'enddate',
+                    id:'txt-completionDate',
+                    name:'completionDate',
                     type: "date-picker",
-                    label:'End date',
+                    label:'Completion date',
                     col: 6,
                     required:true
                 }

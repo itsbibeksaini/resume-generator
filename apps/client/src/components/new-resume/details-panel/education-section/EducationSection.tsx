@@ -1,16 +1,68 @@
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import { useState, type FC } from "react";
+import { useState, type FC, type MouseEventHandler } from "react";
 import styles from './EducationSection.module.scss'
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog";
-import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+import { faGraduationCap, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { EDUCATION_SECTIONS } from "./data/EducationFields";
 import { getDyanamicField } from "../../../../core/fields/DynamicField";
+import type { EducationInfo } from "../../../../core/template-data/TemplateData";
+import type { Dayjs } from "dayjs";
+import type { PickerValue } from "@mui/x-date-pickers/internals";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 
-const EducationSection: FC = () => {
+type EdicationalSectionProps = {
+    callback: (educationalData: EducationInfo) => void
+}
+
+const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSectionProps) => {
 
     const [dialogOpen, setDialogOpen] = useState(false)
+    const [fieldData, setFieldData] = useState<Record<string, string>>({});
+    const [educationalData, setEducationalData] = useState<EducationInfo[]>([]);
 
-    
+    function updateField(evt: React.ChangeEvent<HTMLInputElement> | Dayjs, fieldName: string) {
+        
+        let value = "";
+
+        if (dayjs.isDayjs(evt)) {
+            value = evt.format("MM/YYYY");
+        } else if (evt && "target" in evt) {
+            value = evt.target.value;
+        }
+
+        setFieldData((data) => ({
+            ...data,
+            [fieldName]: value,
+        }));
+    }
+
+    const getDataValue = (fieldName: string): string => {
+        return fieldData[fieldName] || ''
+    }
+
+    const dialogClose = () => {        
+
+        debugger
+        let educationData: EducationInfo = {
+                                                schoolName: fieldData['schoolName'],
+                                                course: fieldData['course'],
+                                                startDate: fieldData['startDate'],
+                                                completionDate: fieldData['completionDate'],
+                                                city: fieldData['city'],
+                                                state: fieldData['state'],
+                                                country: fieldData['country']
+                                            }
+
+        props.callback(educationData)
+        setEducationalData([...educationalData, educationData])
+        setDialogOpen(false)
+        setFieldData({})
+    }
+
+    const deleteEducationData = (data: EducationInfo) => {
+        setEducationalData(educationalData.filter(s => s !== data))    
+    }
 
     return(
         <Grid className={`${styles.section}`}>
@@ -19,9 +71,35 @@ const EducationSection: FC = () => {
             </Box>
             
             <Grid container className={`${styles.row}`}>
-                <Grid sx={{textAlign:'center'}} size={12}>
-                    <Typography variant="h6" color="textSecondary">No education details added yet.</Typography>
+
+                {
+                    educationalData.length == 0 && (<Grid sx={{textAlign:'center'}} size={12}>
+                        <Typography variant="h6" color="textSecondary">No education details added yet.</Typography>
+                    </Grid>)                                        
+                }
+
+                <Grid container size={12} className={`${styles.row}`} gap={2} sx={{justifyContent: 'center'}}>
+                    {
+                        educationalData.map((data, index) => {
+                            return(                                
+                                <Grid key={index} sx={{border:'1px solid', padding:'0.5rem', borderRadius:'0.25rem'}} size={3}>
+                                    <Box sx={{ textAlign:'right'}}>
+                                        <FontAwesomeIcon icon={faTrash} style={{color:'red'}} onClick={() => {deleteEducationData(data)}} />
+                                    </Box>
+                                    <Typography variant="h4">{data.schoolName}</Typography>
+                                    <Typography variant="body1">{data.course}</Typography>
+                                    <Typography variant="body1">{data.startDate} - {data.completionDate}</Typography>
+                                    <Typography variant="subtitle2">
+                                        {data.city} {data.state} - {data.country}
+                                    </Typography>
+                                </Grid>                    
+                            )
+                        })
+                    }
                 </Grid>
+
+
+                
             </Grid>
 
             <Grid container className={`${styles.row}`}>
@@ -41,12 +119,20 @@ const EducationSection: FC = () => {
                 <Divider/>
             </Box>
                 
-            <CustomDialog open={dialogOpen} title="Education" titleIcon={faGraduationCap} close={() => setDialogOpen(false)}>
+            <CustomDialog 
+                open={dialogOpen} 
+                title="Education" 
+                titleIcon={faGraduationCap} 
+                close={() => setDialogOpen(false)}
+                actionButtons={[{label: 'Save', clickAction: dialogClose}]}
+            >
                 <Grid sx={{padding:'20px 30px'}} size={12} container>
                     <Grid sx={{padding:'0.5rem'}}>
                         <Typography variant="body1">
                             Enter your education details as they should appear on your resume. Include your institution, program, dates attended, and location.
                         </Typography>
+
+                        
                     </Grid>
 
                     {
@@ -64,9 +150,9 @@ const EducationSection: FC = () => {
                                                         id={field.id} 
                                                         name={field.name} 
                                                         col={0}
-                                                        // value={getDataValue(field.name)}
+                                                        value={getDataValue(field.name)}
                                                         required={field.required}
-                                                        // onChange={(e) => updateField(e, field.name)}
+                                                        onChange={(e: Dayjs) => updateField(e, field.name)}
                                                     />
                                                 </Grid>                        
                                             )

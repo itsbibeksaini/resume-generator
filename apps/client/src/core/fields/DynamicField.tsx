@@ -4,7 +4,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import type { PickerValue } from "@mui/x-date-pickers/internals";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import type { DateValidationError, PickerChangeHandlerContext } from "@mui/x-date-pickers/models";
 import type { Dayjs } from "dayjs";
 import { memo, type JSX } from "react";
 
@@ -18,7 +17,8 @@ export type DynamicFieldProps = {
     helperText?: string,
     required:boolean,
     value?: string,    
-    onChange?: ((evt: React.ChangeEvent) => void) | ((value: Dayjs | null, keyboardInputValue?: string) => void);
+    onChange?: ((evt: React.ChangeEvent) => void) |
+     ((value: Dayjs) => void);
 }
 
 type DynamicFieldType = "text" | "date-picker"
@@ -45,7 +45,7 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                         format="MM/YYYY" 
                         label={props.label}
                         name={props.name}
-                        onChange={props.onChange as (value: Dayjs | null) => void}
+                        onChange={props.onChange as (value: PickerValue) => void}
                         slotProps={{
                             textField: {
                                 id: props.id,
