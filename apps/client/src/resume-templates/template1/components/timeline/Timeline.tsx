@@ -5,7 +5,11 @@ import { Box, Divider, Grid, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAward, faBriefcase, faLaptopCode, faStar } from "@fortawesome/free-solid-svg-icons";
 
-const Timeline: FC = () => {
+type TimelineProps = {
+    summary: string[]
+}
+
+const Timeline: FC<TimelineProps> = (props: TimelineProps) => {
   return (
     <Grid size='grow' className={`${styles.timeline}`}>
         <Box className={`${styles.section}`}>
@@ -15,23 +19,16 @@ const Timeline: FC = () => {
                 </Box>
                 <Typography className={`${resumeStyles.resumeHeading}`}>summary</Typography>
                 <Divider sx={{margin: '0.75rem 0'}} />
-                <ul className={`${styles.points}`}>
-                    <li>
-                        <Typography className={`${resumeStyles.resumeBody}`}>Senior Back-End Developer with 10 years of experience delivering high-performance,
-scalable, and secure server-side applications.</Typography>
-                    </li>                    
-                    <li>
-                        <Typography className={`${resumeStyles.resumeBody}`}>Proven expertise in designing low-latency web services, optimizing databases, and
-integrating cloud-based solutions.</Typography>
-                    </li>
-                    <li>
-                        <Typography className={`${resumeStyles.resumeBody}`}>Strong track record in Agile environments, partnering with product owners, tech leads, and
-infrastructure teams to deliver robust software solutions.</Typography>
-                    </li>
-                    <li>
-                        <Typography className={`${resumeStyles.resumeBody}`}>Adept at solving complex DevOps challenges, mentoring development teams, and ensuring
-best practices in code quality, performance optimization, and system architecture.</Typography>
-                    </li>
+                <ul className={`${styles.points}`}>                    
+                    {
+                        props.summary.map((data, index) => {
+                            return(
+                                <li>
+                                    <Typography className={`${resumeStyles.resumeBody}`} key={index}>{data}</Typography>
+                                </li>                                
+                            )
+                        })
+                    }
 
                 </ul>
             </Box>

@@ -42,8 +42,6 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
     }
 
     const dialogClose = () => {        
-
-        debugger
         let educationData: EducationInfo = {
                                                 schoolName: fieldData['schoolName'],
                                                 course: fieldData['course'],

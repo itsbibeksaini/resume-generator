@@ -1,8 +1,32 @@
-import type { FC } from "react"
+import { useState, type FC } from "react"
 import styles from './SummarySection.module.scss'
 import { Box, Divider, Grid, TextField, Typography } from "@mui/material"
 
-const SummarySection: FC = () =>{
+type SummarySectionProps = {
+    callback: (newSummary: string) => void
+}
+
+
+const SummarySection: FC<SummarySectionProps> = (props: SummarySectionProps) =>{
+
+    const [summary, setSummary] = useState<string[]>([]);
+
+    const addSummary = (e: React.KeyboardEvent<HTMLInputElement>) => {        
+        if (e.key === 'Enter') {
+            const input = e.target as HTMLInputElement;
+            const value = input.value.trim();
+            
+            setSummary(prev => [
+                ...prev,
+                value
+            ])
+            
+            props.callback(value)
+                        
+            input.value = '';
+        }
+    }
+
     return(
         <Grid className={`${styles.section}`}>
             <Box>
@@ -15,32 +39,31 @@ const SummarySection: FC = () =>{
                         fullWidth 
                         label="Summary" 
                         placeholder="Type your summary points here and press enter" 
-                        // onKeyDown={addSkill}                         
+                        onKeyDown={addSummary}                         
                     />
                 </Grid>
             </Grid>
 
-            {/* <Grid container className={`${styles.row}`}>
-                <Grid sx={{textAlign:'center'}} size={12}>
-                    <Typography variant="h6" color="textSecondary">No summary added</Typography>
-                </Grid>
-            </Grid> */}
-
-            <Grid container className={`${styles.row}`}>
+            <Grid container className={styles.row} spacing={2}>
+                {summary.length === 0 ? (
+                    <Grid size={12} sx={{ textAlign: "center" }}>
+                        <Typography variant="h6" color="textSecondary">
+                            No summary added
+                        </Typography>
+                    </Grid>
+                ) : (
                 <ul className={`${styles.timeline}`}>
-                    <li>
-                        <Typography variant="body1">Senior Back-End Developer with 10 years of experience delivering high-performance, scalable, and secure server-side applications.</Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1">Senior Back-End Developer with 10 years of experience delivering high-performance, scalable, and secure server-side applications.</Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1">Senior Back-End Developer with 10 years of experience delivering high-performance, scalable, and secure server-side applications.</Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1">Senior Back-End Developer with 10 years of experience delivering high-performance, scalable, and secure server-side applications.</Typography>
-                    </li>
+                    {
+                        summary.map((data, index) => {
+                            return(
+                                <li key={index}>
+                                    <Typography variant="body1">{data}</Typography>
+                                </li>
+                            )
+                        })
+                    }
                 </ul>
+            )}
             </Grid>
 
             <Box sx={{padding:'10px', marginTop:'1rem'}}>

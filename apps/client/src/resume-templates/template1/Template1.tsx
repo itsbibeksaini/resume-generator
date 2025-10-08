@@ -61,7 +61,7 @@ const Template1: FC = () => {
                         skills={resumeData.skills} 
                         educationalData={resumeData.educationInfo}
                     />
-                    <Timeline/>
+                    <Timeline summary={resumeData.summary}/>
                 </Grid>
             </Grid>
 

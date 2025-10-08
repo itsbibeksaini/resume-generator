@@ -4,6 +4,7 @@ export type TemplateData = {
     contactInfo: ContactInfo;
     skills: string[]
     educationInfo: EducationInfo[]
+    summary: string[]
 }
 
 type ContactInfo = {
