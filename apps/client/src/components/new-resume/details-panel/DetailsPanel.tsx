@@ -5,7 +5,7 @@ import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
-import { DUMMY_DATA, type EducationInfo, type TemplateData } from "../../../core/template-data/TemplateData";
+import { type EducationInfo, type TemplateData } from "../../../core/template-data/TemplateData";
 import EducationSection from "./education-section/EducationSection";
 import SummarySection from "./summary-section/SummarySection";
 import ProfessionalExperienceSection from "./professional-experience-section/ProfessionalExperienceSection";
@@ -50,7 +50,7 @@ const DetailsPanel: FC = () => {
             summary: summaryData            
         }
 
-        return DUMMY_DATA;
+        return templateData;
     }
 
     const updateSkills = (newSkills: string[]) => {
