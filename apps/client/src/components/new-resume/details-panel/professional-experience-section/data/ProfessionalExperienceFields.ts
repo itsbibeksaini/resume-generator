@@ -18,16 +18,16 @@ export const PROFESSIONAL_EXPERIENCE_SECTIONS: ProfessionalExperienceSections[] 
             subSection: false,
             fields: [
                 {
-                    id:'txt-companyname',
-                    name:'companyname',
+                    id:'txt-companyName',
+                    name:'companyName',
                     type: "text",
                     label:'Company name',
                     col: 6,
                     required:true
                 },
                 {
-                    id:'txt-jobposition',
-                    name:'jobposition',
+                    id:'txt-jobPosition',
+                    name:'jobPosition',
                     type: "text",
                     label:'Job position',
                     col: 6,
@@ -38,16 +38,16 @@ export const PROFESSIONAL_EXPERIENCE_SECTIONS: ProfessionalExperienceSections[] 
             subSection: false,
             fields: [
                 {
-                    id:'txt-startdate',
-                    name:'startdate',
+                    id:'txt-startDate',
+                    name:'startDate',
                     type: "date-picker",
                     label:'Start date',
                     col: 6,
                     required:true
                 },
                 {
-                    id:'txt-enddate',
-                    name:'enddate',
+                    id:'txt-endDate',
+                    name:'endDate',
                     type: "date-picker",
                     label:'End date',
                     col: 6,

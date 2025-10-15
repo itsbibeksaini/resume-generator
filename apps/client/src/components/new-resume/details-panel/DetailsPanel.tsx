@@ -1,11 +1,11 @@
-import { useState, type ChangeEvent, type FC } from "react";
+import { useState, type FocusEvent, type FC } from "react";
 import styles from './DetailsPanel.module.scss';
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
-import { type EducationInfo, type TemplateData } from "../../../core/template-data/TemplateData";
+import { type EducationInfo, type ProfessionalExperienceInfo, type TemplateData } from "../../../core/template-data/TemplateData";
 import EducationSection from "./education-section/EducationSection";
 import SummarySection from "./summary-section/SummarySection";
 import ProfessionalExperienceSection from "./professional-experience-section/ProfessionalExperienceSection";
@@ -16,11 +16,12 @@ const DetailsPanel: FC = () => {
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
     const [skills, setSkills] = useState<string[]>([]);
     const [educationData, setEducationalData] = useState<EducationInfo[]>([]);
-    const [summaryData, setSummaryData] = useState<string[]>([])
+    const [summaryData, setSummaryData] = useState<string[]>([]);
+    const [professionalExperienceData, setProfessionalExperienceData] = useState<ProfessionalExperienceInfo[]>([]);
 
     const navigate = useNavigate();
 
-    const updateField = (evt: React.ChangeEvent<Element>, fieldID: string) => {
+    const updateField = (evt: FocusEvent<Element>, fieldID: string) => {        
         const value = (evt.target as HTMLInputElement).value;
         setResumeData((data) => ({ ...data, [fieldID]: value }));
     };
@@ -47,7 +48,8 @@ const DetailsPanel: FC = () => {
             },
             skills: skills,
             educationInfo: educationData,
-            summary: summaryData            
+            summary: summaryData,
+            professionalExperience: professionalExperienceData            
         }
 
         return templateData;
@@ -68,6 +70,10 @@ const DetailsPanel: FC = () => {
         ])
     }
 
+    const updateProfessionalExperienceData = (newData: ProfessionalExperienceInfo) => {
+        setProfessionalExperienceData(prevData => [...prevData, newData]);
+    }
+
     return (
         <Grid className={`${styles.detailsPanel}`} size='grow'>
             <header>
@@ -75,9 +81,9 @@ const DetailsPanel: FC = () => {
             </header>            
 
             {
-                RESUME_SECTIONS.map((section) => {
+                RESUME_SECTIONS.map((section, index) => {
                     return(
-                        <Grid className={`${styles.section}`}>
+                        <Grid className={`${styles.section}`} key={index}>
                             <Box>
                                 <Typography variant="h6">{section.header}</Typography>
                             </Box>
@@ -102,10 +108,9 @@ const DetailsPanel: FC = () => {
                                                                     label={field.label} 
                                                                     id={field.id} 
                                                                     name={field.name} 
-                                                                    col={0}
-                                                                    value={getDataValue(field.name)}
+                                                                    col={0}                                                                    
                                                                     required={field.required}
-                                                                    onChange={(e: ChangeEvent<Element>) => updateField(e, field.name)}
+                                                                    onBlur={(e: FocusEvent<Element>) => updateField(e, field.name)}
                                                                 />
                                                             </Grid>
                                                         );
@@ -130,7 +135,7 @@ const DetailsPanel: FC = () => {
 
             <SummarySection callback={updateSummaryData} />
 
-            <ProfessionalExperienceSection />
+            <ProfessionalExperienceSection callback={updateProfessionalExperienceData} />
 
             <ProjectsSection />
 

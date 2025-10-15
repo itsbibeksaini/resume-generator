@@ -18,7 +18,9 @@ export type DynamicFieldProps = {
     required:boolean,
     value?: string,    
     onChange?: ((evt: React.ChangeEvent) => void) |
-     ((value: Dayjs) => void);
+     ((value: Dayjs) => void),
+    onBlur?: (evt: React.FocusEvent) => void,
+    onKeyDown?: (evt: React.KeyboardEvent) => void
 }
 
 type DynamicFieldType = "text" | "date-picker"
@@ -33,7 +35,9 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                     value={props.value}
                     placeholder={props.placeholder}
                     onChange={props.onChange as (e: React.ChangeEvent<HTMLInputElement>) => void}
+                    onBlur={props.onBlur}
                     helperText = {props.helperText}
+                    onKeyDown={props.onKeyDown}
                     required={props.required}
                 />
     }),
@@ -45,12 +49,13 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                         format="MM/YYYY" 
                         label={props.label}
                         name={props.name}
-                        onChange={props.onChange as (value: PickerValue) => void}
+                        onChange={props.onChange as (value: PickerValue) => void}                                                                        
                         slotProps={{
                             textField: {
                                 id: props.id,
                                 required: props.required,
-                                helperText: props.helperText
+                                helperText: props.helperText,
+                                onBlur: props.onBlur,
                             }
                         }}
                     />

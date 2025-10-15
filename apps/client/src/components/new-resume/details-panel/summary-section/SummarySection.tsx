@@ -1,6 +1,8 @@
 import { useState, type FC } from "react"
 import styles from './SummarySection.module.scss'
 import { Box, Divider, Grid, TextField, Typography } from "@mui/material"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTimes, faTrash } from "@fortawesome/free-solid-svg-icons"
 
 type SummarySectionProps = {
     callback: (newSummary: string) => void
@@ -56,8 +58,9 @@ const SummarySection: FC<SummarySectionProps> = (props: SummarySectionProps) =>{
                     {
                         summary.map((data, index) => {
                             return(
-                                <li key={index}>
+                                <li key={index} style={{position:'relative'}}>
                                     <Typography variant="body1">{data}</Typography>
+                                    <FontAwesomeIcon icon={faTrash} style={{position:'absolute', right:'0', top:'50%', transform:'translateY(-50%)'}} />
                                 </li>
                             )
                         })
