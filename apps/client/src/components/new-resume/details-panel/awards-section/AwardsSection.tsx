@@ -1,18 +1,73 @@
 import { Box, Button, ButtonBase, Divider, Grid, Tab, Tabs, Typography } from "@mui/material";
-import { useState, type FC, type SyntheticEvent } from "react";
+import { useState, type ChangeEvent, type FC, type FocusEvent, type SyntheticEvent } from "react";
 import styles from './AwardsSection.module.scss'
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog";
-import { faAward, faCertificate, faHome, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faAward, faCertificate, faHome, faTrash, faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AWARDS_SECTION } from "./data/AwardsFields";
 import { getDyanamicField } from "../../../../core/fields/DynamicField";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
+import type { AwardsAndCertificationsInfo } from "../../../../core/template-data/TemplateData";
 
-const AwardsSection: FC = () => {
+type AwardsSectionProps = {
+    callback: (data: AwardsAndCertificationsInfo[]) => void
+}
+
+const AwardsSection: FC<AwardsSectionProps> = (props: AwardsSectionProps) => {
     const [dialogOpen, setDialogOpen] = useState(false)
-    const [tabValue, setTabValue] = useState(0);
+    const [isCertificate, setIsCertificate] = useState(false)
+    const [isAward, setIsAward] = useState(false)
+    const [fieldData, setFieldData] = useState<Record<string, string>>({});
+    const [awards, setAwards] = useState<AwardsAndCertificationsInfo[]>([]);
 
-    const switchTab = (event: SyntheticEvent, newValue: number) => {
-        setTabValue(newValue)
+
+    const updateField = (evt: ChangeEvent<Element> | FocusEvent<Element> | Dayjs, fieldName: string) => {
+        let value = "";
+
+        if (dayjs.isDayjs(evt)) {
+            value = evt.format("MM/YYYY");
+        } else if (evt && "target" in evt) {
+            value = (evt.target as HTMLInputElement).value;            
+        }
+
+        setFieldData((data) => ({...data,[fieldName]: value}));
+    }
+
+    const getDataValue = (fieldName: string): string => {
+        return fieldData[fieldName] || ''
+    }
+
+    const selectType = (type: 'award' | 'certificate') => {
+        if(type === 'award') {
+            setIsAward(true)
+            setIsCertificate(false)
+        }
+        else {
+            setIsCertificate(true)
+            setIsAward(false)
+        }
+    }
+
+    const dialogClose = () => {
+
+        let newAward: AwardsAndCertificationsInfo = {
+            type: isAward ? 'award' : 'certificate',
+            title: getDataValue('awardName'),
+            issuer: getDataValue('institution'),
+            issueDate: getDataValue('issueDate'),
+            expirationDate: getDataValue('expirationDate')
+        }
+
+        setAwards((prev) => [...prev, newAward])
+        setDialogOpen(false)
+        resetDialog()
+    }
+
+    const resetDialog = () => {
+        setIsAward(false)
+        setIsCertificate(false)
+        setFieldData({})
     }
 
     return(
@@ -22,9 +77,48 @@ const AwardsSection: FC = () => {
             </Box>
 
             <Grid container className={`${styles.row}`}>
-                <Grid sx={{textAlign:'center'}} size={12}>
-                    <Typography variant="h6" color="textSecondary">No award or certification details added yet</Typography>
-                </Grid>
+
+                {
+                    awards.length === 0 ?
+                    <Grid sx={{textAlign:'center'}} size={12}>
+                        <Typography variant="h6" color="textSecondary">No award or certification details added yet</Typography>
+                    </Grid> : 
+                    <Grid className={`${styles.timeline}`} sx={{marginLeft:'1rem'}} size={12}>
+                        {
+                            awards.map((award, index) => {
+                                return(
+                                    <Box key={index} sx={{marginBottom:'1rem'}} className={`${styles.timelineEvent}`}>
+                                        <Grid className={`${styles.eventHeader}`} container>
+                                            <Grid size='auto'>
+                                                <Typography variant="h6" sx={{textTransform: 'uppercase'}}>{award.title}</Typography>
+                                                <Typography variant="subtitle1">{award.issuer}</Typography>
+                                                <Box className={`${styles.timelineIcon}`}>
+                                                    <FontAwesomeIcon icon={award.type === 'award' ? faAward : faCertificate} style={{fontSize:'1.2rem'}} className="centeralize" />
+                                                </Box>
+                                            </Grid>
+                                            <Grid size='grow'>
+                                                <Box className={`vertical-center`} sx={{right:0}}>
+                                                    <Typography variant="body2" color="textSecondary">
+                                                        {award.issueDate}
+                                                        {award.expirationDate && award.expirationDate.length > 0 ? ` - ${award.expirationDate}` : ''}
+                                                    </Typography>
+                                                    {/* <Typography variant="body2" color="textSecondary">{proj.city}, {proj.state} {proj.country}</Typography> */}
+                                                </Box>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Box sx={{position:'relative'}}>
+                                            <ButtonBase className={`${styles.trashButton}`}>
+                                                <FontAwesomeIcon icon={faTrash}/>
+                                            </ButtonBase>
+                                        </Box>
+                                    </Box>
+                                )
+                            })
+                        }
+                    </Grid>
+                }
+                
             </Grid>
 
             <Grid container className={`${styles.row}`}>
@@ -44,7 +138,13 @@ const AwardsSection: FC = () => {
                 <Divider/>
             </Box>
 
-            <CustomDialog open={dialogOpen} title="Awards & Certifications" titleIcon={faAward} close={() => setDialogOpen(false)}>
+            <CustomDialog 
+                open={dialogOpen} 
+                title="Awards & Certifications" 
+                titleIcon={faAward} 
+                close={() => setDialogOpen(false)}
+                actionButtons={[{label: 'Save', clickAction: dialogClose}]}
+                >
                 <Grid sx={{padding:'20px 30px'}} size={12} container>
                     <Grid sx={{padding:'0.5rem'}}>
                         <Typography variant="body1">
@@ -52,20 +152,19 @@ const AwardsSection: FC = () => {
                         </Typography>
                     </Grid>
 
-                    <Grid size={12} container gap={2} sx={{padding:'0.5rem', marginBottom:'0.5rem'}}>
-                        <Grid sx={{border:'1px solid #1876d2', width:'100px', height:'100px', borderRadius:'0.25rem', boxShadow:'5px 5px 0px rgb(24,118,210, 0.4)'}}>
-                            <ButtonBase sx={{height:'100%', width:'100%', display:'flex', flexDirection:'column'}}>
-                                <FontAwesomeIcon icon={faAward} style={{display:'block', fontSize:'3rem'}} />                                
-                                <Typography sx={{textTransform:'uppercase', marginTop:'0.5rem'}} variant="body1">Award</Typography>
+                    <Grid size={12} container gap={2} className={`${styles.certificateTypes}`}>
+                        <Grid className={`${styles.type} ${isAward ? styles.selected : ''}`}>
+                            <ButtonBase className={`${styles.iconButton}`} onClick={() => selectType('award')}>
+                                <FontAwesomeIcon icon={faAward} className={`${styles.icon}`} />                                
+                                <Typography className={`${styles.label}`} variant="body1">Award</Typography>
                             </ButtonBase>
                         </Grid>
-                        <Grid sx={{border:'1px solid #1876d2', width:'100px', height:'100px', borderRadius:'0.25rem'}}>
-                            <ButtonBase sx={{height:'100%', width:'100%', display:'flex', flexDirection:'column'}}>
-                                <FontAwesomeIcon icon={faCertificate} style={{display:'block', fontSize:'3rem'}} />                                
-                                <Typography sx={{textTransform:'uppercase', marginTop:'0.5rem'}} variant="body2">Certificate</Typography>
+                        <Grid className={`${styles.type} ${isCertificate ? styles.selected : ''}`}>
+                            <ButtonBase className={`${styles.iconButton}`} onClick={() => selectType('certificate')}>
+                                <FontAwesomeIcon icon={faCertificate} className={`${styles.icon}`} />
+                                <Typography className={`${styles.label}`} variant="body2">Certificate</Typography>
                             </ButtonBase>
-                        </Grid>
-                        
+                        </Grid>                        
                     </Grid>
 
                     {
@@ -83,9 +182,18 @@ const AwardsSection: FC = () => {
                                                         id={field.id} 
                                                         name={field.name} 
                                                         col={0}
-                                                        // value={getDataValue(field.name)}
                                                         required={field.required}
-                                                        // onChange={(e) => updateField(e, field.name)}
+                                                        {
+                                                            ...                                                            
+                                                            (() =>{
+                                                                if(field.type === 'text') {                                                                    
+                                                                    return { onBlur: (e: FocusEvent<Element>) => updateField(e, field.name) }
+                                                                }
+                                                                else if(field.type === 'date-picker') {
+                                                                    return { onChange: (e: Dayjs) => updateField(e, field.name) }
+                                                                }
+                                                            })()                                                            
+                                                        }
                                                     />
                                                 </Grid>                        
                                             )

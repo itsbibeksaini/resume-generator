@@ -98,7 +98,7 @@ const ProjectsSection: FC<ProjectsSectionProps> = (props: ProjectsSectionProps) 
                             <Typography variant="h6" color="textSecondary">No project added</Typography>
                         </Grid>
                     </Grid> : 
-                    (<Grid className={`${styles.timeline}`} sx={{marginLeft:'1rem'}} size={12}>
+                    <Grid className={`${styles.timeline}`} sx={{marginLeft:'1rem'}} size={12}>
                         {
                             projects.map((proj, index) => {
                                 return(
@@ -151,7 +151,7 @@ const ProjectsSection: FC<ProjectsSectionProps> = (props: ProjectsSectionProps) 
                                 )
                             })
                         }                    
-                    </Grid>)
+                    </Grid>
                 }
 
 

@@ -19,8 +19,8 @@ export const AWARDS_SECTION: AwardsSections[] = [
                 subSection: false,
                 fields:[
                     {
-                        id:'txt-awardname',
-                        name:'awardname',
+                        id:'txt-awardName',
+                        name:'awardName',
                         type: "text",
                         label:'Award / Certification Name',
                         col: 6,
@@ -38,19 +38,19 @@ export const AWARDS_SECTION: AwardsSections[] = [
                 subSection: false,
                 fields:[
                     {
-                        id:'txt-startdate',
-                        name:'startdate',
+                        id:'txt-startDate',
+                        name:'issueDate',
                         type: "date-picker",
-                        label:'Start date',
+                        label:'Issue date',
                         col: 6,
                         required:true
                     },{
-                        id:'txt-enddate',
-                        name:'enddate',
+                        id:'txt-expirationDate',
+                        name:'expirationDate',
                         type: "date-picker",
-                        label:'End date',
+                        label:'Expiration date',
                         col: 6,
-                        required:true
+                        required:false
                     }
                 ]
             }

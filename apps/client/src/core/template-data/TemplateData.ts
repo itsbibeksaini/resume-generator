@@ -48,3 +48,11 @@ export type ProjectInfo = {
     projectDescription: string[],
     projectTechnologies: string[]
 }
+
+export type AwardsAndCertificationsInfo = {
+    type: 'award' | 'certificate',
+    title: string,
+    issuer: string,
+    issueDate: string,
+    expirationDate?: string,    
+}

@@ -5,7 +5,7 @@ import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
-import { type EducationInfo, type ProfessionalExperienceInfo, type ProjectInfo, type TemplateData } from "../../../core/template-data/TemplateData";
+import { type AwardsAndCertificationsInfo, type EducationInfo, type ProfessionalExperienceInfo, type ProjectInfo, type TemplateData } from "../../../core/template-data/TemplateData";
 import EducationSection from "./education-section/EducationSection";
 import SummarySection from "./summary-section/SummarySection";
 import ProfessionalExperienceSection from "./professional-experience-section/ProfessionalExperienceSection";
@@ -19,6 +19,7 @@ const DetailsPanel: FC = () => {
     const [summaryData, setSummaryData] = useState<string[]>([]);
     const [professionalExperienceData, setProfessionalExperienceData] = useState<ProfessionalExperienceInfo[]>([]);
     const [projects, setProjects] = useState<ProjectInfo[]>([]);
+    const [awards, setAwards] = useState<AwardsAndCertificationsInfo[]>([]);
 
     const navigate = useNavigate();
 
@@ -78,6 +79,10 @@ const DetailsPanel: FC = () => {
 
     const updateProjectsData = (newData: ProjectInfo) => {
         setProjects(prevData => [...prevData, newData]);
+    }
+
+    const updateAwardsData = (newData: AwardsAndCertificationsInfo[]) => {
+        setAwards(newData);
     }
 
     return (
@@ -145,7 +150,7 @@ const DetailsPanel: FC = () => {
 
             <ProjectsSection callback={updateProjectsData} />
 
-            <AwardsSection />
+            <AwardsSection callback={updateAwardsData} />
 
             <footer>
                 <Button sx={{marginRight: '1rem'}}>Save</Button>
