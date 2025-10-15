@@ -5,7 +5,7 @@ import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
-import { type EducationInfo, type ProfessionalExperienceInfo, type TemplateData } from "../../../core/template-data/TemplateData";
+import { type EducationInfo, type ProfessionalExperienceInfo, type ProjectInfo, type TemplateData } from "../../../core/template-data/TemplateData";
 import EducationSection from "./education-section/EducationSection";
 import SummarySection from "./summary-section/SummarySection";
 import ProfessionalExperienceSection from "./professional-experience-section/ProfessionalExperienceSection";
@@ -18,6 +18,7 @@ const DetailsPanel: FC = () => {
     const [educationData, setEducationalData] = useState<EducationInfo[]>([]);
     const [summaryData, setSummaryData] = useState<string[]>([]);
     const [professionalExperienceData, setProfessionalExperienceData] = useState<ProfessionalExperienceInfo[]>([]);
+    const [projects, setProjects] = useState<ProjectInfo[]>([]);
 
     const navigate = useNavigate();
 
@@ -49,7 +50,8 @@ const DetailsPanel: FC = () => {
             skills: skills,
             educationInfo: educationData,
             summary: summaryData,
-            professionalExperience: professionalExperienceData            
+            professionalExperience: professionalExperienceData,
+            projects: projects      
         }
 
         return templateData;
@@ -72,6 +74,10 @@ const DetailsPanel: FC = () => {
 
     const updateProfessionalExperienceData = (newData: ProfessionalExperienceInfo) => {
         setProfessionalExperienceData(prevData => [...prevData, newData]);
+    }
+
+    const updateProjectsData = (newData: ProjectInfo) => {
+        setProjects(prevData => [...prevData, newData]);
     }
 
     return (
@@ -137,7 +143,7 @@ const DetailsPanel: FC = () => {
 
             <ProfessionalExperienceSection callback={updateProfessionalExperienceData} />
 
-            <ProjectsSection />
+            <ProjectsSection callback={updateProjectsData} />
 
             <AwardsSection />
 

@@ -5,7 +5,8 @@ export type TemplateData = {
     skills: string[]
     educationInfo: EducationInfo[]
     summary: string[]
-    professionalExperience: ProfessionalExperienceInfo[]
+    professionalExperience: ProfessionalExperienceInfo[],
+    projects: ProjectInfo[]
 }
 
 type ContactInfo = {
@@ -37,4 +38,13 @@ export type ProfessionalExperienceInfo = {
     country?: string,
     responsibilities: string[],
     achievements: string[]
+}
+
+export type ProjectInfo = {
+    projectName: string,
+    subtitle: string,
+    startDate: string,
+    endDate: string,
+    projectDescription: string[],
+    projectTechnologies: string[]
 }

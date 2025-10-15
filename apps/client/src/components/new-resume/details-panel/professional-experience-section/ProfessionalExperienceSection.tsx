@@ -1,8 +1,8 @@
 import { useState, type ChangeEvent, type FC, type FocusEvent, type KeyboardEvent } from "react";
 import styles from './ProfessionalExperienceSection.module.scss'
-import { Box, Button, Divider, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonBase, Divider, Grid, IconButton, TextField, Typography } from "@mui/material";
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog";
-import { faAward, faBriefcase, faCertificate, faClipboardList } from "@fortawesome/free-solid-svg-icons";
+import { faAward, faBriefcase, faCertificate, faClipboardList, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { PROFESSIONAL_EXPERIENCE_SECTIONS } from "./data/ProfessionalExperienceFields";
 import { getDyanamicField } from "../../../../core/fields/DynamicField";
 import type { ProfessionalExperienceInfo } from "../../../../core/template-data/TemplateData";
@@ -20,7 +20,7 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
     const [achievements, setAchievements] = useState<string[]>([]);
     const [professionalExperienceData, setprofessionalExperienceData] = useState<ProfessionalExperienceInfo[]>([]);
 
-    function updateField(evt: ChangeEvent<Element> | FocusEvent<Element> | Dayjs, fieldName: string) {
+    const updateField = (evt: ChangeEvent<Element> | FocusEvent<Element> | Dayjs, fieldName: string) => {
             
         let value = "";
 
@@ -87,7 +87,7 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
 
     return (
         <Grid className={`${styles.section}`}>
-            <Box>
+            <Box sx={{marginBottom:'1rem'}}>
                 <Typography variant="h6">Professional Experience</Typography>
             </Box>
 
@@ -119,7 +119,7 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
                                     <Box sx={{marginTop:'0.5rem',position:'relative'}}>
                                         <Box sx={{position:'relative', height:'30px'}}>
                                             <Box className={`${styles.iconBox}`}>
-                                                <FontAwesomeIcon icon={faClipboardList} className="centeralize" />                                            
+                                                <FontAwesomeIcon icon={faClipboardList} className="centeralize" style={{fontSize:'1.2rem'}} />                                            
                                             </Box>
                                             <Typography variant="subtitle1">Role & Responsibilities</Typography>
                                         </Box>
@@ -128,7 +128,7 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
                                             {
                                                 item.responsibilities.map((resp, idx) => (
                                                     <li key={idx}>
-                                                        <Typography variant="body2">{resp}</Typography>
+                                                        <Typography variant="body2" color="textSecondary">{resp}</Typography>
                                                     </li>
                                                 ))
                                             }
@@ -136,9 +136,11 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
                                     </Box>
                                 }
                                 {
+
+                                    item.achievements.length === 0 ? null :
                                     <Box sx={{marginTop:'0.5rem'}}>
                                         <Box sx={{position:'relative', height:'30px'}}>
-                                            <Box className={`${styles.iconBox}`}>
+                                            <Box className={`${styles.iconBox}`} style={{fontSize:'1.2rem'}}>
                                                 <FontAwesomeIcon icon={faAward} className="centeralize" />                                            
                                             </Box>
                                             <Typography variant="subtitle1">Achievements</Typography>
@@ -147,13 +149,19 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
                                             {
                                                 item.achievements.map((ach, idx) => (
                                                     <li key={idx}>
-                                                        <Typography variant="body2">{ach}</Typography>
+                                                        <Typography variant="body2" color="textSecondary">{ach}</Typography>
                                                     </li>
                                                 ))
                                             }
                                         </ul>
                                     </Box>
                                 }
+
+                                <Box sx={{position:'relative'}}>
+                                    <ButtonBase className={`${styles.trashButton}`}>
+                                        <FontAwesomeIcon icon={faTrash}/>
+                                    </ButtonBase>
+                                </Box>
                             </Box>
                         ))
                     }
@@ -249,7 +257,7 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
                                     {
                                         responsibilities.map((item, index) => (
                                             <li key={index}>
-                                                <Typography variant="body2">{item}</Typography>
+                                                <Typography variant="body2" >{item}</Typography>
                                             </li>
                                         ))
                                     }

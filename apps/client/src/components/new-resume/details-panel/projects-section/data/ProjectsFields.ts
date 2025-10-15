@@ -19,8 +19,8 @@ export const PROJECT_SECTION: ProjectSections[] = [
                 subSection: false,
                 fields: [
                     {
-                        id:'txt-projectname',
-                        name:'projectname',
+                        id:'txt-projectName',
+                        name:'projectName',
                         type: "text",
                         label:'Project name',
                         col: 6,
@@ -35,27 +35,35 @@ export const PROJECT_SECTION: ProjectSections[] = [
                         required:true
                     }
                 ]
+            },{
+                subSection: false,
+                fields: [
+                    {
+                        id:'txt-startDate',
+                        name:'startDate',
+                        type: "date-picker",
+                        label:'Start date',
+                        col: 6,
+                        required:true
+                    },
+                    {
+                        id:'txt-endDate',
+                        name:'endDate',
+                        type: "date-picker",
+                        label:'End date',
+                        col: 6,
+                        required:true
+                    }
+                ]
             },
             {
                 subSection: false,
                 fields: [
                     {
-                        id:'txt-projectdescription',
-                        name:'projectdescription',
+                        id:'txt-projectDescription',
+                        name:'projectDescription',
                         type: "text",
                         label:'Project description',
-                        col: 12,
-                        required:true
-                    }                    
-                ]
-            },{
-                subSection: false,
-                fields: [
-                    {
-                        id:'txt-technologiesused',
-                        name:'technologiesused',
-                        type: "text",
-                        label:'Technologies used',
                         col: 12,
                         required:true
                     }                    

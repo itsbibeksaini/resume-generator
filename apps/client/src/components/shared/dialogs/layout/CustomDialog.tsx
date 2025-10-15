@@ -22,12 +22,12 @@ type ActionButton = {
 
 const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
 
-    const closeDialog = () => {
+    const closeDialog = () => {                
         props.close()
     }
 
     return(
-        <Dialog open={props.open} className={`${styles.fadeInUpBig}`} slotProps={{
+        <Dialog open={props.open} onClose={closeDialog} className={`${styles.fadeInUpBig}`} slotProps={{
             paper: {
                 sx:{
                     position:'absolute',
