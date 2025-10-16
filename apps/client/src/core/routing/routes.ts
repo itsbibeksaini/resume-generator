@@ -4,6 +4,7 @@ import Layout from "../../components/shared/layout/Layout";
 import SignIn from "../../components/auth/SignIn";
 import NewResume from "../../components/new-resume/NewResume";
 import Template1 from "../../resume-templates/template1/Template1";
+import TemplateLayout from "../../resume-templates/shared/template-layout/TemplateLayout";
 
 // export const PUBLIC_ROUTES = createBrowserRouter([
 //     {
@@ -37,7 +38,11 @@ export const PRIVATE_ROUTES = createBrowserRouter([
         Component: Layout,
         children: [{
             path: '',
-            Component: Template1
+            Component: TemplateLayout,
+            children:[{
+                path: '',
+                Component: Template1
+            }]
         }]
     }
 ]);

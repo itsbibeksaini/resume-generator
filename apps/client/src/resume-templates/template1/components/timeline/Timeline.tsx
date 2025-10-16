@@ -27,9 +27,9 @@ const Timeline: FC<TimelineProps> = (props: TimelineProps) => {
                     {
                         props.summary.map((data, index) => {
                             return(
-                                <li>
-                                    <Typography className={`${resumeStyles.resumeBody}`} key={index}>{data}</Typography>
-                                </li>                                
+                                <li key={index}>
+                                    <Typography className={`${resumeStyles.resumeBody}`}>{data}</Typography>
+                                </li>
                             )
                         })
                     }
@@ -48,7 +48,7 @@ const Timeline: FC<TimelineProps> = (props: TimelineProps) => {
                 {
                     props.professionalExperience.map((experience, index) => {
                         return(                                
-                            <Box className={`${styles.subSection}`}>
+                            <Box className={`${styles.subSection}`} key={index}>
                                 <Grid className={`${styles.subSectionHeader}`} container>
                                     <Grid size='grow'>
                                         <Typography className={`${resumeStyles.resumeHeading}`} sx={{textTransform: 'none'}}>{experience.jobPosition}</Typography>
