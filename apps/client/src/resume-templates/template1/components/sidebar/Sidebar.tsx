@@ -33,7 +33,7 @@ const Sidebar: FC<ResumeSidebarProps> = (props: ResumeSidebarProps) => {
                     <Typography className={`${resumeStyles.resumeHeading}`}>contact information</Typography>
                 </Grid>
                 <Grid size={12}>
-                    <Divider sx={{margin: '0.25rem 0.5rem'}} />
+                    <Divider sx={{margin: '0 0.5rem'}} />
                 </Grid>
             </Grid>
             <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
@@ -121,7 +121,7 @@ const Sidebar: FC<ResumeSidebarProps> = (props: ResumeSidebarProps) => {
                     <Typography className={`${resumeStyles.resumeHeading}`}>education</Typography>
                 </Grid>
                 <Grid size={12}>
-                    <Divider sx={{margin: '0.25rem 0.5rem'}} />
+                    <Divider sx={{margin: '0 0.5rem'}} />
                 </Grid>
                 <Grid gap={1} className={`${styles.educationalSection}`} size={12}>
                     {
@@ -132,9 +132,9 @@ const Sidebar: FC<ResumeSidebarProps> = (props: ResumeSidebarProps) => {
                             return(
                                 <Grid className={`${styles.education}`} size={12} key={index}>
                                     <Typography className={`${resumeStyles.resumeHeading}`} sx={{textTransform: 'none'}}>{data.schoolName}</Typography>
-                                    <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{marginTop:'0.5rem'}}>{data.course}</Typography>
-                                    <Typography className={`${resumeStyles.resumeBody}`}>{data.startDate} - {data.completionDate}</Typography>
-                                    <Typography variant="subtitle2">{data.city} {data.state} - {data.country}</Typography>
+                                    <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{lineHeight:'1.5 !important'}}>{data.city} {data.state} - {data.country}</Typography>
+                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" >{data.course}</Typography>
+                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" >{data.startDate} - {data.completionDate}</Typography>                                    
                                 </Grid>
                             )
                         })

@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import styles from './Template1.module.scss';
 import resumeStyles from '../shared/ResumeTemplate.module.scss';
 import { Box, Button, Divider, Grid, IconButton, Typography, } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import html2pdf from 'html2pdf.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft  } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +26,7 @@ const Template1: FC = () => {
         filename: resumeData.fullName + '_resume.pdf',        
         image: { type: "jpeg" as "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
-        margin: 16,
+        margin: [16,0,16,0],
         jsPDF: { unit: 'px', format: 'letter', orientation: 'portrait', hotfixes: ["px_scaling"] },
         
     }
@@ -61,11 +61,16 @@ const Template1: FC = () => {
                         skills={resumeData.skills} 
                         educationalData={resumeData.educationInfo}
                     />
-                    <Timeline summary={resumeData.summary}/>
+                    <Timeline 
+                        summary={resumeData.summary}
+                        professionalExperience={resumeData.professionalExperience}
+                        projects={resumeData.projects}
+                        awardsAndCertifications={resumeData.awardsAndCertifications}
+                    />
                 </Grid>
             </Grid>
 
-            <footer >
+            <footer>
                 <Button variant="contained" onClick={convertToPdf}>Generate</Button>
             </footer>
         </Box>

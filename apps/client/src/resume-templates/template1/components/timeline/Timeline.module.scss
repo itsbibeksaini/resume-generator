@@ -30,7 +30,8 @@
         }
 
         & .subSection{
-            
+            // border: 1px solid red;
+            margin-bottom: 1rem;
 
             & .subSectionHeader{                
                 padding-bottom: 1rem;
@@ -62,8 +63,9 @@
             }
 
             & .achievements{
-                margin: 1rem 0;
+                margin: 0.5rem 0;
                 position: relative;
+                // border: 1px solid red;
 
                 & .achievementIcon{
                     width: 30px;
