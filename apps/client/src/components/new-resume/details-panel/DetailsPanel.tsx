@@ -11,8 +11,13 @@ import SummarySection from "./summary-section/SummarySection";
 import ProfessionalExperienceSection from "./professional-experience-section/ProfessionalExperienceSection";
 import ProjectsSection from "./projects-section/ProjectsSection";
 import AwardsSection from "./awards-section/AwardsSection";
+import type { Template } from "../../../core/template-data/Template";
 
-const DetailsPanel: FC = () => {    
+type DetailsPanelProps = {
+    selectedTemplate?: Template;
+}
+
+const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
     const [skills, setSkills] = useState<string[]>([]);
     const [educationData, setEducationalData] = useState<EducationInfo[]>([]);
@@ -32,8 +37,9 @@ const DetailsPanel: FC = () => {
         return resumeData[fieldId] || '';
     }
 
-    const previewResume = () => {
-        navigate('/template1', {state: compileResumeData()});
+    const previewResume = () => {        
+        if (selectedTemplate) 
+            navigate(selectedTemplate?.route, {state: compileResumeData()});
     }
 
     const compileResumeData = () => {        
