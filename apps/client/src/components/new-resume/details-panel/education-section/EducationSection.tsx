@@ -41,6 +41,7 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
     }
 
     const validateField = (name:string, value:string) => {
+        debugger
         let fieldSchema = EducationInfoSchema.shape[name as keyof EducationInfo]
         if(!fieldSchema) return
 
@@ -54,6 +55,28 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
             ...prev,
             [name]: result.success ? undefined : result.error.issues[0].message,
         }));
+     }
+
+     const validateAll = (data: EducationInfo): boolean => {
+
+        let result = EducationInfoSchema.safeParse(data)
+        if(!result.success){
+            const flattened = result.error.flatten();
+            const fieldErrors: Partial<Record<keyof typeof data, string>> = {};
+
+            // Map first error per field
+            for (const key in flattened.fieldErrors) {
+            const messages = flattened.fieldErrors[key as keyof typeof data];
+            if (messages && messages.length > 0) {
+                fieldErrors[key as keyof typeof data] = messages[0];
+            }
+            }
+
+            setErrors(fieldErrors);
+        }
+
+        return result.success
+            
      }
 
     const getDataValue = (fieldName: string): string => {
@@ -71,11 +94,16 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                                                 country: fieldData['country']
                                             }
 
-        props.callback(educationData)
-        setEducationalData([...educationalData, educationData])
-        setDialogOpen(false)
-        setFieldData({})
+        let isValid =  validateAll(educationData)
+
+        if(isValid){
+            props.callback(educationData)
+            setEducationalData([...educationalData, educationData])
+            setDialogOpen(false)
+            setFieldData({})
+        }        
     }
+    
 
     const deleteEducationData = (data: EducationInfo) => {
         setEducationalData(educationalData.filter(s => s !== data))    

@@ -69,6 +69,7 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                         label={props.label}
                         name={props.name}
                         onChange={props.onChange as (value: PickerValue) => void}  
+                        
                                                                                                                
                         slotProps={{
                             textField: {
@@ -76,12 +77,13 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                                 required: props.required,
                                 helperText: props.helperText,
                                 onBlur: props.onBlur,
-                                error: showError
+                                error: showError,
+                                sx: {zIndex:'1', backgroundColor:'#fff'}
                             }
                         }}
                     />
                </LocalizationProvider>
-               <Grid container sx={{display: showError ? 'block': 'none'}}>
+               <Grid container sx={{display: showError ? 'flex': 'none'}}>
                     <Grid size='auto' sx={{paddingTop:'0.27rem'}}>
                         <FontAwesomeIcon icon={faTriangleExclamation} className={`${styles.errorIcon}`} />                    
                     </Grid>
