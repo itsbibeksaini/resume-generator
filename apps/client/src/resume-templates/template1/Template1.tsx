@@ -22,9 +22,8 @@ const Template1: FC = () => {
     
     const [resumeData] = useState<TemplateData>(location.state);
 
-    // const navigate = useNavigate();
-
     const contentRef = useRef(null);
+
     const { setTemplateRef } = useOutletContext<OutletContextType>();
 
     useEffect(() => {
@@ -32,22 +31,6 @@ const Template1: FC = () => {
             setTemplateRef(contentRef);
         }
     }, [setTemplateRef]);
-
-    // const pdfOptions: any = {
-    //     filename: resumeData.fullName + '_resume.pdf',        
-    //     image: { type: "jpeg" as "jpeg", quality: 0.98 },
-    //     html2canvas: { scale: 2 },
-    //     margin: [16,0,16,0],
-    //     jsPDF: { unit: 'px', format: 'letter', orientation: 'portrait', hotfixes: ["px_scaling"] },
-        
-    // }
-
-    // const convertToPdf = () => {    
-    //     const content = contentRef.current;
-    //     if (!content) return;
-    //     html2pdf().set(pdfOptions).from(content).save();
-    // }
-
 
     return (
        <Grid ref={contentRef} className={styles.template1}>

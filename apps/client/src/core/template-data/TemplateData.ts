@@ -68,7 +68,7 @@ export type AwardsAndCertificationsInfo = z.infer<typeof AwardsAndCertifications
 
 
 export const DUMMY_DATA: TemplateData = {
-  fullName: "",
+  fullName: "John Doe",
   jobTitle: "Senior Full Stack Software Engineer",
   contactInfo: {
     location: "San Francisco, CA",

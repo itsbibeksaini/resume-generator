@@ -5,6 +5,7 @@ import SignIn from "../../components/auth/SignIn";
 import NewResume from "../../components/new-resume/NewResume";
 import Template1 from "../../resume-templates/template1/Template1";
 import TemplateLayout from "../../resume-templates/shared/template-layout/TemplateLayout";
+import Template2 from "../../resume-templates/template2/Template2";
 
 // export const PUBLIC_ROUTES = createBrowserRouter([
 //     {
@@ -45,6 +46,20 @@ export const PRIVATE_ROUTES = createBrowserRouter([
             children:[{
                 path: '',
                 Component: Template1
+            }]
+        }]
+    }, {
+        path: '/template2',
+        Component: Layout,
+        children: [{
+            path: '',
+            loader: () => {
+                return { title: 'Template 2' };
+            },
+            Component: TemplateLayout,
+            children:[{
+                path: '',
+                Component: Template2
             }]
         }]
     }

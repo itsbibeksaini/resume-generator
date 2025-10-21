@@ -62,12 +62,13 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
             awardsAndCertifications: awards
         }
 
-        const parsedData = TemplateDataSchema.safeParse(templateData);        
-        if (!parsedData.success) {
-            console.error("Data validation error:", parsedData.error);
-            return;
-        }
+        // const parsedData = TemplateDataSchema.safeParse(templateData);        
+        // if (!parsedData.success) {
+        //     console.error("Data validation error:", parsedData.error);
+        //     return;
+        // }
 
+        
         return DUMMY_DATA;
     }
 

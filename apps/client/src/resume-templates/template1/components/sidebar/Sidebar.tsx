@@ -12,9 +12,9 @@ type ResumeSidebarProps = {
         location: string;
         email: string;
         phone: string;
-        linkedin: string;
-        github: string;
-        website: string;
+        linkedin?: string;
+        github?: string;
+        website?: string;
     };
     skills: string[]
     educationalData: EducationInfo[]
