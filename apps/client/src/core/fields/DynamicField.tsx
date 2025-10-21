@@ -1,8 +1,9 @@
+import { icon, type IconProp } from '@fortawesome/fontawesome-svg-core';
 import styles from './DynamicField.module.scss'
 
-import { faCircleExclamation, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation, faHome, faSchool, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Grid, TextField, Typography } from "@mui/material";
+import { Box, Grid, InputAdornment, TextField, Typography } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import type { PickerValue } from "@mui/x-date-pickers/internals";
@@ -19,8 +20,9 @@ export type DynamicFieldProps = {
     col: number,
     helperText?: string,
     required:boolean,
-    value?: string,    
+    value?: IconProp,    
     errorText?: string,
+    icon?:IconProp,
     onChange?: ((evt: React.ChangeEvent) => void) |
      ((value: Dayjs) => void),
     onBlur?: (evt: React.FocusEvent) => void,
@@ -46,7 +48,22 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                         onKeyDown={props.onKeyDown}
                         required={props.required}
                         error={showError}                        
-                        sx={{zIndex:'1', backgroundColor:'#fff'}}
+                        className={`${styles.field}`}
+                        {
+                            ...
+                            props.icon ? {
+                                slotProps: {
+                                    input: {
+                                        startAdornment: (
+                                            <InputAdornment position='start'>
+                                                <FontAwesomeIcon icon={props.icon} />
+                                            </InputAdornment>
+                                        )
+                                    }
+                                }
+                            } : {}
+                        }
+                        
                     />
                     <Grid container sx={{display: showError ? 'flex': 'none', marginTop:'0.15rem'}}>
                         <Grid size='auto' sx={{paddingTop:'0.2rem'}}>
@@ -78,8 +95,34 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                                 helperText: props.helperText,
                                 onBlur: props.onBlur,
                                 error: showError,
-                                sx: {zIndex:'1', backgroundColor:'#fff'}
+                                sx: {
+                                    zIndex:'1', 
+                                    backgroundColor:'#fff',
+                                    // Stop browser autofill coloration
+                                    '& input:-webkit-autofill': {
+                                        WebkitBoxShadow: '0 0 0 1000px white inset !important',
+                                        WebkitTextFillColor: '#000 !important',
+                                    },
+                                    '& input:-webkit-autofill:focus': {
+                                        WebkitBoxShadow: '0 0 0 1000px white inset !important',
+                                        WebkitTextFillColor: '#000 !important',
+                                    },
+                                },
+                                ...(props.icon ? {
+                                    slotProps: {
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment position='start'>
+                                                    <FontAwesomeIcon icon={props.icon} />
+                                                </InputAdornment>
+                                            )
+                                        }
+                                    }
+                                } : {})
+                                
                             }
+                            
+                            
                         }}
                     />
                </LocalizationProvider>

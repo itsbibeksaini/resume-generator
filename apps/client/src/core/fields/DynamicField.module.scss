@@ -4,6 +4,23 @@
     border-radius:0.25rem;
     transition: all 0.3s ease-in-out;
 
+    & .field{
+        z-index:1; 
+        background-color:#fff;
+
+        &input:-webkit-autofill{
+            box-shadow: 0 0 0 1000px #fff inset !important;
+            -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+            -webkit-text-fill-color: #000 !important;
+
+            &:focus{
+                box-shadow: 0 0 0 1000px #fff inset !important;
+                -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+                -webkit-text-fill-color: #000 !important;
+            }
+        }
+    }
+
     & .errorIcon{
         font-size:0.68rem;
         color:#B71C1C;

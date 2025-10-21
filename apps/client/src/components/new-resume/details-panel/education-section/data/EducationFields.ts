@@ -1,5 +1,6 @@
 import z from "zod"
 import type { DynamicFieldProps } from "../../../../../core/fields/DynamicField"
+import {  faCalendar, faCity, faGlobe, faGraduationCap, faMapLocation, faSchool } from "@fortawesome/free-solid-svg-icons"
 
 type EducationSections = {
     header: string,
@@ -59,6 +60,7 @@ export const EDUCATION_SECTIONS:EducationSections[] = [
                     type: "text",
                     label:'School / College',
                     col: 6,
+                    icon: faSchool,
                     required:true
                 },
                 {
@@ -66,6 +68,7 @@ export const EDUCATION_SECTIONS:EducationSections[] = [
                     name:'course',
                     type: "text",
                     label:'Course',
+                    icon:faGraduationCap,
                     col: 6,
                     required:true
                 }
@@ -78,6 +81,7 @@ export const EDUCATION_SECTIONS:EducationSections[] = [
                     name:'startDate',
                     type: "date-picker",
                     label:'Start date',
+                    icon:faCalendar,
                     col: 6,
                     required:true
                 },
@@ -86,6 +90,7 @@ export const EDUCATION_SECTIONS:EducationSections[] = [
                     name:'completionDate',
                     type: "date-picker",
                     label:'Completion date',
+                    icon:faCalendar,
                     col: 6,
                     required:true
                 }
@@ -98,6 +103,7 @@ export const EDUCATION_SECTIONS:EducationSections[] = [
                     name:'city',
                     type: "text",
                     label:'City',
+                    icon:faCity,
                     col: 4,
                     required:true
                 },
@@ -106,6 +112,7 @@ export const EDUCATION_SECTIONS:EducationSections[] = [
                     name:'state',
                     type: "text",
                     label:'Province / State',
+                    icon: faMapLocation,
                     col: 4,
                     required:true
                 },
@@ -114,6 +121,7 @@ export const EDUCATION_SECTIONS:EducationSections[] = [
                     name:'country',
                     type: "text",
                     label:'Country',
+                    icon: faGlobe,
                     col: 4,
                     required:true
                 }
