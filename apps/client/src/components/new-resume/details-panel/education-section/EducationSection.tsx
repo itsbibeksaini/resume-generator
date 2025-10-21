@@ -1,13 +1,12 @@
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import { useState, type FC, type MouseEventHandler } from "react";
+import { useState, type FC, type FocusEvent, type MouseEventHandler } from "react";
 import styles from './EducationSection.module.scss'
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog";
 import { faGraduationCap, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { EDUCATION_SECTIONS } from "./data/EducationFields";
+import { EDUCATION_SECTIONS, EducationInfoSchema } from "./data/EducationFields";
 import { getDyanamicField } from "../../../../core/fields/DynamicField";
 import type { EducationInfo } from "../../../../core/template-data/TemplateData";
 import type { Dayjs } from "dayjs";
-import type { PickerValue } from "@mui/x-date-pickers/internals";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 
@@ -20,22 +19,42 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
     const [dialogOpen, setDialogOpen] = useState(false)
     const [fieldData, setFieldData] = useState<Record<string, string>>({});
     const [educationalData, setEducationalData] = useState<EducationInfo[]>([]);
+    const [errors, setErrors] = useState<Partial<Record<keyof EducationInfo, string>>>({});
 
-    function updateField(evt: React.ChangeEvent<HTMLInputElement> | Dayjs, fieldName: string) {
+    function updateField(evt: React.FocusEvent<Element> | Dayjs, fieldName: string) {
         
         let value = "";
 
         if (dayjs.isDayjs(evt)) {
             value = evt.format("MM/YYYY");
         } else if (evt && "target" in evt) {
-            value = evt.target.value;
+            value = (evt.target as HTMLInputElement).value;    
         }
+
+        validateField(fieldName, value)
 
         setFieldData((data) => ({
             ...data,
             [fieldName]: value,
         }));
+        
     }
+
+    const validateField = (name:string, value:string) => {
+        let fieldSchema = EducationInfoSchema.shape[name as keyof EducationInfo]
+        if(!fieldSchema) return
+
+        let result = fieldSchema.safeParse(value)
+
+        if(result.error){
+            console.log(result.error)
+        }
+
+        setErrors((prev) => ({
+            ...prev,
+            [name]: result.success ? undefined : result.error.issues[0].message,
+        }));
+     }
 
     const getDataValue = (fieldName: string): string => {
         return fieldData[fieldName] || ''
@@ -95,9 +114,6 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                         })
                     }
                 </Grid>
-
-
-                
             </Grid>
 
             <Grid container className={`${styles.row}`}>
@@ -128,9 +144,7 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                     <Grid sx={{padding:'0.5rem'}}>
                         <Typography variant="body1">
                             Enter your education details as they should appear on your resume. Include your institution, program, dates attended, and location.
-                        </Typography>
-
-                        
+                        </Typography>                    
                     </Grid>
 
                     {
@@ -141,17 +155,29 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                                         row.fields.map((field, index) => {
                                             if (!field.type) return null;
                                             const FieldComponent = getDyanamicField(field.type);
+                               
                                             return(
                                                 <Grid size={field.col} sx={{padding:'0.5rem'}} key={index}>
                                                     <FieldComponent 
-                                                        label={field.label} 
-                                                        id={field.id} 
-                                                        name={field.name} 
-                                                        col={0}
-                                                        value={getDataValue(field.name)}
-                                                        required={field.required}
-                                                        onChange={(e: Dayjs) => updateField(e, field.name)}
-                                                    />
+                                                            label={field.label} 
+                                                            id={field.id} 
+                                                            name={field.name} 
+                                                            col={0}
+                                                            shake={shake}                                                            
+                                                            required={field.required}
+                                                            errorText={errors[field.name as keyof EducationInfo]}                                                            
+                                                            {
+                                                                ...                                                            
+                                                                (() =>{
+                                                                    if(field.type === 'text') {
+                                                                        return { onBlur: (e: FocusEvent<Element>) => updateField(e, field.name) }
+                                                                    }
+                                                                    else if(field.type === 'date-picker') {
+                                                                        return { onChange: (e: Dayjs) => updateField(e, field.name) }
+                                                                    }
+                                                                })()                                                            
+                                                            }
+                                                        />
                                                 </Grid>                        
                                             )
                                         })

@@ -1,0 +1,22 @@
+.fieldWrapper{
+    border:2px solid transparent;
+    padding:10px 5px;
+    border-radius:0.25rem;
+    transition: all 0.3s ease-in-out;
+
+    & .errorIcon{
+        font-size:0.68rem;
+        color:#B71C1C;
+        display: none;
+    }
+    
+
+    &.showError{
+        border-color: #B71C1C;
+        background-color:#FFCDD2;
+
+        & .errorIcon{
+            display: block;
+        }
+    }
+}

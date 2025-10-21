@@ -5,7 +5,7 @@ import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
-import { DUMMY_DATA, type AwardsAndCertificationsInfo, type EducationInfo, type ProfessionalExperienceInfo, type ProjectInfo, type TemplateData } from "../../../core/template-data/TemplateData";
+import { DUMMY_DATA, TemplateDataSchema, type AwardsAndCertificationsInfo, type EducationInfo, type ProfessionalExperienceInfo, type ProjectInfo, type TemplateData } from "../../../core/template-data/TemplateData";
 import EducationSection from "./education-section/EducationSection";
 import SummarySection from "./summary-section/SummarySection";
 import ProfessionalExperienceSection from "./professional-experience-section/ProfessionalExperienceSection";
@@ -60,6 +60,12 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
             professionalExperience: professionalExperienceData,
             projects: projects,
             awardsAndCertifications: awards
+        }
+
+        const parsedData = TemplateDataSchema.safeParse(templateData);        
+        if (!parsedData.success) {
+            console.error("Data validation error:", parsedData.error);
+            return;
         }
 
         return DUMMY_DATA;

@@ -63,7 +63,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             id:'txt-countrycode',
             name:'countrycode',
             type: "text",
-            label:'Country Code',
+            label:'+',
             col: 1,
             required:true
           }, {

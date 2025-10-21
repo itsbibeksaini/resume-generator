@@ -1,3 +1,4 @@
+import z from "zod"
 import type { DynamicFieldProps } from "../../../../../core/fields/DynamicField"
 
 type EducationSections = {
@@ -10,6 +11,18 @@ type EducationSectionRow = {
     header?: string
     fields: DynamicFieldProps[]
 }
+
+export const EducationInfoSchema = z.object({
+    schoolName: z.string(),
+    course: z.string(),
+    startDate: z.date(),
+    completionDate: z.date(),
+    city: z.string(),
+    state: z.string(),
+    country: z.string()
+})
+
+export type EducationInfo = z.infer<typeof EducationInfoSchema>
 
 export const EDUCATION_SECTIONS:EducationSections[] = [
     {

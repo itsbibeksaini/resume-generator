@@ -1,65 +1,74 @@
-export type TemplateData = {
-    fullName: string;
-    jobTitle: string;
-    contactInfo: ContactInfo;
-    skills: string[]
-    educationInfo: EducationInfo[]
-    summary: string[]
-    professionalExperience: ProfessionalExperienceInfo[],
-    projects: ProjectInfo[],
-    awardsAndCertifications?: AwardsAndCertificationsInfo[]
-}
+import { z } from "zod";
 
-type ContactInfo = {
-    location: string;
-    email: string;
-    phone: string;
-    linkedin: string;
-    github: string;
-    website: string;
-}
+const ContactInfoSchema = z.object({
+  location: z.string().min(1, "Location is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().min(5, "Phone number is too short"),
+  linkedin: z.string().url("LinkedIn must be a valid URL").optional().or(z.literal("")),
+  github: z.string().url("GitHub must be a valid URL").optional().or(z.literal("")),
+  website: z.string().url("Website must be a valid URL").optional().or(z.literal("")),
+});
 
-export type EducationInfo = {
-    schoolName: string,
-    course: string,
-    startDate: string,
-    completionDate: string,
-    city: string,
-    state: string,
-    country?: string
-}
+const EducationInfoSchema = z.object({
+  schoolName: z.string().min(1, "School name is required"),
+  course: z.string().min(1, "Course name is required"),
+  startDate: z.string().min(1, "Start date is required"),
+  completionDate: z.string().min(1, "Completion date is required"),
+  city: z.string().min(1, "City is required"),
+  state: z.string().min(1, "State is required"),
+  country: z.string().optional(),
+});
 
-export type ProfessionalExperienceInfo = {
-    jobPosition: string,
-    companyName: string,
-    startDate: string,
-    endDate: string,
-    city: string,
-    state: string,
-    country?: string,
-    responsibilities: string[],
-    achievements: string[]
-}
+const ProfessionalExperienceInfoSchema = z.object({
+  jobPosition: z.string().min(1, "Job position is required"),
+  companyName: z.string().min(1, "Company name is required"),
+  startDate: z.string().min(1, "Start date is required"),
+  endDate: z.string().min(1, "End date is required"),
+  city: z.string().min(1, "City is required"),
+  state: z.string().min(1, "State is required"),
+  country: z.string().optional(),
+  responsibilities: z.array(z.string().min(1, "Responsibility cannot be empty")).nonempty("Responsibilities must not be empty"),
+  achievements: z.array(z.string().min(1, "Achievement cannot be empty")).nonempty("Achievements must not be empty"),
+});
 
-export type ProjectInfo = {
-    projectName: string,
-    subtitle: string,
-    startDate: string,
-    endDate: string,
-    projectDescription: string[],
-    projectTechnologies: string[]
-}
+const ProjectInfoSchema = z.object({
+  projectName: z.string().min(1, "Project name is required"),
+  subtitle: z.string().min(1, "Subtitle is required"),
+  startDate: z.string().min(1, "Start date is required"),
+  endDate: z.string().min(1, "End date is required"),
+  projectDescription: z.array(z.string().min(1, "Project description cannot be empty")).nonempty("Project description must not be empty"),
+  projectTechnologies: z.array(z.string().min(1, "Technology cannot be empty")).nonempty("Project technologies must not be empty"),
+});
 
-export type AwardsAndCertificationsInfo = {
-    type: 'award' | 'certificate',
-    title: string,
-    issuer: string,
-    issueDate: string,
-    expirationDate?: string,    
-}
+const AwardsAndCertificationsInfoSchema = z.object({
+  type: z.enum(["award", "certificate"], "Type must be 'award' or 'certificate'"),
+  title: z.string().min(1, "Title is required"),
+  issuer: z.string().min(1, "Issuer is required"),
+  issueDate: z.string().min(1, "Issue date is required"),
+  expirationDate: z.string().optional(),
+});
+
+export const TemplateDataSchema = z.object({
+  fullName: z.string().min(1, "Full name is required"),
+  jobTitle: z.string().min(1, "Job title is required"),
+  contactInfo: ContactInfoSchema,
+  skills: z.array(z.string().min(1, "Skill cannot be empty")).nonempty("Skills must not be empty"),
+  educationInfo: z.array(EducationInfoSchema).nonempty("Education information is required"),
+  summary: z.array(z.string().min(1, "Summary item cannot be empty")).nonempty("Summary is required"),
+  professionalExperience: z.array(ProfessionalExperienceInfoSchema).nonempty("Professional experience is required"),
+  projects: z.array(ProjectInfoSchema).nonempty("Projects are required"),
+  awardsAndCertifications: z.array(AwardsAndCertificationsInfoSchema).optional(),
+});
+
+export type TemplateData = z.infer<typeof TemplateDataSchema>
+export type EducationInfo = z.infer<typeof EducationInfoSchema>
+export type ProfessionalExperienceInfo = z.infer<typeof ProfessionalExperienceInfoSchema>
+export type ProjectInfo = z.infer<typeof ProjectInfoSchema>
+export type AwardsAndCertificationsInfo = z.infer<typeof AwardsAndCertificationsInfoSchema>
+
 
 export const DUMMY_DATA: TemplateData = {
-  fullName: "John Doe",
+  fullName: "",
   jobTitle: "Senior Full Stack Software Engineer",
   contactInfo: {
     location: "San Francisco, CA",
