@@ -1,4 +1,4 @@
-import styles from './DyanamicField.module.scss'
+import styles from './DynamicField.module.scss'
 
 import { faCircleExclamation, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
