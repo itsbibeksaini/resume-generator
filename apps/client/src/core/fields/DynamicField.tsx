@@ -21,7 +21,6 @@ export type DynamicFieldProps = {
     required:boolean,
     value?: string,    
     errorText?: string,
-    shake?:boolean
     onChange?: ((evt: React.ChangeEvent) => void) |
      ((value: Dayjs) => void),
     onBlur?: (evt: React.FocusEvent) => void,

@@ -163,7 +163,6 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                                                             id={field.id} 
                                                             name={field.name} 
                                                             col={0}
-                                                            shake={shake}                                                            
                                                             required={field.required}
                                                             errorText={errors[field.name as keyof EducationInfo]}                                                            
                                                             {
