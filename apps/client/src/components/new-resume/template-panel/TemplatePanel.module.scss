@@ -17,6 +17,10 @@
             cursor: pointer;
             transition: all 0.3s ease-in-out;
 
+            &.MuiTouchRipple-child{
+                background-color: rgba(0, 255, 0, 0.4)
+            }
+
             & .template{
                 border: 1px solid rgba(33, 150, 243, 0.24);
                 width: 100%;
@@ -25,13 +29,6 @@
                 background-color: #fff;
                 position: relative;
                 transition: all 0.3s ease-in-out;
-
-                & .checkbox{
-                    display: none;
-                    position:absolute; 
-                    left:0;                
-                    top: 0;                    
-                }
 
                 & .banner{
                     text-align:left;
@@ -56,15 +53,13 @@
 
             &:hover, &.selected{
                 background: rgba(33, 150, 243, 0.08);                
-                & .checkbox{
-                    display: block;
-                }
                 & .banner{
                     visibility: visible;
                 }
                 & .template{
                     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
                     transform: scale(1.02);
+                    border: 2px solid #2196F3;
                 }
             }
         }

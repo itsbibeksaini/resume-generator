@@ -1,4 +1,5 @@
 import template1 from '../../assets/template-thumbnails/template1.png';
+import template2 from '../../assets/template-thumbnails/template2.png';
 
 export type Template = {
     id: string;
@@ -22,7 +23,7 @@ export const TEMPLATES: Template[] = [
         id: 'template-2',
         name: 'Modern Professional',
         description: 'A clean and modern template with a professional look.',
-        thumbnail: template1,
+        thumbnail: template2,
         route: '/template2',
         isSelected: false,
     }
