@@ -135,7 +135,7 @@ const Timeline: FC<TimelineProps> = (props: TimelineProps) => {
                                 </ul>
 
                                 <Box sx={{marginTop: '0.5rem'}}>
-                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" sx={{fontStyle: 'italic'}}>Technologies: {project.projectTechnologies.join(', ')}</Typography>
+                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" sx={{fontStyle: 'italic'}}><strong>Technologies:</strong> {project.projectTechnologies.join(', ')}</Typography>
                                 </Box>
 
                             </Box>
