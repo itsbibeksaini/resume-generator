@@ -39,7 +39,7 @@ const TemplatePanel: FC<TemplatePanelProps> = ({ updateSelectedTemplate }) => {
             <header>
                 <Typography variant="h5">Choose a template</Typography>
             </header>
-            <Grid className={`${styles.templates}`} container gap={3}>
+            <Grid className={`${styles.templates}`}>
 
                 {
                     templateList.map((template, index) => {
