@@ -1,11 +1,13 @@
-import { Grid } from "@mui/material";
-import { useState, type FC } from "react";
+import { Grid, useTheme } from "@mui/material";
+import { useState, type CSSProperties, type FC } from "react";
 import styles from './NewResume.module.scss';
 import DetailsPanel from "./details-panel/DetailsPanel";
 import TemplatePanel from "./template-panel/TemplatePanel";
 import type { Template } from "../../core/template-data/Template";
 
 const NewResume:FC = () => {
+
+    const theme = useTheme()
 
     const [selectedTemplate, setSelectedTemplate] = useState<Template>();
 
@@ -14,7 +16,10 @@ const NewResume:FC = () => {
     }
 
     return(
-        <Grid container className={`${styles.newResume}`}>
+        <Grid container 
+        className={`${styles.newResume}`}
+        sx={{'--background-color': theme.palette.background.default} as CSSProperties}
+        >
             <TemplatePanel updateSelectedTemplate={updateSelectedTemplate} />
             <DetailsPanel selectedTemplate={selectedTemplate} />
         </Grid>

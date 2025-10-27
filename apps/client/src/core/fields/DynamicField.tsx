@@ -96,8 +96,7 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                                 onBlur: props.onBlur,
                                 error: showError,
                                 sx: {
-                                    zIndex:'1', 
-                                    backgroundColor:'#fff',
+                                    zIndex:'1',
                                     // Stop browser autofill coloration
                                     '& input:-webkit-autofill': {
                                         WebkitBoxShadow: '0 0 0 1000px white inset !important',
