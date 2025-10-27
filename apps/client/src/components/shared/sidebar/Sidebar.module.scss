@@ -21,9 +21,9 @@
     left: 0;    
     bottom: 0;
     width: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--background-color);
     transition: all 0.5s ease-in-out;
-    z-index: 2;
+    z-index: 3;
 
     &.showOverlay {        
         right: 0;

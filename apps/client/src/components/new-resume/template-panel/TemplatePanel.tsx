@@ -48,7 +48,7 @@ const TemplatePanel: FC<TemplatePanelProps> = ({ updateSelectedTemplate }) => {
                                 <Box className={`${styles.template}`}>
                                     <img src={template.thumbnail} style={{width:'100%', height:'100%'}} />                                                                        
                                     <Box className={`${styles.banner}`}>
-                                        <Typography color="textSecondary">{template.name}</Typography>
+                                        <Typography sx={{color:'#121212'}} >{template.name}</Typography>
                                     </Box>
                                 </Box>
                             </ButtonBase>

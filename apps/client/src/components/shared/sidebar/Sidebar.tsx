@@ -1,4 +1,4 @@
-import {  Box, ButtonBase, Grid } from "@mui/material";
+import {  alpha, Box, ButtonBase, Grid } from "@mui/material";
 import { useState } from "react";
 import styles from "./Sidebar.module.scss";
 import ChipAvatar from "../chip-avatar/ChipAvatar";
@@ -28,9 +28,13 @@ const Sidebar = () => {
 
     return (
         <>
-        <Box className={`${styles.overlay} ${isExpanded ? styles.showOverlay : ''}`} onClick={toggleSidebar} />
+        <Box className={`${styles.overlay} ${isExpanded ? styles.showOverlay : ''}`} onClick={toggleSidebar} sx={(theme) => ({
+            '--background-color': alpha(theme.palette.primary.main, 0.3)
+        })} />
 
-        <Grid className={`${styles.sidebar} ${isExpanded ? styles.expandSidebar : ''}`} container direction="column">            
+        <Grid className={`${styles.sidebar} ${isExpanded ? styles.expandSidebar : ''}`} container direction="column"
+        
+        >            
 
             <Grid sx={{marginTop:'0.5rem'}}>
                 <SidebarItem isExpanded={isExpanded} icon={faHome} label="Home" navigateTo="/home" updateExpanded={setIsExpanded} />
