@@ -5,9 +5,7 @@ import { Box, Button, CssBaseline, Divider, Grid, IconButton, ThemeProvider, Typ
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import type { TemplateData } from "../../../core/template-data/TemplateData";
-import html2pdf from "html2pdf.js";
-import customTheme from "../../../core/themes/customTheme";
-
+import html2pdf from "html2pdf.js"
 
 const TemplateLayout: FC = () => {
 
@@ -47,7 +45,7 @@ const TemplateLayout: FC = () => {
             </Grid>
             <Outlet context={{ setTemplateRef }} />            
             <footer style={{backgroundColor:'#121212', }}>
-                <Button variant="contained" onClick={convertToPdf}>Generate</Button>
+                <Button variant="contained" color="primary" onClick={convertToPdf}>Generate</Button>
             </footer>
         </Box>
     )

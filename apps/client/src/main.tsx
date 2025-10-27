@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.scss'
 import App from './App.tsx'
 import { CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material'
-import customTheme from './core/themes/customTheme.ts'
+import {customTheme} from './core/themes/customTheme.ts'
 
 const Root: FC = () =>{
 
