@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import type { TemplateData } from "../../../core/template-data/TemplateData";
 import html2pdf from "html2pdf.js"
+import { resumeTemplateTheme } from "../../../core/themes/customTheme";
 
 const TemplateLayout: FC = () => {
 
@@ -43,7 +44,10 @@ const TemplateLayout: FC = () => {
                 <Divider orientation='vertical' flexItem />
                 <Typography variant='h6' className={`${styles.headerTitle} vertical-center`}>{title} preview</Typography>
             </Grid>
-            <Outlet context={{ setTemplateRef }} />            
+            <ThemeProvider theme={resumeTemplateTheme}>
+                <CssBaseline enableColorScheme />
+                <Outlet context={{ setTemplateRef }} />            
+            </ThemeProvider>
             <footer style={{backgroundColor:'#121212', }}>
                 <Button variant="contained" color="primary" onClick={convertToPdf}>Generate</Button>
             </footer>
