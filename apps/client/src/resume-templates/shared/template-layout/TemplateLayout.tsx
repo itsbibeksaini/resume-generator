@@ -1,12 +1,12 @@
 import { useRef, useState, type FC, type RefObject } from "react";
 import styles from './TemplateLayout.module.scss';
 import { Outlet, useLoaderData, useLocation, useNavigate } from "react-router";
-import { Box, Button, Divider, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Button, CssBaseline, Divider, Grid, IconButton, ThemeProvider, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import type { TemplateData } from "../../../core/template-data/TemplateData";
-import html2pdf from "html2pdf.js";
-
+import html2pdf from "html2pdf.js"
+import { resumeTemplateTheme } from "../../../core/themes/customTheme";
 
 const TemplateLayout: FC = () => {
 
@@ -26,6 +26,7 @@ const TemplateLayout: FC = () => {
         html2canvas: { scale: 2 },
         margin: [16,0,16,0],
         jsPDF: { unit: 'px', format: 'letter', orientation: 'portrait', hotfixes: ["px_scaling"] },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
         
     }
 
@@ -36,17 +37,22 @@ const TemplateLayout: FC = () => {
     }
     
     return (
-        <Box className={`${styles.templateWrapper}`}>
+        <Box className={`${styles.templateWrapper}`} sx={(theme) => ({
+            '--background-color': theme.palette.background.default
+        })}>
             <Grid container className={`${styles.actionHeader}`}>
                 <IconButton color='primary' onClick={() => navigate('/new-resume')} className={`${styles.actionButton}`}>
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </IconButton>
                 <Divider orientation='vertical' flexItem />
-                <Typography variant='h6' className={`${styles.headerTitle} vertical-center`}>{title} preview</Typography>
+                <Typography variant='h6' className={`${styles.headerTitle} vertical-center`} color="primary">{title} preview</Typography>
             </Grid>
-            <Outlet context={{ setTemplateRef }} />
+            <ThemeProvider theme={resumeTemplateTheme}>
+                <CssBaseline enableColorScheme />
+                <Outlet context={{ setTemplateRef }}  />            
+            </ThemeProvider>
             <footer>
-                <Button variant="contained" onClick={convertToPdf}>Generate</Button>
+                <Button variant="contained" color="primary" onClick={convertToPdf}>Generate</Button>
             </footer>
         </Box>
     )

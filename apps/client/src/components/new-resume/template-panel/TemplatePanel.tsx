@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Checkbox, Grid, Typography } from "@mui/material";
+import { alpha, Box, ButtonBase, Checkbox, Grid, Typography } from "@mui/material";
 import { useEffect, useState, type FC } from "react";
 import styles from './TemplatePanel.module.scss';
 import { TEMPLATES, type Template } from "../../../core/template-data/Template";
@@ -35,7 +35,9 @@ const TemplatePanel: FC<TemplatePanelProps> = ({ updateSelectedTemplate }) => {
 
 
     return (
-        <Grid className={`${styles.templatesPanel}`}>
+        <Grid className={`${styles.templatesPanel}`} sx={(theme) => ({
+            '--shadow-color': alpha(theme.palette.primary.main, 0.4)
+        })}>
             <header>
                 <Typography variant="h5">Choose a template</Typography>
             </header>
@@ -48,7 +50,7 @@ const TemplatePanel: FC<TemplatePanelProps> = ({ updateSelectedTemplate }) => {
                                 <Box className={`${styles.template}`}>
                                     <img src={template.thumbnail} style={{width:'100%', height:'100%'}} />                                                                        
                                     <Box className={`${styles.banner}`}>
-                                        <Typography>{template.name}</Typography>
+                                        <Typography sx={{color:'#121212'}} >{template.name}</Typography>
                                     </Box>
                                 </Box>
                             </ButtonBase>

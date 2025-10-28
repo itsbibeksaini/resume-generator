@@ -123,14 +123,17 @@ const Sidebar: FC<ResumeSidebarProps> = (props: ResumeSidebarProps) => {
                 <Grid size={12}>
                     <Divider sx={{margin: '0 0.5rem'}} />
                 </Grid>
-                <Grid gap={1} className={`${styles.educationalSection}`} size={12}>
+                <Grid gap={1} className={`${styles.educationalSection}`} size={12} sx={{
+                                    breakBefore: 'always',
+                                    pageBreakBefore: 'always'
+                                }}>
                     {
                         props.educationalData.length === 0 && <Typography>No educational Data</Typography>
                     }
                     {
                         props.educationalData.map((data, index) => {
                             return(
-                                <Grid className={`${styles.education}`} size={12} key={index}>
+                                <Grid className={`${styles.education}`} size={12} key={index} >
                                     <Typography className={`${resumeStyles.resumeHeading}`} sx={{textTransform: 'none'}}>{data.schoolName}</Typography>
                                     <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{lineHeight:'1.5 !important'}}>{data.city} {data.state} - {data.country}</Typography>
                                     <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" >{data.course}</Typography>

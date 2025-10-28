@@ -9,7 +9,9 @@
         & .signInCard{
             width: 420px;
             padding: 20px 30px;
-            box-shadow: 0 0 40px;
+            box-shadow:
+                10px 10px 10px var(--shadow-color),
+                -10px 10px 10px var(--shadow-color);
             border-radius: 0.25rem;
         }
 

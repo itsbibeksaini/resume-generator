@@ -52,7 +52,7 @@
             }
 
             &:hover, &.selected{
-                background: rgba(33, 150, 243, 0.08);                
+                background: var(--shadow-color);                
                 & .banner{
                     visibility: visible;
                 }

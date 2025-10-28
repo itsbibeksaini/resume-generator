@@ -29,7 +29,9 @@ const Template2: FC = () => {
         }, [setTemplateRef]);
 
     return(
-        <Grid ref={contentRef} className={`${styles.template2}`} container gap={1}>
+        <Grid ref={contentRef} className={`${styles.template2}`} container gap={1} sx={(theme) => ({
+            backgroundColor: theme.palette.background.default
+        })}>
             {/* SideBar */}
             <Grid sx={{ width:'250px'}}>
                 <header>

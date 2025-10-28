@@ -1,6 +1,5 @@
 .layout{
-    width: 100%;
-
+    width: 100%;    
     & .sidebar {
         background-color: #121212;
         
@@ -17,11 +16,14 @@
 
     & .outlet{                
         padding-right: 1rem;
-        overflow: hidden;
+        overflow: hidden;        
         & .contentArea{
             height: 100vh;
             max-width: 1440px;            
-            margin: auto;
+            margin: auto;            
+            box-shadow:
+            10px 10px 10px var(--shadow-color),
+            -10px 10px 10px var(--shadow-color);
         }
 
         & .mobileMessage{
