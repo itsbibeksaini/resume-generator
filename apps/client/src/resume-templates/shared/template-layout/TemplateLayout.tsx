@@ -44,11 +44,11 @@ const TemplateLayout: FC = () => {
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </IconButton>
                 <Divider orientation='vertical' flexItem />
-                <Typography variant='h6' className={`${styles.headerTitle} vertical-center`}>{title} preview</Typography>
+                <Typography variant='h6' className={`${styles.headerTitle} vertical-center`} color="primary">{title} preview</Typography>
             </Grid>
             <ThemeProvider theme={resumeTemplateTheme}>
                 <CssBaseline enableColorScheme />
-                <Outlet context={{ setTemplateRef }} />            
+                <Outlet context={{ setTemplateRef }}  />            
             </ThemeProvider>
             <footer>
                 <Button variant="contained" color="primary" onClick={convertToPdf}>Generate</Button>

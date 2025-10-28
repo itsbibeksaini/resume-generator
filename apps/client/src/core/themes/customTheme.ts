@@ -11,6 +11,6 @@ export const customTheme = (prefersDarkMode?:boolean) => {
 
 export const resumeTemplateTheme = () => {
     return createTheme({
-        palette: resumeTemplatePalette
+        palette: resumeTemplatePalette,        
     })
 }

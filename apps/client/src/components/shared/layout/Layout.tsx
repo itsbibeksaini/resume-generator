@@ -6,7 +6,9 @@ import { Outlet } from "react-router";
 
 const Layout: FC = () => {
   return (
-    <Grid className={`${styles.layout}`} container gap={2}>
+    <Grid className={`${styles.layout}`} container gap={2} sx={(theme) => ({
+      backgroundColor: theme.palette.background.default
+    })}>
       <Sidebar/>        
       <Grid className={styles.outlet} size='grow'>
         <Box className={styles.contentArea} >
