@@ -36,7 +36,9 @@ const TemplateLayout: FC = () => {
     }
     
     return (
-        <Box className={`${styles.templateWrapper}`}>
+        <Box className={`${styles.templateWrapper}`} sx={(theme) => ({
+            '--background-color': theme.palette.background.default
+        })}>
             <Grid container className={`${styles.actionHeader}`}>
                 <IconButton color='primary' onClick={() => navigate('/new-resume')} className={`${styles.actionButton}`}>
                     <FontAwesomeIcon icon={faArrowLeft} />
@@ -48,7 +50,7 @@ const TemplateLayout: FC = () => {
                 <CssBaseline enableColorScheme />
                 <Outlet context={{ setTemplateRef }} />            
             </ThemeProvider>
-            <footer style={{backgroundColor:'#121212', }}>
+            <footer>
                 <Button variant="contained" color="primary" onClick={convertToPdf}>Generate</Button>
             </footer>
         </Box>

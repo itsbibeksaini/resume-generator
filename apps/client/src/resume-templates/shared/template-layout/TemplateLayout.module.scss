@@ -12,8 +12,8 @@
         padding: 1rem;        
         position: sticky;
         top: 0;
-        background-color: #121212;
-        color: #fff;
+        background-color: var(--background-color);
+        // color: #fff;
         z-index: 2;
         box-shadow: 
             0 10px 5px rgba(0, 0, 0, 0.5),     
@@ -43,6 +43,7 @@
      left: 100px;
      right: 1rem;     
      z-index: 1;
+     background-color: var(--background-color);
      box-shadow: 
             0 -10px 5px rgba(0, 0, 0, 0.5),     
             0 0 10px rgba(20, 20, 20, 0.45),
