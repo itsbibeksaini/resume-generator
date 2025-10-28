@@ -26,6 +26,7 @@ const TemplateLayout: FC = () => {
         html2canvas: { scale: 2 },
         margin: [16,0,16,0],
         jsPDF: { unit: 'px', format: 'letter', orientation: 'portrait', hotfixes: ["px_scaling"] },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
         
     }
 
