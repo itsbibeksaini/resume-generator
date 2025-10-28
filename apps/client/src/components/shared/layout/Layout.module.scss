@@ -22,8 +22,8 @@
             max-width: 1440px;            
             margin: auto;            
             box-shadow:
-            10px 10px 10px rgba(255,255,255,0.25),
-            -10px 10px 10px rgba(255,255,255,0.25);
+            10px 10px 10px var(--shadow-color),
+            -10px 10px 10px var(--shadow-color);
         }
 
         & .mobileMessage{

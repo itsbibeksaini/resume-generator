@@ -1,11 +1,13 @@
 import type { FC } from "react";
 import styles from "./signin.module.scss";
-import { Box, Button, Card, Grid, TextField, Typography } from "@mui/material";
+import { alpha, Box, Button, Card, Grid, TextField, Typography } from "@mui/material";
 
 const SignIn: FC = () => {
   return (
 
-    <Box className={`${styles.signin}`}>
+    <Box className={`${styles.signin}`} sx={(theme) => ({
+      '--shadow-color': alpha(theme.palette.primary.main, 0.4)
+    })}>
       <Grid className={`${styles.signInCardWrapper} centeralize`} container>
         <Grid className={`${styles.signInCard}`}>
           <Typography variant="h3">Sign In</Typography>

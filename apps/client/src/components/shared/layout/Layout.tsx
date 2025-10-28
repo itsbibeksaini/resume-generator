@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { alpha, Box, Grid, Typography } from "@mui/material";
 import { type FC } from "react";
 import styles from "./Layout.module.scss";
 import Sidebar from "../sidebar/Sidebar";
@@ -7,7 +7,8 @@ import { Outlet } from "react-router";
 const Layout: FC = () => {
   return (
     <Grid className={`${styles.layout}`} container gap={2} sx={(theme) => ({
-      backgroundColor: theme.palette.background.default
+      backgroundColor: theme.palette.background.default,
+      '--shadow-color': alpha(theme.palette.primary.main, 0.4)
     })}>
       <Sidebar/>        
       <Grid className={styles.outlet} size='grow'>

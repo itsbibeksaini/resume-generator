@@ -4,8 +4,8 @@
     header, footer {
         padding: 20px 30px;
         box-shadow:
-            10px 10px 10px rgba(255,255,255,0.25),
-            -10px 10px 10px rgba(255,255,255,0.25);
+            10px 10px 10px var(--shadow-color),
+            -10px 10px 10px var(--shadow-color);
         background-color: var(--background-color);
         border-radius: 0.25rem;
         position: sticky;
@@ -17,8 +17,8 @@
         margin-top: 1rem;
         text-align: right;
         box-shadow:
-            10px -10px 10px rgba(255,255,255,0.25),
-            -10px -10px 10px rgba(255,255,255,0.25);
+            10px -10px 10px var(--shadow-color),
+            -10px -10px 10px var(--shadow-color);
     }
 
     & label{

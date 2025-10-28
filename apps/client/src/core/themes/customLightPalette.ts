@@ -7,7 +7,7 @@ const customLightPalette: PaletteOptions = {
     },
     
     background:{
-        default:'#f5f5f5',
+        default:'#fff',
     }, 
     divider: '#333333'
     
