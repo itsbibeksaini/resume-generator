@@ -61,7 +61,7 @@ export const PRIVATE_ROUTES = createBrowserRouter([
         }, {
             path: '/template3',
             loader: () => {
-                return { title: 'Template 2' };
+                return { title: 'Template 3' };
             },
             Component: TemplateLayout,
             children:[{

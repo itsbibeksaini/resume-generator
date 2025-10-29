@@ -5,7 +5,7 @@ import resumeStyles from '../shared/ResumeTemplate.module.scss'
 import { useLocation, useOutletContext } from "react-router";
 import type { TemplateData } from "../../core/template-data/TemplateData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelopeOpen, faHSquare, faLocationPin, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
 
 type OutletContextType = {
     setTemplateRef?: (ref: RefObject<null>) => void;
@@ -32,7 +32,41 @@ const Template3: FC = () => {
             backgroundColor: theme.palette.background.default
         })}>
             <Grid className={`${styles.templateHeader}`} container size={12}>
-                
+                <Grid className={`${styles.row}`} container>
+                    <Grid>
+                        <Typography sx={{fontSize:'4rem', lineHeight:'1.1 !important'}}>{resumeData.fullName}</Typography>
+                        <Typography className={`${resumeStyles.resumeHeading}`} sx={{lineHeight:'1.2 !important', marginTop:'0.30rem'}}>{resumeData.jobTitle}</Typography>
+                    </Grid>
+                    <Grid sx={{justifyContent: "flex-end", alignItems: "center", position:'relative'}} size='grow'>
+                        <Box sx={{right:0}} className={`vertical-center`}>
+                            <Grid container gap={0.5} >
+                                <Grid>
+                                    <FontAwesomeIcon icon={faMobileAlt} />
+                                </Grid>
+                                <Grid>
+                                    <Typography className={`${resumeStyles.resumeBody}`} sx={{lineHeight:2}}>{resumeData.contactInfo.phone}</Typography>
+                                </Grid>                                
+                            </Grid>
+                            <Grid container gap={0.5}>
+                                <Grid>
+                                    <FontAwesomeIcon icon={faEnvelopeOpen} />
+                                </Grid>
+                                <Grid>
+                                    <Typography className={`${resumeStyles.resumeBody}`} sx={{lineHeight:2}}>{resumeData.contactInfo.email}</Typography>
+                                </Grid>                                
+                            </Grid>
+                            <Grid container gap={0.5}>
+                                <Grid>
+                                    <FontAwesomeIcon icon={faLocationPin} />
+                                </Grid>
+                                <Grid>
+                                    <Typography className={`${resumeStyles.resumeBody}`} sx={{lineHeight:2}}>{resumeData.contactInfo.location}</Typography>
+                                </Grid>                                
+                            </Grid>
+                        </Box>
+                    </Grid>
+                    <Divider variant="middle" sx={{margin: '1rem 0', width:'100%'}}/>
+                </Grid>
             </Grid>
         </Grid>
     )
