@@ -5,7 +5,8 @@ import resumeStyles from '../shared/ResumeTemplate.module.scss'
 import { useLocation, useOutletContext } from "react-router";
 import type { TemplateData } from "../../core/template-data/TemplateData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelopeOpen, faHSquare, faLocationPin, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelopeOpen, faGlobe, faHSquare, faLocationPin, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 type OutletContextType = {
     setTemplateRef?: (ref: RefObject<null>) => void;
@@ -65,8 +66,44 @@ const Template3: FC = () => {
                             </Grid>
                         </Box>
                     </Grid>
-                    <Divider variant="middle" sx={{margin: '1rem 0', width:'100%'}}/>
+                    <Divider variant="middle" sx={{margin: '0.5rem 0', width:'100%'}}/>
+                    <Grid sx={{ justifyContent: "center", alignItems: "center"}} container size={12} gap={1}>
+                        <Grid container gap={0.5}>
+                            <Grid>
+                                <FontAwesomeIcon icon={faLinkedin}/>
+                            </Grid>
+                            <Grid>
+                                <Typography className={`${resumeStyles.resumeBody}`} sx={{lineHeight:2}}>{resumeData.contactInfo.linkedin}</Typography>
+                            </Grid>                                
+                            <Grid>
+                                <Divider orientation="vertical" sx={{marginLeft:'0.5rem'}} />
+                            </Grid>
+                        </Grid>
+                        <Grid container gap={0.5} >
+                            <Grid>
+                                <FontAwesomeIcon icon={faGithub}/>
+                            </Grid>
+                            <Grid>
+                                <Typography className={`${resumeStyles.resumeBody}`} sx={{lineHeight:2}}>{resumeData.contactInfo.github}</Typography>
+                            </Grid>
+                            <Grid>
+                                <Divider orientation="vertical" sx={{marginLeft:'0.5rem'}} />
+                            </Grid>                                
+                        </Grid>
+                        <Grid container gap={0.5} >
+                            <Grid>
+                                <FontAwesomeIcon icon={faGlobe}/>
+                            </Grid>
+                            <Grid>
+                                <Typography className={`${resumeStyles.resumeBody}`} sx={{lineHeight:2}}>{resumeData.contactInfo.website}</Typography>
+                            </Grid>                                
+                        </Grid>
+                    </Grid>
+                    <Divider variant="middle" sx={{margin: '0.5rem 0', width:'100%'}}/>
                 </Grid>
+                {/* <Grid className={`${styles.row}`} container>
+                    
+                </Grid> */}
             </Grid>
         </Grid>
     )
