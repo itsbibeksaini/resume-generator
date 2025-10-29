@@ -5,7 +5,7 @@ import resumeStyles from '../shared/ResumeTemplate.module.scss'
 import { useLocation, useOutletContext } from "react-router";
 import type { TemplateData } from "../../core/template-data/TemplateData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelopeOpen, faGlobe, faHSquare, faLocationPin, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelopeOpen, faGlobe, faHSquare, faLocationPin, faMobileAlt, faStar } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 type OutletContextType = {
@@ -101,9 +101,34 @@ const Template3: FC = () => {
                     </Grid>
                     <Divider variant="middle" sx={{margin: '0.5rem 0', width:'100%'}}/>
                 </Grid>
-                {/* <Grid className={`${styles.row}`} container>
-                    
-                </Grid> */}
+                <Grid className={`${styles.row}`}>
+                    <Grid container gap={1}>
+                        <Grid sx={{position:'relative'}}>
+                            <FontAwesomeIcon icon={faStar}/>
+                        </Grid>
+                        <Grid  size='grow'>
+                            <Typography className={`${resumeStyles.resumeHeading}`}>highlights</Typography>
+                        </Grid>
+                        <Grid size={12}>
+                            <Divider sx={{margin: '0 0.5rem'}} />
+                        </Grid>
+                        <Box className={`${styles.section}`}>
+                            <Box className={`${styles.timeline}`}>
+                                <ul>
+                                    {
+                                        resumeData.summary.map((data, index) => {
+                                            return(
+                                                <li key={index}>
+                                                    <Typography className={`${resumeStyles.resumeBody}`}>{data}</Typography>
+                                                </li>
+                                            )
+                                        })
+                                    }                            
+                                </ul>
+                            </Box>
+                        </Box>
+                    </Grid>                    
+                </Grid>
             </Grid>
         </Grid>
     )

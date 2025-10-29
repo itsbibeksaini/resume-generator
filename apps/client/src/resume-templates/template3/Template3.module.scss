@@ -7,5 +7,37 @@
 .row{
     // border: 1px solid red;
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
+
+    & .section{
+        // border: 1px solid red;
+        width: 100%;
+        padding-left: 0.5rem;
+
+        & .timeline{
+            padding: 0.5rem 1rem;
+            border-left: 2px solid;
+
+            & ul{
+                list-style-type: none;
+
+                & li{                    
+                    position: relative;                    
+                    line-height: 1.1;  
+                    
+                    &:not(:last-of-type){
+                        padding-bottom: 0.25rem;    
+                    }
+
+                    &::before{
+                        position: absolute;
+                        content: "-";
+                        font-size: 2rem;
+                        top: -0.75rem;
+                        left: -1.4rem;
+                    }
+                }
+            }
+        }
+    }
 }
