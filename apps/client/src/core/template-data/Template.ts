@@ -26,5 +26,12 @@ export const TEMPLATES: Template[] = [
         thumbnail: template2,
         route: '/template2',
         isSelected: false,
+    }, {
+        id: 'template-3',
+        name: 'Modern Professional',
+        description: 'A clean and modern template with a professional look.',
+        thumbnail: template2,
+        route: '/template3',
+        isSelected: false,
     }
 ]

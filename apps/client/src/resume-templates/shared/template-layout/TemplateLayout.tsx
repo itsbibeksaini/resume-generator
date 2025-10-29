@@ -26,7 +26,7 @@ const TemplateLayout: FC = () => {
         html2canvas: { scale: 2 },
         margin: [16,0,16,0],
         jsPDF: { unit: 'px', format: 'letter', orientation: 'portrait', hotfixes: ["px_scaling"] },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        // pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
         
     }
 
@@ -36,6 +36,7 @@ const TemplateLayout: FC = () => {
         html2pdf().set(pdfOptions).from(content).save();
     }
     
+
     return (
         <Box className={`${styles.templateWrapper}`} sx={(theme) => ({
             '--background-color': theme.palette.background.default
