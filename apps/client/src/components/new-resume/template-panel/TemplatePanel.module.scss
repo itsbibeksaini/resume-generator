@@ -3,6 +3,9 @@
     text-align: center;
     overflow-y: auto;
     height: 100vh;    
+    &::-webkit-scrollbar{
+        width: 0;
+    }
     
 
     & .templates{
