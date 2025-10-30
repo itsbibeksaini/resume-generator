@@ -48,10 +48,7 @@ const TemplatePanel: FC<TemplatePanelProps> = ({ updateSelectedTemplate }) => {
                         return(
                             <ButtonBase className={`${styles.templateWrapper} ${template.isSelected ? styles.selected : ''}`} key={index} onClick={() => selectTemplate(template.id)}>
                                 <Box className={`${styles.template}`}>
-                                    <img src={template.thumbnail} style={{width:'100%', height:'100%'}} />                                                                        
-                                    <Box className={`${styles.banner}`}>
-                                        <Typography sx={{color:'#121212'}} >{template.name}</Typography>
-                                    </Box>
+                                    <img src={template.thumbnail} style={{width:'100%', height:'100%'}} />                                                                                                            
                                 </Box>
                             </ButtonBase>
                         )

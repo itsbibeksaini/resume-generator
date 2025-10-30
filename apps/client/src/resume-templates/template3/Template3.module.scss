@@ -1,0 +1,109 @@
+.template3{
+    .templateHeader{        
+        // padding: 0 1rem;
+    }
+}
+
+.row{
+    // border: 1px solid red;
+    width: 100%;
+    padding: 0.5rem 1rem;
+
+    & .section{
+        // border: 1px solid red;
+        width: 100%;
+        padding-left: 0.5rem;
+        margin-top: 0.5rem;
+
+        & .timeline{
+            padding: 0.5rem 1rem;
+            border-left: 2px solid;
+
+            & .subSection{                
+                
+                &:not(:last-of-type){
+                    margin-bottom: 0.5rem;
+                }
+                & .subSectionHeader{                    
+                    position: relative;
+                    margin-bottom: 0.5rem;
+
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        border: 1px solid;
+                        height:20px;
+                        width: 20px;
+                        border-radius: 50%;
+                        background-color: #fff;     
+                        top: 0.65rem;
+                        left: -1.65rem;
+                    }
+
+                    &::after{
+                        content: '';
+                        position: absolute;
+                        height:12px;
+                        width: 12px;
+                        border-radius: 50%;                    
+                        background-color: #121212;
+                        top: 0.9rem;
+                        left: -1.4rem;
+                    }
+                }
+
+                & .achievements{
+                    
+                    margin-top: 0.5rem;
+                    position: relative;
+
+                    & .achievementsIcon{
+                        
+                        position: absolute;
+                        width: 30px;
+                        height: 30px;
+                        z-index: 1;
+                        left: -1.65rem;                        
+
+                        &::before{
+                            content: '';
+                            position: absolute;
+                            background: #fff;                            
+                            width: 30px;
+                            height: 30px;
+                            z-index: -1;
+                            left: -0.30rem;
+                            top: -0.25rem;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+            }
+
+            & ul{
+                list-style-type: none;
+
+                & li{                    
+                    position: relative;                    
+                    line-height: 1.1;  
+                    
+                    &:not(:last-of-type){
+                        padding-bottom: 0.25rem;    
+                    }
+
+                    &::before{
+                        position: absolute;
+                        content: "-";
+                        font-size: 2rem;
+                        top: -0.75rem;
+                        left: -1.4rem;
+                    }
+                }
+            }
+        }
+
+        & .skills{
+            margin-left: 1rem;
+        }
+    }
+}
