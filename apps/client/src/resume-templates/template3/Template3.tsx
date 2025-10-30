@@ -5,7 +5,7 @@ import resumeStyles from '../shared/ResumeTemplate.module.scss'
 import { useLocation, useOutletContext } from "react-router";
 import type { TemplateData } from "../../core/template-data/TemplateData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAward, faBriefcase, faEnvelopeOpen, faGlobe, faHSquare, faLocationPin, faMobileAlt, faScrewdriverWrench, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faAward, faBriefcase, faEnvelopeOpen, faGlobe, faHSquare, faLaptopCode, faLocationPin, faMobileAlt, faScrewdriverWrench, faStar } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 type OutletContextType = {
@@ -181,7 +181,7 @@ const Template3: FC = () => {
                                             <Grid className={`${styles.subSectionHeader}`} container>
                                                 <Grid size='grow'>
                                                     <Typography className={`${resumeStyles.resumeHeading}`} sx={{textTransform: 'none'}}>{exp.jobPosition}</Typography>
-                                                    <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{lineHeight:'1.5 !important'}}>{exp.companyName}</Typography>
+                                                    <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{lineHeight:'1.5 !important'}} >{exp.companyName}</Typography>
                                                 </Grid>
                                                 <Grid sx={{textAlign:'right'}}>
                                                     <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary">{exp.startDate} - {exp.endDate}</Typography>
@@ -193,7 +193,7 @@ const Template3: FC = () => {
                                                     exp.responsibilities.map((data, index) => {
                                                         return(
                                                             <li key={index}>
-                                                                <Typography className={`${resumeStyles.resumeBody}`}>{data}</Typography>
+                                                                <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary">{data}</Typography>
                                                             </li>
                                                         )
                                                     })
@@ -213,14 +213,62 @@ const Template3: FC = () => {
                                                                 </li>
                                                             )
                                                         })
-                                                    }
-                                                    
+                                                    }                                                    
                                                 </ul>
                                             </Box>
                                         </Box>
                                     )
                                 })
                             }                            
+                        </Box>
+                    </Box>
+                </Grid>
+                <Grid className={`${styles.row}`}>
+                    <Grid container gap={1}>
+                        <Grid sx={{position:'relative'}}>
+                            <FontAwesomeIcon icon={faLaptopCode}/>
+                        </Grid>
+                        <Grid  size='grow'>
+                            <Typography className={`${resumeStyles.resumeHeading}`}>Projects</Typography>
+                        </Grid>
+                        <Grid size={12}>
+                            <Divider sx={{margin: '0 0.5rem'}} />
+                        </Grid>
+                    </Grid>
+                    <Box className={`${styles.section}`}>
+                        <Box className={`${styles.timeline}`}>
+                            {
+                                resumeData.projects.map((project, index) => {
+                                    return(
+                                        <Box className={`${styles.subSection}`} key={index}>
+                                            <Grid className={`${styles.subSectionHeader}`} container>
+                                                <Grid size='grow'>
+                                                    <Typography className={`${resumeStyles.resumeHeading}`} sx={{textTransform: 'none'}}>{project.projectName}</Typography>
+                                                    <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{lineHeight:'1.5 !important'}}>{project.subtitle}</Typography>
+                                                </Grid>
+                                                <Grid sx={{textAlign:'right'}}>
+                                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary">{project.startDate} - {project.endDate}</Typography>
+                                                    {/* <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary">{exp.city} {exp.state}, {exp.country}</Typography> */}
+                                                </Grid>
+                                            </Grid>
+                                            <ul>
+                                                {
+                                                    project.projectDescription.map((desc, index) => {
+                                                        return(
+                                                            <li key={index}>
+                                                                <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary">{desc}</Typography>
+                                                            </li>                                                
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+                                            <Box sx={{marginTop: '0.5rem'}}>
+                                                <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" sx={{fontStyle: 'italic'}}><strong>Technologies:</strong> {project.projectTechnologies.join(', ')}</Typography>
+                                            </Box>
+                                        </Box>
+                                    )
+                                })
+                            }
                         </Box>
                     </Box>
                 </Grid>
