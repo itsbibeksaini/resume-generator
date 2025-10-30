@@ -272,6 +272,40 @@ const Template3: FC = () => {
                         </Box>
                     </Box>
                 </Grid>
+                <Grid className={`${styles.row}`}>
+                    <Grid container gap={1}>
+                        <Grid sx={{position:'relative'}}>
+                            <FontAwesomeIcon icon={faAward}/>
+                        </Grid>
+                        <Grid  size='grow'>
+                            <Typography className={`${resumeStyles.resumeHeading}`}>awards & certifications</Typography>
+                        </Grid>
+                        <Grid size={12}>
+                            <Divider sx={{margin: '0 0.5rem'}} />
+                        </Grid>
+                    </Grid>
+                    <Box className={`${styles.section}`}>
+                        <Box className={`${styles.timeline}`}>
+                            {
+                                resumeData.awardsAndCertifications?.map((award, index) => {
+                                    return(
+                                        <Box className={`${styles.subSection}`} key={index}>
+                                            <Grid className={`${styles.subSectionHeader}`} container>
+                                                <Grid size='grow'>
+                                                    <Typography className={`${resumeStyles.resumeHeading}`} sx={{textTransform: 'none'}}>{award.title}</Typography>
+                                                    <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{lineHeight:'1.5 !important'}}>{award.issuer}</Typography>
+                                                </Grid>
+                                                <Grid sx={{textAlign:'right'}}>
+                                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary">{award.issueDate} {award.expirationDate ? `- ${award.expirationDate}` : ''}</Typography>                                        
+                                                </Grid>                                    
+                                            </Grid>
+                                        </Box>
+                                    )
+                                })
+                            }
+                        </Box>
+                    </Box>
+                </Grid>
             </Grid>
         </Grid>
     )
