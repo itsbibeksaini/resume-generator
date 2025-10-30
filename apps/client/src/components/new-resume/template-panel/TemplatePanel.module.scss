@@ -31,27 +31,7 @@
                 border-radius: 0.25rem;
                 background-color: #fff;
                 position: relative;
-                transition: all 0.3s ease-in-out;
-
-                & .banner{
-                    text-align:left;
-                    padding:1rem;
-                    position:absolute;
-                    right:0rem;
-                    left:0rem;
-                    bottom:0;              
-                    border-radius:0.25rem;
-
-                    transition: all 0.1s ease-in-out;
-
-                    visibility: hidden;
-                    background: rgba(255, 255, 255, 0.6);
-                    backdrop-filter: blur(10px);
-                    -webkit-backdrop-filter: blur(10px);
-                    border: 1px solid rgba(0, 0, 0, 0.1);
-                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-
-                }
+                transition: all 0.3s ease-in-out;                
             }
 
             &:hover, &.selected{

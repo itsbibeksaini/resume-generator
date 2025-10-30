@@ -5,7 +5,7 @@ import resumeStyles from '../shared/ResumeTemplate.module.scss'
 import { useLocation, useOutletContext } from "react-router";
 import type { TemplateData } from "../../core/template-data/TemplateData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAward, faBriefcase, faEnvelopeOpen, faGlobe, faHSquare, faLaptopCode, faLocationPin, faMobileAlt, faScrewdriverWrench, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faAward, faBriefcase, faEnvelopeOpen, faGlobe, faGraduationCap, faHSquare, faLaptopCode, faLocationPin, faMobileAlt, faScrewdriverWrench, faStar } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 type OutletContextType = {
@@ -99,7 +99,7 @@ const Template3: FC = () => {
                             </Grid>                                
                         </Grid>
                     </Grid>
-                    <Divider variant="middle" sx={{margin: '0.5rem 0', width:'100%'}}/>
+                    <Divider variant="middle" sx={{margin: '0.5rem 0', width:'100%', marginBottom:'0'}}/>
                 </Grid>
                 <Grid className={`${styles.row}`}>
                     <Grid container gap={1}>
@@ -297,6 +297,41 @@ const Template3: FC = () => {
                                                 </Grid>
                                                 <Grid sx={{textAlign:'right'}}>
                                                     <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary">{award.issueDate} {award.expirationDate ? `- ${award.expirationDate}` : ''}</Typography>                                        
+                                                </Grid>                                    
+                                            </Grid>
+                                        </Box>
+                                    )
+                                })
+                            }
+                        </Box>
+                    </Box>
+                </Grid>
+                <Grid className={`${styles.row}`}>
+                    <Grid container gap={1}>
+                        <Grid sx={{position:'relative'}}>
+                            <FontAwesomeIcon icon={faGraduationCap}/>
+                        </Grid>
+                        <Grid  size='grow'>
+                            <Typography className={`${resumeStyles.resumeHeading}`}>Education</Typography>
+                        </Grid>
+                        <Grid size={12}>
+                            <Divider sx={{margin: '0 0.5rem'}} />
+                        </Grid>
+                    </Grid>
+                    <Box className={`${styles.section}`}>
+                        <Box className={`${styles.timeline}`}>
+                            {
+                                resumeData.educationInfo.map((education, index) => {
+                                    return(
+                                        <Box className={`${styles.subSection}`} key={index}>
+                                            <Grid className={`${styles.subSectionHeader}`} container>
+                                                <Grid size='grow'>
+                                                    <Typography className={`${resumeStyles.resumeHeading}`} sx={{textTransform: 'none'}}>{education.schoolName}</Typography>
+                                                    <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{lineHeight:'1.5 !important'}}>{education.course}</Typography>
+                                                </Grid>
+                                                <Grid sx={{textAlign:'right'}}>
+                                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary">{education.startDate} {education.completionDate}</Typography>                                        
+                                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary">{education.city} {education.state}, {education.country}</Typography>
                                                 </Grid>                                    
                                             </Grid>
                                         </Box>
