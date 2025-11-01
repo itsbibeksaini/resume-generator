@@ -41,7 +41,6 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
     }
 
     const validateField = (name:string, value:string) => {
-        debugger
         let fieldSchema = EducationInfoSchema.shape[name as keyof EducationInfo]
         if(!fieldSchema) return
 

@@ -1,7 +1,7 @@
 import { useState, type FocusEvent, type FC } from "react";
 import styles from './DetailsPanel.module.scss';
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
+import { RESUME_SECTIONS, ResumeSectionInfoSchema, type ResumeSectionInfo } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
@@ -25,11 +25,13 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const [professionalExperienceData, setProfessionalExperienceData] = useState<ProfessionalExperienceInfo[]>([]);
     const [projects, setProjects] = useState<ProjectInfo[]>([]);
     const [awards, setAwards] = useState<AwardsAndCertificationsInfo[]>([]);
+    const [errors, setErrors] = useState<Partial<Record<keyof ResumeSectionInfo, string>>>({});
 
     const navigate = useNavigate();
 
     const updateField = (evt: FocusEvent<Element>, fieldID: string) => {        
         const value = (evt.target as HTMLInputElement).value;
+        validateField(fieldID, value)
         setResumeData((data) => ({ ...data, [fieldID]: value }));
     };
 
@@ -99,6 +101,18 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         setAwards(newData);
     }
 
+    const validateField = (name:string, value:string) => {
+        let fieldSchema = ResumeSectionInfoSchema.shape[name as keyof ResumeSectionInfo]
+        if(!fieldSchema) return
+
+        let result = fieldSchema.safeParse(value)
+
+        setErrors((prev) => ({
+            ...prev,
+            [name]: result.success ? undefined : result.error.issues[0].message,
+        }));
+    }
+
     return (
         <Grid className={`${styles.detailsPanel}`} size='grow'>
             <header>
@@ -135,6 +149,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                                                                     name={field.name} 
                                                                     col={0}                                                                    
                                                                     required={field.required}
+                                                                    errorText={errors[field.name as keyof ResumeSectionInfo]}                                                            
                                                                     onBlur={(e: FocusEvent<Element>) => updateField(e, field.name)}
                                                                 />
                                                             </Grid>
