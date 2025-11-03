@@ -1,9 +1,9 @@
-import { Box, ButtonBase, Divider, Grid, TextField, Typography } from "@mui/material";
+import { Box, ButtonBase, Divider, Grid, InputAdornment, TextField, Typography } from "@mui/material";
 import { useState, type FC } from "react";
 import styles from './SkillsSection.module.scss';
 import sharedStyles from '../shared/DetailsPannelShared.module.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faScrewdriverWrench, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 type SkillSectionProps = {
     callback: (newSkills: string[]) => void
@@ -53,13 +53,18 @@ const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
                             label="Skills" 
                             error={props.hasError}
                             placeholder="Type your skills here and press enter" 
-                            onKeyDown={addSkill} 
+                            onKeyDown={addSkill}                             
                             helperText="Type one or more skills, separated by commas, then press Enter."
                             slotProps={{
                                 input: {
                                     sx:{
                                         color: props.hasError ? "#212121" : ""
-                                    }
+                                    },
+                                    startAdornment: (
+                                        <InputAdornment position='start'>
+                                            <FontAwesomeIcon icon={faScrewdriverWrench} />
+                                        </InputAdornment>
+                                    )
                                 }
                             }}
                         />

@@ -198,6 +198,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                                                                     name={field.name} 
                                                                     col={0}                                                                    
                                                                     required={field.required}
+                                                                    icon={field.icon}
                                                                     errorText={errors[field.name as keyof ResumeSectionInfo]}                                                            
                                                                     onBlur={(e: FocusEvent<Element>) => updateField(e, field.name)}
                                                                 />

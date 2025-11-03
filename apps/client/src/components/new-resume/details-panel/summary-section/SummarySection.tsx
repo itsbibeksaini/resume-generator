@@ -1,8 +1,8 @@
 import { useState, type FC } from "react"
 import styles from './SummarySection.module.scss'
-import { Box, Divider, Grid, TextField, Typography } from "@mui/material"
+import { Box, Divider, Grid, InputAdornment, TextField, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faTimes, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faClipboardList, faTimes, faTrash } from "@fortawesome/free-solid-svg-icons"
 
 type SummarySectionProps = {
     callback: (newSummary: string) => void
@@ -41,7 +41,16 @@ const SummarySection: FC<SummarySectionProps> = (props: SummarySectionProps) =>{
                         fullWidth 
                         label="Summary" 
                         placeholder="Type your summary points here and press enter" 
-                        onKeyDown={addSummary}                         
+                        onKeyDown={addSummary}     
+                        slotProps={{
+                            input: {
+                                startAdornment: (
+                                    <InputAdornment position='start'>
+                                        <FontAwesomeIcon icon={faClipboardList} />
+                                    </InputAdornment>
+                                )
+                            }
+                        }}                    
                     />
                 </Grid>
             </Grid>

@@ -1,5 +1,7 @@
 import z from "zod";
 import type { DynamicFieldProps } from "./DynamicField";
+import { faBriefcase, faCity, faEnvelopeOpen, faGlobe, faLocationDot, faMapLocationDot, faMobileAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 type ResumeSection = {
     rows: ResumeSectionRow[]
@@ -110,6 +112,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'firstName',
             type: "text",
             label:'First Name',
+            icon: faUser,
             col: 4,
             required:true
           }, {
@@ -117,6 +120,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'lastName',
             type: "text",
             label:'Last Name',
+            icon: faUser,
             col: 4,
             required:true
           }
@@ -130,6 +134,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'jobTitle',
             type: "text",
             label:'Job Title',
+            icon: faBriefcase,
             col: 4,
             required:true
           }, {
@@ -137,6 +142,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'email',
             type: "text",
             label:'E-Mail',
+            icon: faEnvelopeOpen,
             col: 4,
             required:true
           }
@@ -158,6 +164,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'areaCode',
             type: "text",
             label:'Area Code',
+            icon: faLocationDot,
             col: 1.5,
             required:true
           }, {
@@ -165,6 +172,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'number',
             type: "text",
             label:'Number',
+            icon: faMobileAlt,
             col: 1.5,
             required:true
           }
@@ -178,6 +186,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'city',
             type: "text",
             label:'City',
+            icon: faCity,
             col: 3,
             required:true
           }, {
@@ -185,6 +194,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'province',
             type: "text",
             label:'Province/State',
+            icon: faMapLocationDot,
             col: 3,
             required:true
           }, {
@@ -192,6 +202,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'country',
             type: "text",
             label:'Country',
+            icon: faGlobe,
             col: 3,
             required:true
           }, {
@@ -216,6 +227,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'linkedin',
             type: "text",
             label:'LinkedIn',
+            icon: faLinkedin,
             col: 4,
             required:true
           },
@@ -224,6 +236,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'github',
             type: "text",
             label:'Github',
+            icon: faGithub,
             col: 4,
             required:true
           },
@@ -232,6 +245,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'websitePortfolio',
             type:'text',
             label:'Website - Portfolio',
+            icon: faGlobe,
             col: 4,
             required:false
           }
