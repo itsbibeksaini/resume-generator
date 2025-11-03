@@ -1,6 +1,6 @@
 import { type FC, type ReactNode } from "react"
 import styles from './CustomDialog.module.scss'
-import { Button, Dialog, Divider, Grid, IconButton, Typography } from "@mui/material"
+import { alpha, Button, Dialog, Divider, Grid, IconButton, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons"
 import type { IconProp } from "@fortawesome/fontawesome-svg-core"
@@ -29,15 +29,18 @@ const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
     return(
         <Dialog open={props.open} onClose={closeDialog} className={`${styles.fadeInUpBig}`} slotProps={{
             paper: {
-                sx:{
+                sx:(theme) => ({
                     position:'absolute',
                     top: '50%',
                     left: '50%',
-                    transform: "translate(-50%, -50%)"
-                }
+                    transform: "translate(-50%, -50%)",
+                    backgroundColor: theme.palette.background.default
+                })
             }
         }}>
-            <Grid className={`${styles.customDialog}`} container>
+            <Grid className={`${styles.customDialog}`} container sx={(theme) => ({
+                '--shadow-color': alpha(theme.palette.primary.main, 0.4)
+            })}>
                 <Grid size={12} className={`${styles.dialogLayoutHeader}`} container gap={1}>
                     <Grid sx={{position:'relative', width:'16px'}}>
                         <IconButton className={`${styles.closeButton}`} onClick={() => closeDialog()}>
