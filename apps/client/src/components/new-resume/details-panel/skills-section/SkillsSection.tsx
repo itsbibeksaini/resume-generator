@@ -1,6 +1,7 @@
 import { Box, ButtonBase, Divider, Grid, TextField, Typography } from "@mui/material";
 import { useState, type FC } from "react";
 import styles from './SkillsSection.module.scss';
+import sharedStyles from '../shared/DetailsPannelShared.module.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -23,21 +24,25 @@ const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
                             .map(skill => skill.trim())
                             .filter(skill => skill && !skills.includes(skill));
 
-            setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);     
+            let updatedSkills = [...new Set([...skills, ...newSkills])]
+
+            setSkills(updatedSkills);     
             
-            props.callback(newSkills)
+            props.callback(updatedSkills)
                         
             input.value = '';
         }
     }
 
     const removeSkill = (skill: string) => {
-        setSkills(skills.filter(s => s !== skill));
+        let updatedSkills = skills.filter(s => s !== skill)
+        setSkills(updatedSkills);
+        props.callback(updatedSkills)
     }
 
     return (
         <Grid className={`${styles.section}`}>
-            <Box className={`${styles.errorBox} ${props.hasError ? styles.showError + ' shake' : ''}`}>
+            <Box className={`${sharedStyles.errorBox} ${props.hasError ? sharedStyles.showError + ' shake' : ''}`}>
                 <Box>
                     <Typography variant="h6">Skills</Typography>
                 </Box>
@@ -86,7 +91,7 @@ const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
                     
                     
                 </Grid>
-                <Grid className={`${styles.errorMessageBox}`} gap={0.25}>                    
+                <Grid className={`${sharedStyles.errorMessageBox}`} gap={0.25}>                    
                     <Grid >
                         <Typography color="textPrimary">Looks like you skipped this step! Type a skill (or several) to move forward.</Typography>
                     </Grid>

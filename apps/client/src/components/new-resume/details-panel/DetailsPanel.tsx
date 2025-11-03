@@ -19,6 +19,7 @@ type DetailsPanelProps = {
 
 type SectionErrors = {
     hasSkillsError: boolean
+    hasEducationError: boolean
 }
 
 const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
@@ -31,7 +32,8 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const [awards, setAwards] = useState<AwardsAndCertificationsInfo[]>([]);
     const [errors, setErrors] = useState<Partial<Record<keyof ResumeSectionInfo, string>>>({});
     const [sectionErrors, setSectionErrors] = useState<SectionErrors>({
-        hasSkillsError: false
+        hasSkillsError: false, 
+        hasEducationError: false
     })
 
     const navigate = useNavigate();
@@ -87,11 +89,19 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     }
 
     const updateSkills = (newSkills: string[]) => {
-        setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);     
+        setSkills(newSkills);    
+        setSectionErrors(prev => ({
+            ...prev,
+            hasSkillsError: false,
+        })); 
     }
 
     const updateEducationalData = (newData: EducationInfo) => {
         setEducationalData(prevData => [...prevData, newData]);
+        setSectionErrors(prev => ({
+            ...prev,
+            hasEducationError: false,
+        }));
     }
 
     const updateSummaryData = (newSummary: string) => {
@@ -129,13 +139,22 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         // validate skills
 
         let pageHasErrors = false
-
         if(skills.length == 0){
             setSectionErrors(prev => ({
                 ...prev,
                 hasSkillsError: true,
             }));
             pageHasErrors = true
+        }
+
+        // validation education
+
+        if(educationData.length == 0){
+            setSectionErrors(prev => ({
+                ...prev,
+                hasEducationError: true,
+            }));
+            pageHasErrors = pageHasErrors && true
         }
 
         
@@ -201,7 +220,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
 
             <SkillsSection callback={updateSkills} hasError={sectionErrors.hasSkillsError} />
 
-            <EducationSection callback={updateEducationalData} />
+            <EducationSection callback={updateEducationalData} hasError={sectionErrors.hasEducationError} />
 
             <SummarySection callback={updateSummaryData} />
 
