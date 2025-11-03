@@ -17,6 +17,10 @@ type DetailsPanelProps = {
     selectedTemplate?: Template;
 }
 
+type SectionErrors = {
+    hasSkillsError: boolean
+}
+
 const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
     const [skills, setSkills] = useState<string[]>([]);
@@ -26,6 +30,9 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const [projects, setProjects] = useState<ProjectInfo[]>([]);
     const [awards, setAwards] = useState<AwardsAndCertificationsInfo[]>([]);
     const [errors, setErrors] = useState<Partial<Record<keyof ResumeSectionInfo, string>>>({});
+    const [sectionErrors, setSectionErrors] = useState<SectionErrors>({
+        hasSkillsError: false
+    })
 
     const navigate = useNavigate();
 
@@ -40,6 +47,9 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     }
 
     const previewResume = () => {        
+        if(validatePage())
+            return
+        
         if (selectedTemplate) 
             navigate(selectedTemplate?.route, {state: compileResumeData()});
     }
@@ -69,6 +79,8 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         //     console.error("Data validation error:", parsedData.error);
         //     return;
         // }
+
+        
 
         
         return DUMMY_DATA;
@@ -111,6 +123,24 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
             ...prev,
             [name]: result.success ? undefined : result.error.issues[0].message,
         }));
+    }
+
+    const validatePage = (): boolean => {
+        // validate skills
+
+        let pageHasErrors = false
+
+        if(skills.length == 0){
+            setSectionErrors(prev => ({
+                ...prev,
+                hasSkillsError: true,
+            }));
+            pageHasErrors = true
+        }
+
+        
+
+        return true
     }
 
     return (
@@ -169,7 +199,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                 })
             }
 
-            <SkillsSection callback={updateSkills} />
+            <SkillsSection callback={updateSkills} hasError={sectionErrors.hasSkillsError} />
 
             <EducationSection callback={updateEducationalData} />
 
