@@ -34,7 +34,9 @@ const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
                     top: '50%',
                     left: '50%',
                     transform: "translate(-50%, -50%)",
-                    backgroundColor: theme.palette.background.default
+                    boxShadow: `10px 10px 10px ${alpha(theme.palette.primary.main, 0.4)}, -10px -10px 10px ${alpha(theme.palette.primary.main, 0.4)}`,
+                    backgroundImage: 'none !important'
+                    
                 })
             }
         }}>
