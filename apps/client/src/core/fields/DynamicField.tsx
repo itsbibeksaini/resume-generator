@@ -49,20 +49,23 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                         required={props.required}
                         error={showError}                        
                         className={`${styles.field}`}
-                        {
-                            ...
-                            props.icon ? {
-                                slotProps: {
-                                    input: {
-                                        startAdornment: (
+                        slotProps={{
+                            input: {                            
+                                ...
+                                (
+                                    props.icon ? {
+                                     startAdornment: (
                                             <InputAdornment position='start'>
                                                 <FontAwesomeIcon icon={props.icon} />
                                             </InputAdornment>
                                         )
-                                    }
-                                }
-                            } : {}
-                        }
+                                    } : {}                                    
+                                ),
+                                sx: {
+                                    color : showError ? "#212121" : ""
+                                }                                
+                            }
+                        }}                        
                         
                     />
                     <Grid container sx={{display: showError ? 'flex': 'none', marginTop:'0.15rem'}}>

@@ -50,6 +50,13 @@ const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
                             placeholder="Type your skills here and press enter" 
                             onKeyDown={addSkill} 
                             helperText="Type one or more skills, separated by commas, then press Enter."
+                            slotProps={{
+                                input: {
+                                    sx:{
+                                        color: props.hasError ? "#212121" : ""
+                                    }
+                                }
+                            }}
                         />
                     </Grid>
                 </Grid>
