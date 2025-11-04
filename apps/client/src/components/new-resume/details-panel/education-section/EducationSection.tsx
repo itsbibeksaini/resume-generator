@@ -86,13 +86,13 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
 
     const dialogClose = () => {        
         let educationData: EducationInfo = {
-                                                schoolName: fieldData['schoolName'],
-                                                course: fieldData['course'],
-                                                startDate: fieldData['startDate'],
-                                                completionDate: fieldData['completionDate'],
-                                                city: fieldData['city'],
-                                                state: fieldData['state'],
-                                                country: fieldData['country']
+                                                schoolName: getDataValue('schoolName'),
+                                                course: getDataValue('course'),
+                                                startDate: getDataValue('startDate'),
+                                                completionDate: getDataValue('completionDate'),
+                                                city: getDataValue('city'),
+                                                state: getDataValue('state'),
+                                                country: getDataValue('country')
                                             }
 
         let isValid =  validateAll(educationData)
@@ -173,7 +173,7 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                 open={dialogOpen} 
                 title="Education" 
                 titleIcon={faGraduationCap} 
-                close={() => setDialogOpen(false)}
+                close={() => {setDialogOpen(false); setFieldData({}); setErrors({})}}
                 actionButtons={[{label: 'Save', clickAction: dialogClose}]}
             >
                 <Grid sx={{padding:'20px 30px'}} size={12} container>
