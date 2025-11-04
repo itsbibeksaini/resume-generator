@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from "react"
+import { type FC, type MouseEvent, type ReactNode } from "react"
 import styles from './CustomDialog.module.scss'
 import { alpha, Button, Dialog, Divider, Grid, IconButton, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -22,29 +22,40 @@ type ActionButton = {
 
 const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
 
-    const closeDialog = () => {                
+    const closeDialog = (event: MouseEvent, reason: "backdropClick" | "escapeKeyDown") => {               
+        if (reason === 'backdropClick' || reason === 'escapeKeyDown') 
+            return;
+
         props.close()
     }
 
     return(
-        <Dialog open={props.open} onClose={closeDialog} className={`${styles.fadeInUpBig}`} slotProps={{
-            paper: {
-                sx:(theme) => ({
-                    position:'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: "translate(-50%, -50%)",
-                    boxShadow: `10px 10px 10px ${alpha(theme.palette.primary.main, 0.4)}, -10px -10px 10px ${alpha(theme.palette.primary.main, 0.4)}`,
-                    backgroundImage: 'none !important'
-                    
-                })
-            }, 
-            backdrop: {
-                sx: (theme) => ({
-                    backgroundColor: alpha(theme.palette.primary.main, 0.3)
-                })
-            }
-        }}>
+        <Dialog 
+            open={props.open} 
+            onClose={closeDialog} 
+            className={`${styles.fadeInUpBig}`} 
+            disableEscapeKeyDown={true}
+            disableRestoreFocus={true}
+            hideBackdrop={false}
+            slotProps={{
+                paper: {
+                    sx:(theme) => ({
+                        position:'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: "translate(-50%, -50%)",
+                        boxShadow: `10px 10px 10px ${alpha(theme.palette.primary.main, 0.4)}, -10px -10px 10px ${alpha(theme.palette.primary.main, 0.4)}`,
+                        backgroundImage: 'none !important'
+                        
+                    })
+                }, 
+                backdrop: {
+                    sx: (theme) => ({
+                        backgroundColor: alpha(theme.palette.primary.main, 0.3)
+                    })
+                }
+            }}
+        >
             <Grid className={`${styles.customDialog}`} container sx={(theme) => ({
                 '--shadow-color': alpha(theme.palette.primary.main, 0.4)
             })}>
