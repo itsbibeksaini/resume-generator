@@ -62,9 +62,10 @@ const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
                                     },
                                     startAdornment: (
                                         <InputAdornment position='start'>
-                                            <FontAwesomeIcon icon={faScrewdriverWrench} />
+                                            <FontAwesomeIcon icon={faScrewdriverWrench} style={{color: props.hasError ? "#212121" : ""}} />
                                         </InputAdornment>
-                                    )
+                                    ),
+                                    title: 'Type one or more skills, separated by commas, then press Enter.'
                                 }
                             }}
                         />

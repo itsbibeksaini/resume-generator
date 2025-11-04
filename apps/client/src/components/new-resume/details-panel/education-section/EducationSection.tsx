@@ -160,7 +160,7 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
 
                 <Grid className={`${sharedStyles.errorMessageBox}`} gap={0.25}>                    
                     <Grid >
-                        <Typography color="textPrimary">Looks like you skipped this step! Type a skill (or several) to move forward.</Typography>
+                        <Typography color="textPrimary">Looks like you missed this step — please enter at least one education detail to continue.</Typography>
                     </Grid>
                 </Grid>
             </Box>

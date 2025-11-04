@@ -196,6 +196,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                                                                     label={field.label} 
                                                                     id={field.id} 
                                                                     name={field.name} 
+                                                                    placeholder={field.placeholder}
                                                                     col={0}                                                                    
                                                                     required={field.required}
                                                                     icon={field.icon}

@@ -3,7 +3,7 @@ import styles from './DynamicField.module.scss'
 
 import { faCircleExclamation, faHome, faSchool, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Grid, InputAdornment, TextField, Typography } from "@mui/material";
+import { Box, Grid, InputAdornment, TextField, Tooltip, Typography } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import type { PickerValue } from "@mui/x-date-pickers/internals";
@@ -49,6 +49,7 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                         required={props.required}
                         error={showError}                        
                         className={`${styles.field}`}
+                        
                         slotProps={{
                             input: {                            
                                 ...
@@ -56,14 +57,15 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                                     props.icon ? {
                                      startAdornment: (
                                             <InputAdornment position='start'>
-                                                <FontAwesomeIcon icon={props.icon} />
+                                                <FontAwesomeIcon icon={props.icon} style={{color: showError ? "#212121" : ""}} />
                                             </InputAdornment>
                                         )
                                     } : {}                                    
                                 ),
                                 sx: {
                                     color : showError ? "#212121" : ""
-                                }                                
+                                },
+                                title: props.placeholder                                
                             }
                         }}                        
                         

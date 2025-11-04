@@ -112,6 +112,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'firstName',
             type: "text",
             label:'First Name',
+            placeholder: 'Type your first name, e.g., John',
             icon: faUser,
             col: 4,
             required:true
@@ -120,6 +121,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'lastName',
             type: "text",
             label:'Last Name',
+            placeholder:"Type your last name, e.g., Doe",
             icon: faUser,
             col: 4,
             required:true
@@ -134,6 +136,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'jobTitle',
             type: "text",
             label:'Job Title',
+            placeholder:"Your current role, e.g., Software Engineer",
             icon: faBriefcase,
             col: 4,
             required:true
@@ -142,6 +145,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'email',
             type: "text",
             label:'E-Mail',
+            placeholder:"Enter your email, e.g., john.doe@example.com",
             icon: faEnvelopeOpen,
             col: 4,
             required:true
@@ -164,6 +168,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'areaCode',
             type: "text",
             label:'Area Code',
+            placeholder:"Your area code, e.g., 416",
             icon: faLocationDot,
             col: 1.5,
             required:true
@@ -172,6 +177,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'number',
             type: "text",
             label:'Number',
+            placeholder:"Enter phone number, e.g., 5551234",
             icon: faMobileAlt,
             col: 1.5,
             required:true
@@ -186,6 +192,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'city',
             type: "text",
             label:'City',
+            placeholder:"Where you live, e.g., San Francisco",
             icon: faCity,
             col: 3,
             required:true
@@ -194,6 +201,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'province',
             type: "text",
             label:'Province/State',
+            placeholder:"Type your state/province, e.g., ON",
             icon: faMapLocationDot,
             col: 3,
             required:true
@@ -202,6 +210,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'country',
             type: "text",
             label:'Country',
+            placeholder:"Your country, e.g., Canada",
             icon: faGlobe,
             col: 3,
             required:true
@@ -210,6 +219,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'postalCode',
             type: "text",
             label:'Postal Code',
+            placeholder:"Enter postal code, e.g., A1B 2C3",
             col: 3,
             required:false
           }
@@ -227,6 +237,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'linkedin',
             type: "text",
             label:'LinkedIn',
+            placeholder:"Add your LinkedIn profile URL",
             icon: faLinkedin,
             col: 4,
             required:true
@@ -236,6 +247,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'github',
             type: "text",
             label:'Github',
+            placeholder:"Add your GitHub profile URL",
             icon: faGithub,
             col: 4,
             required:true
@@ -245,6 +257,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             name:'websitePortfolio',
             type:'text',
             label:'Website - Portfolio',
+            placeholder:"Add your website or portfolio URL",
             icon: faGlobe,
             col: 4,
             required:false
