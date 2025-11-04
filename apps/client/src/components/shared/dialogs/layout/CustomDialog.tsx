@@ -38,6 +38,11 @@ const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
                     backgroundImage: 'none !important'
                     
                 })
+            }, 
+            backdrop: {
+                sx: (theme) => ({
+                    backgroundColor: alpha(theme.palette.primary.main, 0.3)
+                })
             }
         }}>
             <Grid className={`${styles.customDialog}`} container sx={(theme) => ({
