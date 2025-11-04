@@ -2,7 +2,7 @@ import { type FC, type MouseEvent, type ReactNode } from "react"
 import styles from './CustomDialog.module.scss'
 import { alpha, Button, Dialog, Divider, Grid, IconButton, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons"
+import { faXmark } from "@fortawesome/free-solid-svg-icons"
 import type { IconProp } from "@fortawesome/fontawesome-svg-core"
 
 
@@ -22,7 +22,7 @@ type ActionButton = {
 
 const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
 
-    const closeDialog = (event: MouseEvent, reason: "backdropClick" | "escapeKeyDown") => {               
+    const closeDialog = (event: MouseEvent, reason: String) => {               
         if (reason === 'backdropClick' || reason === 'escapeKeyDown') 
             return;
 
@@ -61,8 +61,8 @@ const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
             })}>
                 <Grid size={12} className={`${styles.dialogLayoutHeader}`} container gap={1}>
                     <Grid sx={{position:'relative', width:'16px'}}>
-                        <IconButton className={`${styles.closeButton}`} onClick={() => closeDialog()}>
-                            <FontAwesomeIcon icon={faCircleXmark} style={{fontSize:'16px'}} className={`${styles.closeIcon}`} />                        
+                        <IconButton className={`${styles.closeButton}`} onClick={(evt) => closeDialog(evt, "")}>
+                            <FontAwesomeIcon icon={faXmark} style={{fontSize:'0.5rem'}} className={`${styles.closeIcon}`} />                        
                         </IconButton>
                     </Grid>                
                     <Grid>
