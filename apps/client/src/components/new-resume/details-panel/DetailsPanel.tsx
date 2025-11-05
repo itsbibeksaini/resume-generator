@@ -96,8 +96,8 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         })); 
     }
 
-    const updateEducationalData = (newData: EducationInfo) => {
-        setEducationalData(prevData => [...prevData, newData]);
+    const updateEducationalData = (newData: EducationInfo[]) => {
+        setEducationalData(newData);
         setSectionErrors(prev => ({
             ...prev,
             hasEducationError: false,

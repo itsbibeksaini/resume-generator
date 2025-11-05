@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 
 type EdicationalSectionProps = {
-    callback: (educationalData: EducationInfo) => void
+    callback: (educationalData: EducationInfo[]) => void
     hasError: boolean
 }
 
@@ -96,10 +96,11 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                                             }
 
         let isValid =  validateAll(educationData)
+        let updatedEducationalData = [...educationalData, educationData]
 
         if(isValid){
-            props.callback(educationData)
-            setEducationalData([...educationalData, educationData])
+            props.callback(updatedEducationalData)
+            setEducationalData(updatedEducationalData)
             setDialogOpen(false)
             setFieldData({})
         }        
@@ -107,7 +108,9 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
     
 
     const deleteEducationData = (data: EducationInfo) => {
-        setEducationalData(educationalData.filter(s => s !== data))    
+        let updatedEducationalData = educationalData.filter(s => s !== data)
+        setEducationalData(updatedEducationalData)    
+        props.callback(updatedEducationalData)
     }
 
     return(
