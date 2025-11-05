@@ -94,6 +94,11 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                         
                                                                                                                
                         slotProps={{
+                            openPickerIcon: {
+                                sx: {
+                                    color : showError ? "#212121" : ""
+                                }
+                            },
                             textField: {
                                 id: props.id,
                                 required: props.required,
@@ -101,7 +106,7 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                                 onBlur: props.onBlur,
                                 error: showError,
                                 sx: {
-                                    zIndex:'1',
+                                    zIndex:'1',                                    
                                     // Stop browser autofill coloration
                                     '& input:-webkit-autofill': {
                                         WebkitBoxShadow: '0 0 0 1000px white inset !important',
@@ -112,27 +117,34 @@ const DynamicFields: Record<DynamicFieldType, React.MemoExoticComponent<(props: 
                                         WebkitTextFillColor: '#000 !important',
                                     },
                                 },
-                                ...(props.icon ? {
-                                    slotProps: {
-                                        input: {
-                                            startAdornment: (
-                                                <InputAdornment position='start'>
-                                                    <FontAwesomeIcon icon={props.icon} />
-                                                </InputAdornment>
-                                            )
-                                        }
+                                slotProps:{
+                                    input: {
+                                        ...
+                                        (
+                                            props.icon ? {
+                                                startAdornment:(
+                                                    <InputAdornment position='start'>
+                                                        <InputAdornment position='start'>
+                                                            <FontAwesomeIcon icon={props.icon} style={{color: showError ? "#212121" : ""}} />
+                                                        </InputAdornment>
+                                                    </InputAdornment>
+                                                )
+                                            } : {}
+                                        ),
+                                        sx:{
+                                            color : showError ? "#212121" : ""
+                                        },
+                                        title: props.placeholder                                
                                     }
-                                } : {})
-                                
-                            }
-                            
+                                }   
+                            }                            
                             
                         }}
                     />
                </LocalizationProvider>
                <Grid container sx={{display: showError ? 'flex': 'none'}}>
-                    <Grid size='auto' sx={{paddingTop:'0.27rem'}}>
-                        <FontAwesomeIcon icon={faTriangleExclamation} className={`${styles.errorIcon}`} />                    
+                    <Grid size='auto' sx={{paddingTop:'0.2rem'}}>
+                        <FontAwesomeIcon icon={faCircleExclamation} className={`${styles.errorIcon}`} />                    
                     </Grid>
                     <Grid size='grow'>
                         <Typography variant="caption" color="error" sx={{ display:'inline-block'}}>{props.errorText}</Typography>
