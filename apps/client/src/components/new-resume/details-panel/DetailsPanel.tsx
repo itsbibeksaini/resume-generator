@@ -20,6 +20,7 @@ type DetailsPanelProps = {
 type SectionErrors = {
     hasSkillsError: boolean
     hasEducationError: boolean
+    hasSummaryError: boolean
 }
 
 const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
@@ -33,7 +34,8 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const [errors, setErrors] = useState<Partial<Record<keyof ResumeSectionInfo, string>>>({});
     const [sectionErrors, setSectionErrors] = useState<SectionErrors>({
         hasSkillsError: false, 
-        hasEducationError: false
+        hasEducationError: false,
+        hasSummaryError: false
     })
 
     const navigate = useNavigate();
@@ -104,11 +106,12 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         }));
     }
 
-    const updateSummaryData = (newSummary: string) => {
-        setSummaryData(prev => [
+    const updateSummaryData = (newSummary: string[]) => {
+        setSummaryData(newSummary)
+        setSectionErrors(prev => ({
             ...prev,
-            newSummary
-        ])
+            hasSummaryError: false,
+        }));
     }
 
     const updateProfessionalExperienceData = (newData: ProfessionalExperienceInfo) => {
@@ -153,6 +156,16 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
             setSectionErrors(prev => ({
                 ...prev,
                 hasEducationError: true,
+            }));
+            pageHasErrors = pageHasErrors && true
+        }
+
+        // validate summary
+
+        if(summaryData.length == 0){
+            setSectionErrors(prev => ({
+                ...prev,
+                hasSummaryError: true,
             }));
             pageHasErrors = pageHasErrors && true
         }
@@ -224,7 +237,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
 
             <EducationSection callback={updateEducationalData} hasError={sectionErrors.hasEducationError} />
 
-            <SummarySection callback={updateSummaryData} />
+            <SummarySection callback={updateSummaryData} hasError={sectionErrors.hasSummaryError} />
 
             <ProfessionalExperienceSection callback={updateProfessionalExperienceData} />
 
