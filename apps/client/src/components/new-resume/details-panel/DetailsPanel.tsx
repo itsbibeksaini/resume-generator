@@ -21,6 +21,9 @@ type SectionErrors = {
     hasSkillsError: boolean
     hasEducationError: boolean
     hasSummaryError: boolean
+    hasProfessionalExperienceError: boolean,
+    hasProjectsError: boolean,
+    hasAwardsError: boolean
 }
 
 const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
@@ -35,7 +38,10 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const [sectionErrors, setSectionErrors] = useState<SectionErrors>({
         hasSkillsError: false, 
         hasEducationError: false,
-        hasSummaryError: false
+        hasSummaryError: false,
+        hasProfessionalExperienceError: true,
+        hasProjectsError: true,
+        hasAwardsError: true
     })
 
     const navigate = useNavigate();
@@ -239,7 +245,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
 
             <SummarySection callback={updateSummaryData} hasError={sectionErrors.hasSummaryError} />
 
-            <ProfessionalExperienceSection callback={updateProfessionalExperienceData} />
+            <ProfessionalExperienceSection callback={updateProfessionalExperienceData} hasError={sectionErrors.hasProfessionalExperienceError} />
 
             <ProjectsSection callback={updateProjectsData} />
 
