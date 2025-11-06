@@ -1,7 +1,7 @@
 import { useState, type FocusEvent, type FC } from "react";
 import styles from './DetailsPanel.module.scss';
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import { RESUME_SECTIONS } from "../../../core/fields/ResumeSection";
+import { RESUME_SECTIONS, ResumeSectionInfoSchema, type ResumeSectionInfo } from "../../../core/fields/ResumeSection";
 import { getDyanamicField } from "../../../core/fields/DynamicField";
 import SkillsSection from "./skills-section/SkillsSection";
 import { useNavigate } from "react-router";
@@ -17,6 +17,15 @@ type DetailsPanelProps = {
     selectedTemplate?: Template;
 }
 
+type SectionErrors = {
+    hasSkillsError: boolean
+    hasEducationError: boolean
+    hasSummaryError: boolean
+    hasProfessionalExperienceError: boolean,
+    hasProjectsError: boolean,
+    hasAwardsError: boolean
+}
+
 const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const [resumeData, setResumeData] = useState<Record<string, string>>({});
     const [skills, setSkills] = useState<string[]>([]);
@@ -25,11 +34,21 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const [professionalExperienceData, setProfessionalExperienceData] = useState<ProfessionalExperienceInfo[]>([]);
     const [projects, setProjects] = useState<ProjectInfo[]>([]);
     const [awards, setAwards] = useState<AwardsAndCertificationsInfo[]>([]);
+    const [errors, setErrors] = useState<Partial<Record<keyof ResumeSectionInfo, string>>>({});
+    const [sectionErrors, setSectionErrors] = useState<SectionErrors>({
+        hasSkillsError: false, 
+        hasEducationError: false,
+        hasSummaryError: false,
+        hasProfessionalExperienceError: true,
+        hasProjectsError: true,
+        hasAwardsError: true
+    })
 
     const navigate = useNavigate();
 
     const updateField = (evt: FocusEvent<Element>, fieldID: string) => {        
         const value = (evt.target as HTMLInputElement).value;
+        validateField(fieldID, value)
         setResumeData((data) => ({ ...data, [fieldID]: value }));
     };
 
@@ -38,6 +57,9 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     }
 
     const previewResume = () => {        
+        if(validatePage())
+            return
+        
         if (selectedTemplate) 
             navigate(selectedTemplate?.route, {state: compileResumeData()});
     }
@@ -69,22 +91,33 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         // }
 
         
+
+        
         return DUMMY_DATA;
     }
 
     const updateSkills = (newSkills: string[]) => {
-        setSkills(prevSkills => [...new Set([...prevSkills, ...newSkills])]);     
-    }
-
-    const updateEducationalData = (newData: EducationInfo) => {
-        setEducationalData(prevData => [...prevData, newData]);
-    }
-
-    const updateSummaryData = (newSummary: string) => {
-        setSummaryData(prev => [
+        setSkills(newSkills);    
+        setSectionErrors(prev => ({
             ...prev,
-            newSummary
-        ])
+            hasSkillsError: false,
+        })); 
+    }
+
+    const updateEducationalData = (newData: EducationInfo[]) => {
+        setEducationalData(newData);
+        setSectionErrors(prev => ({
+            ...prev,
+            hasEducationError: false,
+        }));
+    }
+
+    const updateSummaryData = (newSummary: string[]) => {
+        setSummaryData(newSummary)
+        setSectionErrors(prev => ({
+            ...prev,
+            hasSummaryError: false,
+        }));
     }
 
     const updateProfessionalExperienceData = (newData: ProfessionalExperienceInfo) => {
@@ -97,6 +130,55 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
 
     const updateAwardsData = (newData: AwardsAndCertificationsInfo[]) => {
         setAwards(newData);
+    }
+
+    const validateField = (name:string, value:string) => {
+        let fieldSchema = ResumeSectionInfoSchema.shape[name as keyof ResumeSectionInfo]
+        if(!fieldSchema) return
+
+        let result = fieldSchema.safeParse(value)
+
+        setErrors((prev) => ({
+            ...prev,
+            [name]: result.success ? undefined : result.error.issues[0].message,
+        }));
+    }
+
+    const validatePage = (): boolean => {
+        // validate skills
+
+        let pageHasErrors = false
+        if(skills.length == 0){
+            setSectionErrors(prev => ({
+                ...prev,
+                hasSkillsError: true,
+            }));
+            pageHasErrors = true
+        }
+
+        // validation education
+
+        if(educationData.length == 0){
+            setSectionErrors(prev => ({
+                ...prev,
+                hasEducationError: true,
+            }));
+            pageHasErrors = pageHasErrors && true
+        }
+
+        // validate summary
+
+        if(summaryData.length == 0){
+            setSectionErrors(prev => ({
+                ...prev,
+                hasSummaryError: true,
+            }));
+            pageHasErrors = pageHasErrors && true
+        }
+
+        
+
+        return true
     }
 
     return (
@@ -133,8 +215,11 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                                                                     label={field.label} 
                                                                     id={field.id} 
                                                                     name={field.name} 
+                                                                    placeholder={field.placeholder}
                                                                     col={0}                                                                    
                                                                     required={field.required}
+                                                                    icon={field.icon}
+                                                                    errorText={errors[field.name as keyof ResumeSectionInfo]}                                                            
                                                                     onBlur={(e: FocusEvent<Element>) => updateField(e, field.name)}
                                                                 />
                                                             </Grid>
@@ -154,13 +239,13 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                 })
             }
 
-            <SkillsSection callback={updateSkills} />
+            <SkillsSection callback={updateSkills} hasError={sectionErrors.hasSkillsError} />
 
-            <EducationSection callback={updateEducationalData} />
+            <EducationSection callback={updateEducationalData} hasError={sectionErrors.hasEducationError} />
 
-            <SummarySection callback={updateSummaryData} />
+            <SummarySection callback={updateSummaryData} hasError={sectionErrors.hasSummaryError} />
 
-            <ProfessionalExperienceSection callback={updateProfessionalExperienceData} />
+            <ProfessionalExperienceSection callback={updateProfessionalExperienceData} hasError={sectionErrors.hasProfessionalExperienceError} />
 
             <ProjectsSection callback={updateProjectsData} />
 

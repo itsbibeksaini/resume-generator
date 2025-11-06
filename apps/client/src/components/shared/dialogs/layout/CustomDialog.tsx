@@ -1,8 +1,8 @@
-import { type FC, type ReactNode } from "react"
+import { type FC, type MouseEvent, type ReactNode } from "react"
 import styles from './CustomDialog.module.scss'
-import { Button, Dialog, Divider, Grid, IconButton, Typography } from "@mui/material"
+import { alpha, Button, Dialog, Divider, Grid, IconButton, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons"
+import { faXmark } from "@fortawesome/free-solid-svg-icons"
 import type { IconProp } from "@fortawesome/fontawesome-svg-core"
 
 
@@ -22,26 +22,47 @@ type ActionButton = {
 
 const CustomDialog: FC<DialogLayoutProps> = (props: DialogLayoutProps) => {
 
-    const closeDialog = () => {                
+    const closeDialog = (event: MouseEvent, reason: String) => {               
+        if (reason === 'backdropClick' || reason === 'escapeKeyDown') 
+            return;
+
         props.close()
     }
 
     return(
-        <Dialog open={props.open} onClose={closeDialog} className={`${styles.fadeInUpBig}`} slotProps={{
-            paper: {
-                sx:{
-                    position:'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: "translate(-50%, -50%)"
+        <Dialog 
+            open={props.open} 
+            onClose={closeDialog} 
+            className={`${styles.fadeInUpBig}`} 
+            disableEscapeKeyDown={true}
+            disableRestoreFocus={true}
+            hideBackdrop={false}
+            slotProps={{
+                paper: {
+                    sx:(theme) => ({
+                        position:'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: "translate(-50%, -50%)",
+                        boxShadow: `10px 10px 10px ${alpha(theme.palette.primary.main, 0.4)}, -10px -10px 10px ${alpha(theme.palette.primary.main, 0.4)}`,
+                        backgroundImage: 'none !important'
+                        
+                    })
+                }, 
+                backdrop: {
+                    sx: (theme) => ({
+                        backgroundColor: alpha(theme.palette.primary.main, 0.3)
+                    })
                 }
-            }
-        }}>
-            <Grid className={`${styles.customDialog}`} container>
+            }}
+        >
+            <Grid className={`${styles.customDialog}`} container sx={(theme) => ({
+                '--shadow-color': alpha(theme.palette.primary.main, 0.4)
+            })}>
                 <Grid size={12} className={`${styles.dialogLayoutHeader}`} container gap={1}>
                     <Grid sx={{position:'relative', width:'16px'}}>
-                        <IconButton className={`${styles.closeButton}`} onClick={() => closeDialog()}>
-                            <FontAwesomeIcon icon={faCircleXmark} style={{fontSize:'16px'}} className={`${styles.closeIcon}`} />                        
+                        <IconButton className={`${styles.closeButton}`} onClick={(evt) => closeDialog(evt, "")}>
+                            <FontAwesomeIcon icon={faXmark} style={{fontSize:'0.5rem'}} className={`${styles.closeIcon}`} />                        
                         </IconButton>
                     </Grid>                
                     <Grid>
