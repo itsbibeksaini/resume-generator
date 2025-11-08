@@ -12,6 +12,9 @@ import ProfessionalExperienceSection from "./professional-experience-section/Pro
 import ProjectsSection from "./projects-section/ProjectsSection";
 import AwardsSection from "./awards-section/AwardsSection";
 import type { Template } from "../../../core/template-data/Template";
+import SectionRenderer from "../../../core/dynamic-fields/sections/renderer/SectionRenderer";
+import { PERSONAL_INFO } from "../../../core/dynamic-fields/sections/configs/personal-info";
+import { SOCIAL_MEDIA_INFO } from "../../../core/dynamic-fields/sections/configs/social-media-info";
 
 type DetailsPanelProps = {
     selectedTemplate?: Template;
@@ -187,57 +190,9 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                 <Typography variant="h5">Resume details</Typography>
             </header>            
 
-            {
-                RESUME_SECTIONS.map((section, index) => {
-                    return(
-                        <Grid className={`${styles.section}`} key={index}>
-                            <Box>
-                                <Typography variant="h6">{section.header}</Typography>
-                            </Box>
+            <SectionRenderer section={PERSONAL_INFO} />
 
-                            {
-                                section.rows.map((row, rowIndex) => {
-                                    return(
-                                        <Grid container className={`${styles.row}`} key={rowIndex}>
-                                            {
-                                                <>
-                                                    {row.subSection && 
-                                                        <Grid size={12}>
-                                                            <Typography variant="subtitle1">{row.header}</Typography>
-                                                        </Grid>
-                                                    }
-                                                    {Array.isArray(row.fields) && row.fields.map((field, fieldIndex) => {
-                                                        if (!field.type) return null;
-                                                        const FieldComponent = getDyanamicField(field.type);
-                                                        return (
-                                                            <Grid size={field.col} key={fieldIndex} className={`${styles.col}`}>
-                                                                <FieldComponent 
-                                                                    label={field.label} 
-                                                                    id={field.id} 
-                                                                    name={field.name} 
-                                                                    placeholder={field.placeholder}
-                                                                    col={0}                                                                    
-                                                                    required={field.required}
-                                                                    icon={field.icon}
-                                                                    errorText={errors[field.name as keyof ResumeSectionInfo]}                                                            
-                                                                    onBlur={(e: FocusEvent<Element>) => updateField(e, field.name)}
-                                                                />
-                                                            </Grid>
-                                                        );
-                                                    })}
-                                                </>
-                                            }
-                                        </Grid>
-                                    )
-                                })
-                            }
-                            <Box sx={{padding:'10px', marginTop:'1rem'}}>
-                                <Divider/>
-                            </Box>
-                        </Grid>
-                    )
-                })
-            }
+            <SectionRenderer section={SOCIAL_MEDIA_INFO} />
 
             <SkillsSection callback={updateSkills} hasError={sectionErrors.hasSkillsError} />
 
