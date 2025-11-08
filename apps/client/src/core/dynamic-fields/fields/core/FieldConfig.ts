@@ -3,6 +3,15 @@ import type { Dayjs } from "dayjs"
 
 type DynamicFieldType = "text" | "date-picker"
 
+type ValidationRuleType = 'required' | 'minLength' | 'maxLength' | 'pattern';
+
+export type ValidationRule = {
+    type: ValidationRuleType;
+    value: any;
+    message: string;
+}
+
+
 export type FieldConfig = {
     id:string,
     name:string,
@@ -15,6 +24,7 @@ export type FieldConfig = {
     value?: string,    
     errorText?: string,
     icon?:IconProp,
+    validations?: ValidationRule[];
     onChange?: ((evt: React.ChangeEvent) => void) |
         ((value: Dayjs) => void),
     onBlur?: (evt: React.FocusEvent) => void,
