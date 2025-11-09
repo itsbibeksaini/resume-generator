@@ -3,7 +3,7 @@ import type { FieldConfig } from "./FieldConfig";
 import type z from "zod";
 
 export const DynamicField = {
-    create: (config: FieldConfig, options: {render: () => MemoExoticComponent<() => JSX.Element>, getSchema: () => z.ZodType}) => {
+    create: (config: FieldConfig, options: {render: () => MemoExoticComponent<(config: FieldConfig) => JSX.Element>, getSchema: () => z.ZodType}) => {
         return { render: options.render, getSchema: options.getSchema
          };
     }

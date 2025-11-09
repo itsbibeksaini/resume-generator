@@ -1,14 +1,37 @@
-import type { FC } from "react";
+import { useState, useMemo, memo, useCallback, type FC, type FocusEvent } from "react";
 import type { SectionConfig } from "../SectionConfig";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import styles from './SectionRenderer.module.scss'
 import { FieldFactory } from "../../fields/core/FieldFactory";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
+import type { FieldConfig } from "../../fields/core/FieldConfig";
+import FieldRenderer from "./field/FieldRenderer";
 
 type SectionRendererProps = {
     section:  SectionConfig
 }
 
 const SectionRenderer: FC<SectionRendererProps> = ({section}) => {
+
+    const [fieldData, setFieldData] = useState<Record<string, string>>({});
+
+    // Memoize updateField to prevent unnecessary re-renders of FieldRenderer
+    const updateField = useCallback((evt: React.FocusEvent<Element> | Dayjs, fieldName: string) => {
+        let value = "";
+
+        if (dayjs.isDayjs(evt)) {
+            value = evt.format("MM/YYYY");
+        } else if (evt && "target" in evt) {
+            value = (evt.target as HTMLInputElement).value;    
+        }
+
+        setFieldData((data) => ({
+            ...data,
+            [fieldName]: value,
+        }));
+    }, []);
+
     return(
         <Grid className={`${styles.section}`}>
             <Box>
@@ -25,13 +48,18 @@ const SectionRenderer: FC<SectionRendererProps> = ({section}) => {
                             }
 
                             {
-                                row.fields.map((field, fieldIndex) => {
-                                    const Field = FieldFactory.createFields(field).render()
-                                    return(
-                                        <Grid size={field.col} key={fieldIndex} className={`${styles.col}`}>
-                                            <Field/>
-                                        </Grid>
-                                    )
+                                row.fields.map((field) => {
+                                    // Get the current value from state or fallback to field.value
+                                    const fieldValue = fieldData[field.name] || field.value || '';
+
+                                    return (
+                                        <FieldRenderer
+                                            key={field.id}
+                                            field={field}
+                                            value={fieldValue}
+                                            onUpdate={updateField}
+                                        />
+                                    );
                                 })
                             }
                         </Grid>

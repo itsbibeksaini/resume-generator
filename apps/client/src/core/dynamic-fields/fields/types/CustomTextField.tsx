@@ -10,7 +10,7 @@ import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 export const CustomTextField = (config: FieldConfig): DynamicField => 
     DynamicField.create(config, {
         render: () => memo(() => {
-            const showError = Boolean(config.errorText && config.errorText.trim().length > 0);
+            const showError = Boolean(config.errorText && config.errorText.trim().length > 0);            
             return (
                 <Box className={`${styles.fieldWrapper } ${showError ? styles.showError + ' shake': ''}`}>
                     <TextField 
