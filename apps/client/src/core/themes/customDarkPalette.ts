@@ -13,9 +13,9 @@ const customDarkPalette: PaletteOptions = {
     }, 
     text:{
         primary:'#fff'
-    },
+    },    
+    divider: '#444444',
     
-    divider: '#444444'
 }
 
 export default customDarkPalette

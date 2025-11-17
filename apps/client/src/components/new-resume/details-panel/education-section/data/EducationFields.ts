@@ -37,7 +37,7 @@ export const EducationInfoSchema = z.object({
     city: z.string("City is required.").trim()
         .min(2, "City name must be at least 2 characters long.")
         .max(50, "City name must be at most 50 characters long."),
-    state: z.string("State is required."),
+    state: z.string("State is required.").trim(),
     country: z.string("Country is required.").trim()
             .min(2, "Country name must be at least 2 characters long.")
             .max(50, "Country name must be at most 50 characters long.")
