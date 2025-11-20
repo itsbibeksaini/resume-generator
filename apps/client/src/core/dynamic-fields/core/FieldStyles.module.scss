@@ -20,19 +20,35 @@
         }
     }
 
-    & .errorIcon{
-        font-size:0.68rem;
-        color:#B71C1C;
-        display: none;
-    }
+    
     
 
     &.showError{
         border-color: #B71C1C;
         background-color:#FFCDD2;
 
-        & .errorIcon{
+        & .errorTextWrapper .errorIcon{
             display: block;
         }
+    }
+
+    & .errorTextWrapper{
+        margin-top:0.15rem;
+        display: none;
+
+        & .errorIcon{
+            font-size:0.68rem;
+            color:#B71C1C;
+            display: none;
+        }
+
+        & .errorText{
+            line-height: 1;            
+        }
+
+        &.showErrorText{
+            display: flex;
+        }
+        
     }
 }

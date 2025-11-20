@@ -44,12 +44,12 @@ const CustomTextField: DynamicField = {
                             }
                         }}                        
                      />
-                     <Grid container sx={{display: showError ? 'flex': 'none', marginTop:'0.15rem'}}>
+                     <Grid container className={`${styles.errorTextWrapper} ${showError ? styles.showErrorText : ''}`} gap={0.5}>
                         <Grid size='auto' sx={{paddingTop:'0.2rem'}}>
                             <FontAwesomeIcon icon={faCircleExclamation} className={`${styles.errorIcon}`} />                    
                         </Grid>
-                        <Grid size='grow'>
-                            <Typography variant="caption" color="error" sx={{ display:'inline-block'}}>{config.errorText}</Typography>
+                        <Grid size='grow' className={`${styles.errorText}`}>
+                            <Typography variant="caption" color="error">{config.errorText}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
