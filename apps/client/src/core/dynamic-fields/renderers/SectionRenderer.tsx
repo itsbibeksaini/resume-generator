@@ -22,12 +22,11 @@ type SectionRendererProps = {
 
 const SectionRenderer: FC<SectionRendererProps> = (props: SectionRendererProps) => {
 
-    const [values, setValues] = useState<Record<string, any>>(
-    // initialize from config values
+    const [dataValue, setDataValues] = useState<Record<string, string>>(
         props.section.rows.flatMap(row => row.fields).reduce((acc, field) => {
         acc[field.name] = "";
         return acc;
-        }, {} as Record<string, any>)
+        }, {} as Record<string, string>)
     );
     
     return(
@@ -51,18 +50,7 @@ const SectionRenderer: FC<SectionRendererProps> = (props: SectionRendererProps) 
                                             if (!field.type) return null;
                                         field.errorText = "test"
                                             return (
-                                                <Grid size={field.col} key={fieldIndex} className={`${styles.col}`}>
-                                                    {/* <FieldComponent 
-                                                        label={field.label} 
-                                                        id={field.id} 
-                                                        name={field.name} 
-                                                        placeholder={field.placeholder}
-                                                        col={0}                                                                    
-                                                        required={field.required}
-                                                        icon={field.icon}
-                                                        errorText={errors[field.name as keyof ResumeSectionInfo]}                                                            
-                                                        onBlur={(e: FocusEvent<Element>) => updateField(e, field.name)}
-                                                    /> */}
+                                                <Grid size={field.col} key={fieldIndex} className={`${styles.col}`}>                                                    
                                                     <FieldRenderer config={field}/>
                                                 </Grid>
                                             );
