@@ -12,6 +12,9 @@ import ProfessionalExperienceSection from "./professional-experience-section/Pro
 import ProjectsSection from "./projects-section/ProjectsSection";
 import AwardsSection from "./awards-section/AwardsSection";
 import type { Template } from "../../../core/template-data/Template";
+import { FieldRenderer } from "../../../core/dynamic-fields/renderers/FieldRenderer";
+import SectionRenderer from "../../../core/dynamic-fields/renderers/SectionRenderer";
+import { EDUCATION_SECTIONS } from "./education-section/data/EducationFields";
 
 type DetailsPanelProps = {
     selectedTemplate?: Template;
@@ -186,6 +189,22 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
             <header>
                 <Typography variant="h5">Resume details</Typography>
             </header>            
+
+            {/* <FieldRenderer
+                config={{
+                    id: 'firstname',
+                    name: 'firstname',
+                    label: 'First Name',
+                    placeholder: 'Enter your first name',
+                    col: 6,
+                    required: true,
+                    type: 'text',
+                    // errorText:"test"
+                }} 
+                value={getDataValue('firstname')}
+             /> */}
+
+             <SectionRenderer section={RESUME_SECTIONS[0]} hasError={false} />
 
             {
                 RESUME_SECTIONS.map((section, index) => {
