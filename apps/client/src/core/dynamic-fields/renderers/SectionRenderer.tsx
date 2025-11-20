@@ -48,7 +48,7 @@ const SectionRenderer: FC<SectionRendererProps> = (props: SectionRendererProps) 
                                         }
                                         {Array.isArray(row.fields) && row.fields.map((field, fieldIndex) => {
                                             if (!field.type) return null;
-                                        field.errorText = "test"
+                                        field.errorText = ""
                                             return (
                                                 <Grid size={field.col} key={fieldIndex} className={`${styles.col}`}>                                                    
                                                     <FieldRenderer config={field}/>
