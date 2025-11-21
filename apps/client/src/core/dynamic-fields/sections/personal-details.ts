@@ -1,5 +1,6 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import type { Section } from "../renderers/SectionRenderer";
+import z from "zod";
 
 export const PERSONAL_DETAILS: Section = {
     header: 'Personal & Contact Information',
@@ -18,7 +19,8 @@ export const PERSONAL_DETAILS: Section = {
             events: [{
                 type: 'blur'
             }],
-            required:true
+            required:true,
+             validations: z.string().min(2, {message: "First name must be at least 2 characters long"})
             
           }, {
             id:'txt-lastname',
