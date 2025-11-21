@@ -4,6 +4,7 @@ import type { FieldConfig } from "../core/FieldConfig";
 import styles from '../core/FieldStyles.module.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import z from "zod";
 
 const CustomTextField: DynamicField = {
     create: (config: FieldConfig) => ({
@@ -15,8 +16,7 @@ const CustomTextField: DynamicField = {
                         label={config.label} 
                         fullWidth
                         id={config.id}
-                        name={config.name}
-                        value={config.value}
+                        name={config.name}                        
                         placeholder={config.placeholder}
                         // onChange={config.onChange as (e: React.ChangeEvent<HTMLInputElement>) => void}
                         // onBlur={config.onBlur}
@@ -63,6 +63,13 @@ const CustomTextField: DynamicField = {
                     </Grid>
                 </Box>
             )
+        },
+        schema: () => {
+            let s = z.string()
+            if (config.validations) 
+                s.and(config.validations)
+            
+            return s
         }
     })
 }

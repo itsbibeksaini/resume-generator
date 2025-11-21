@@ -1,5 +1,6 @@
 import type { IconProp } from "@fortawesome/fontawesome-svg-core"
 import type { FocusEvent } from "react"
+import type z from "zod"
 
 export type FieldType = "text" | "date-picker"
 
@@ -20,7 +21,7 @@ export type FieldConfig = {
     errorText?: string,
     icon?:IconProp,
     events?: FieldEvents[]
-    value?: string
+    validations?: z.ZodType<any>    
     // onChange?: ((evt: React.ChangeEvent) => void) |
     // ((value: Dayjs) => void),
     // onBlur?: (evt: React.FocusEvent) => void,
