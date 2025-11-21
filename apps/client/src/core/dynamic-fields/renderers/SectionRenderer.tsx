@@ -4,7 +4,7 @@ import { Box, Grid, Typography } from "@mui/material"
 import styles from '../core/RendererStyles.module.scss'
 import { FieldRenderer } from "./FieldRenderer"
 
-type Section = {
+export type Section = {
     rows: SectionRow[]
     header: string
 }

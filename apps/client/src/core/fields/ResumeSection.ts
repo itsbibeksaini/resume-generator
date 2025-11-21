@@ -116,6 +116,7 @@ export const RESUME_SECTIONS: ResumeSection[] = [
             icon: faUser,
             col: 4,
             required:true
+            
           }, {
             id:'txt-lastname',
             name:'lastName',
