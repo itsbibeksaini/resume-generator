@@ -41,10 +41,8 @@ export const FieldRenderer = ({config, value}: FieldRendererProps) => {
                     ...event,
                     handler: (evt: FocusEvent<Element>) => {                                    
                         const target = evt.target as HTMLInputElement;                        
-                        if(validateField(target.value)){
-                            console.log("Valid value:", target.value);
+                        if(validateField(target.value))                            
                             setDataValue(target.value);
-                        }                                 
                     }                    
                 }
             }
