@@ -15,6 +15,7 @@ import type { Template } from "../../../core/template-data/Template";
 import { FieldRenderer } from "../../../core/dynamic-fields/renderers/FieldRenderer";
 import SectionRenderer from "../../../core/dynamic-fields/renderers/SectionRenderer";
 import { EDUCATION_SECTIONS } from "./education-section/data/EducationFields";
+import { PERSONAL_DETAILS } from "../../../core/dynamic-fields/sections/personal-details";
 
 type DetailsPanelProps = {
     selectedTemplate?: Template;
@@ -204,7 +205,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                 value={getDataValue('firstname')}
              /> */}
 
-             <SectionRenderer section={RESUME_SECTIONS[0]} hasError={false} />
+             <SectionRenderer section={PERSONAL_DETAILS} hasError={false} />
 
             {
                 RESUME_SECTIONS.map((section, index) => {

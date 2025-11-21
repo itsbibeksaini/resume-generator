@@ -16,7 +16,7 @@ const CustomTextField: DynamicField = {
                         fullWidth
                         id={config.id}
                         name={config.name}
-                        // value={config.value}
+                        value={config.value}
                         placeholder={config.placeholder}
                         // onChange={config.onChange as (e: React.ChangeEvent<HTMLInputElement>) => void}
                         // onBlur={config.onBlur}
@@ -25,6 +25,15 @@ const CustomTextField: DynamicField = {
                         required={config.required}
                         error={showError}                        
                         className={`${styles.field}`}
+                        {
+                            ... 
+                            (config.events?.reduce((acc, event) => {
+                                if(event.type === 'blur' && event.handler) {
+                                    acc.onBlur = event.handler;
+                                }
+                                return acc;
+                            }, {} as Record<string, (evt: React.FocusEvent) => void>) || {})
+                        }
                         slotProps={{
                             input: {                            
                                 ...
