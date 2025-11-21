@@ -20,7 +20,9 @@ export const PERSONAL_DETAILS: Section = {
                 type: 'blur'
             }],
             required:true,
-             validations: z.string().min(2, {message: "First name must be at least 2 characters long"})
+             validations: z.string().trim()
+                            .min(2, {message: "First name must be at least 2 characters long"})
+                            .max(50, {message: "First name must be at most 50 characters long"})
             
           }, {
             id:'txt-lastname',

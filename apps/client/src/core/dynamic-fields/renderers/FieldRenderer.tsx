@@ -9,34 +9,48 @@ type FieldRendererProps = {
 
 export const FieldRenderer = ({config, value}: FieldRendererProps) => {
     const fieldFactory = FieldFactoryImpl
-    const [dataValue, setDataValue] = useState<string>(value || "") 
+    const [dataValue, setDataValue] = useState<string>(value || "")
+    const [errorText, setErrorText] = useState<string>("")
 
-    const validateField = (value: string) => {
-        config.validations?.safeParseAsync(value).then(result => {
-            if (!result.success) {
-                console.error(`Validation errors for field [${config.name}]:`, result.error.issues[0].message);
-            }
-        })
+    const validateField = (value: string):boolean => {
+        // if no validation schema → field is automatically valid
+        if (!config.validations) {
+            setErrorText("");
+            return true;
+        }
+
+        const result = config.validations.safeParse(value);
+
+        if (result.success) {
+            setErrorText("");
+            return true;
+        }
+
+        // extract first error safely
+        const message = result.error?.issues?.[0]?.message ?? "Invalid value";
+        setErrorText(message);
+
+        return false;
     }
 
     const updatedConfig: FieldConfig = {
         ...config,
-    
-        
         events: config.events?.map(event => {
             if(event.type === 'blur'){
                 return{
                     ...event,
-                    handler: (evt: FocusEvent<Element>) => {            
-                        console.log('Blur event triggered for field:', config.name);
-                        const target = evt.target as HTMLInputElement;
-                        validateField(target.value);
-                        setDataValue(target.value);                                 
+                    handler: (evt: FocusEvent<Element>) => {                                    
+                        const target = evt.target as HTMLInputElement;                        
+                        if(validateField(target.value)){
+                            console.log("Valid value:", target.value);
+                            setDataValue(target.value);
+                        }                                 
                     }                    
                 }
             }
             return event
-        })
+        }),
+        errorText: errorText
     }
 
     return fieldFactory.createField(updatedConfig);    
