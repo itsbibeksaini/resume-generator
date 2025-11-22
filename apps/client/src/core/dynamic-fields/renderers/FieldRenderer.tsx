@@ -5,14 +5,15 @@ import { FieldFactoryImpl } from "../factories/FieldFactory"
 type FieldRendererProps = {
     config: FieldConfig,
     value?: string
+    updateSection: (name: string, value: string) => void
 }
 
-export const FieldRenderer = ({config, value}: FieldRendererProps) => {
+export const FieldRenderer = ({ config, value, updateSection }: FieldRendererProps) => {
     const fieldFactory = FieldFactoryImpl
     const [dataValue, setDataValue] = useState<string>(value || "")
     const [errorText, setErrorText] = useState<string>("")
 
-    const validateField = (value: string):boolean => {
+    const validateField = (value: string): boolean => {
         // if no validation schema → field is automatically valid
         if (!config.validations) {
             setErrorText("");
@@ -36,14 +37,16 @@ export const FieldRenderer = ({config, value}: FieldRendererProps) => {
     const updatedConfig: FieldConfig = {
         ...config,
         events: config.events?.map(event => {
-            if(event.type === 'blur'){
-                return{
+            if (event.type === 'blur') {
+                return {
                     ...event,
-                    handler: (evt: FocusEvent<Element>) => {                                    
-                        const target = evt.target as HTMLInputElement;                        
-                        if(validateField(target.value))                            
+                    handler: (evt: FocusEvent<Element>) => {
+                        const target = evt.target as HTMLInputElement;
+                        if (validateField(target.value)) {
                             setDataValue(target.value);
-                    }                    
+                            updateSection(config.name, target.value);
+                        }
+                    }
                 }
             }
             return event
@@ -51,5 +54,5 @@ export const FieldRenderer = ({config, value}: FieldRendererProps) => {
         errorText: errorText
     }
 
-    return fieldFactory.createField(updatedConfig);    
+    return fieldFactory.createField(updatedConfig);
 }
