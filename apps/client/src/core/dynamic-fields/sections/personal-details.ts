@@ -32,7 +32,10 @@ export const PERSONAL_DETAILS: Section = {
             placeholder:"Type your last name, e.g., Doe",
             icon: faUser,
             col: 4,
-            required:true
+            required:true,
+            validations: z.string().trim()
+                            .min(2, {message: "Last name must be at least 2 characters long"})
+                            .max(50, {message: "Last name must be at most 50 characters long"})
           }
         ]
       }
