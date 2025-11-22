@@ -1,17 +1,22 @@
-import { useState, type FocusEvent } from "react"
+import { useEffect, useState, type FocusEvent } from "react"
 import type { FieldConfig, FieldEvents } from "../core/FieldConfig"
 import { FieldFactoryImpl } from "../factories/FieldFactory"
 
 type FieldRendererProps = {
-    config: FieldConfig,
+    config: FieldConfig
     value?: string
+    sectionErrorText?: string
     updateSection: (name: string, value: string) => void
 }
 
-export const FieldRenderer = ({ config, value, updateSection }: FieldRendererProps) => {
+export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }: FieldRendererProps) => {
     const fieldFactory = FieldFactoryImpl
     const [dataValue, setDataValue] = useState<string>(value || "")
-    const [errorText, setErrorText] = useState<string>("")
+    const [errorText, setErrorText] = useState<string>(sectionErrorText || "")
+
+    useEffect(() => {
+        setErrorText(sectionErrorText || "");
+    }, [sectionErrorText]);
 
     const validateField = (value: string): boolean => {
         // if no validation schema → field is automatically valid

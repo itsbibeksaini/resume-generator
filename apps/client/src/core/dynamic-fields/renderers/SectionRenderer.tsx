@@ -1,4 +1,4 @@
-import { useState, type FC } from "react"
+import { forwardRef, useImperativeHandle, useState, type FC } from "react"
 import type { FieldConfig } from "../core/FieldConfig"
 import { Box, Grid, Typography } from "@mui/material"
 import styles from '../core/RendererStyles.module.scss'
@@ -16,12 +16,16 @@ type SectionRow = {
     fields: FieldConfig[]
 }
 
+export type SectionRendererHandle = {
+    validate: () => boolean
+}
+
 type SectionRendererProps = {
     section: Section,
     hasError?: boolean
 }
 
-const SectionRenderer: FC<SectionRendererProps> = (props: SectionRendererProps) => {
+const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>((props: SectionRendererProps, ref) => {
 
     const [dataValue, setDataValues] = useState<Record<string, string>>(
         props.section.rows.flatMap(row => row.fields).reduce((acc, field) => {
@@ -48,6 +52,26 @@ const SectionRenderer: FC<SectionRendererProps> = (props: SectionRendererProps) 
         });
     }
 
+    const validateSection = (): boolean => {
+        let result = schema.safeParse(dataValue);
+        if (!result.success) {
+            const errors: Record<string, string> = {};
+
+            result.error.issues.forEach(issue => {
+                const field = issue.path[0] as string;
+                errors[field] = issue.message;
+            });
+
+            setErrors(errors);
+            return false;
+        }
+        return true
+    }
+
+    useImperativeHandle(ref, () => ({
+        validate: validateSection
+    }))
+
     return (
         <Grid className={`${styles.section}`}>
             <Box className={`${styles.errorBox} ${props.hasError ? styles.showError + ' shake' : ''}`}>
@@ -66,11 +90,10 @@ const SectionRenderer: FC<SectionRendererProps> = (props: SectionRendererProps) 
                                             </Grid>
                                         }
                                         {Array.isArray(row.fields) && row.fields.map((field, fieldIndex) => {
-                                            if (!field.type) return null;
-                                            field.errorText = ""
+                                            if (!field.type) return null
                                             return (
                                                 <Grid size={field.col} key={fieldIndex} className={`${styles.col}`}>
-                                                    <FieldRenderer config={field} updateSection={updateDataValue} />
+                                                    <FieldRenderer config={field} updateSection={updateDataValue} sectionErrorText={errors[field.name as keyof SectionRendererProps]} />
                                                 </Grid>
                                             );
                                         })}
@@ -83,6 +106,6 @@ const SectionRenderer: FC<SectionRendererProps> = (props: SectionRendererProps) 
             </Box>
         </Grid>
     )
-}
+})
 
 export default SectionRenderer;
