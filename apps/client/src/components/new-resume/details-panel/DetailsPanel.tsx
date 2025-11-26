@@ -16,6 +16,7 @@ import { FieldRenderer } from "../../../core/dynamic-fields/renderers/FieldRende
 import SectionRenderer, { type SectionRendererHandle } from "../../../core/dynamic-fields/renderers/SectionRenderer";
 import { EDUCATION_SECTIONS } from "./education-section/data/EducationFields";
 import { PERSONAL_DETAILS } from "../../../core/dynamic-fields/sections/personal-details";
+import { SOCIAL_MEDIA_DETAILS } from "../../../core/dynamic-fields/sections/social-media-details";
 
 type DetailsPanelProps = {
     selectedTemplate?: Template;
@@ -49,7 +50,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     })
 
     const navigate = useNavigate();
-    const childRef = useRef<SectionRendererHandle>(null);
+    const childRef = useRef<SectionRendererHandle[]>([]);
 
     const updateField = (evt: FocusEvent<Element>, fieldID: string) => {
         const value = (evt.target as HTMLInputElement).value;
@@ -62,7 +63,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     }
 
     const previewResume = () => {
-        childRef.current?.validate();
+        childRef.current?.map((ref) => ref.validate());
         if (validatePage())
             return
 
@@ -193,73 +194,13 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                 <Typography variant="h5">Resume details</Typography>
             </header>
 
-            {/* <FieldRenderer
-                config={{
-                    id: 'firstname',
-                    name: 'firstname',
-                    label: 'First Name',
-                    placeholder: 'Enter your first name',
-                    col: 6,
-                    required: true,
-                    type: 'text',
-                    // errorText:"test"
-                }} 
-                value={getDataValue('firstname')}
-             /> */}
+            <SectionRenderer ref={(el) => {
+                childRef.current[0] = el!; // or whichever index this is
+            }} section={PERSONAL_DETAILS} hasError={false} />
 
-            <SectionRenderer ref={childRef} section={PERSONAL_DETAILS} hasError={false} />
-
-            {
-                RESUME_SECTIONS.map((section, index) => {
-                    return (
-                        <Grid className={`${styles.section}`} key={index}>
-                            <Box>
-                                <Typography variant="h6">{section.header}</Typography>
-                            </Box>
-
-                            {
-                                section.rows.map((row, rowIndex) => {
-                                    return (
-                                        <Grid container className={`${styles.row}`} key={rowIndex}>
-                                            {
-                                                <>
-                                                    {row.subSection &&
-                                                        <Grid size={12}>
-                                                            <Typography variant="subtitle1">{row.header}</Typography>
-                                                        </Grid>
-                                                    }
-                                                    {Array.isArray(row.fields) && row.fields.map((field, fieldIndex) => {
-                                                        if (!field.type) return null;
-                                                        const FieldComponent = getDyanamicField(field.type);
-                                                        return (
-                                                            <Grid size={field.col} key={fieldIndex} className={`${styles.col}`}>
-                                                                <FieldComponent
-                                                                    label={field.label}
-                                                                    id={field.id}
-                                                                    name={field.name}
-                                                                    placeholder={field.placeholder}
-                                                                    col={0}
-                                                                    required={field.required}
-                                                                    icon={field.icon}
-                                                                    errorText={errors[field.name as keyof ResumeSectionInfo]}
-                                                                    onBlur={(e: FocusEvent<Element>) => updateField(e, field.name)}
-                                                                />
-                                                            </Grid>
-                                                        );
-                                                    })}
-                                                </>
-                                            }
-                                        </Grid>
-                                    )
-                                })
-                            }
-                            <Box sx={{ padding: '10px', marginTop: '1rem' }}>
-                                <Divider />
-                            </Box>
-                        </Grid>
-                    )
-                })
-            }
+            <SectionRenderer ref={(el) => {
+                childRef.current[1] = el!; // or whichever index this is
+            }} section={SOCIAL_MEDIA_DETAILS} hasError={false} />
 
             <SkillsSection callback={updateSkills} hasError={sectionErrors.hasSkillsError} />
 
