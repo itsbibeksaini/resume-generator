@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useState, type FC } from "react"
 import type { FieldConfig } from "../core/FieldConfig"
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Divider, Grid, Typography } from "@mui/material"
 import styles from '../core/RendererStyles.module.scss'
 import { FieldRenderer } from "./FieldRenderer"
 import z from "zod"
@@ -103,6 +103,9 @@ const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>(
                         )
                     })
                 }
+            </Box>
+            <Box sx={{ padding: '10px', marginTop: '1rem' }}>
+                <Divider />
             </Box>
         </Grid>
     )
