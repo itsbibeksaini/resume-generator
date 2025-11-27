@@ -1,7 +1,4 @@
 .section{
-    padding: 0 15px;
-    margin-top: 20px;    
-
     & .row{
         width: 100%;
         padding: 0.5rem 0;
@@ -18,7 +15,7 @@
 .errorBox{
     transition: all 0.3s ease-in-out;
     border:2px solid transparent;
-    padding:10px 5px;
+    // padding:10px 5px;
     border-radius:0.25rem;     
 
     & .errorMessageBox{
