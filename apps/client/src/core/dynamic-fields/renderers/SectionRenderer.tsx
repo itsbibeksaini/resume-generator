@@ -23,6 +23,7 @@ export type SectionRendererHandle = {
 type SectionRendererProps = {
     section: Section,
     hasError?: boolean
+    addDivider?: boolean
 }
 
 const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>((props: SectionRendererProps, ref) => {
@@ -104,9 +105,11 @@ const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>(
                     })
                 }
             </Box>
-            <Box sx={{ padding: '10px', marginTop: '1rem' }}>
-                <Divider />
-            </Box>
+            {props.addDivider && (
+                <Box sx={{ padding: '10px', marginTop: '1rem' }}>
+                    <Divider />
+                </Box>
+            )}
         </Grid>
     )
 })

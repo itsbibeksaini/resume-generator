@@ -194,13 +194,18 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                 <Typography variant="h5">Resume details</Typography>
             </header>
 
-            <SectionRenderer ref={(el) => {
-                childRef.current[0] = el!; // or whichever index this is
-            }} section={PERSONAL_DETAILS} hasError={false} />
+            <Box sx={{padding:'0 30px', marginTop:'20px'}}>
+                <SectionRenderer ref={(el) => {
+                    childRef.current[0] = el!
+                }} section={PERSONAL_DETAILS} hasError={false} addDivider />
 
-            <SectionRenderer ref={(el) => {
-                childRef.current[1] = el!; // or whichever index this is
-            }} section={SOCIAL_MEDIA_DETAILS} hasError={false} />
+                <SectionRenderer ref={(el) => {
+                    childRef.current[1] = el!
+                }} section={SOCIAL_MEDIA_DETAILS} hasError={false} addDivider />
+            </Box>
+            
+
+            
 
             <SkillsSection callback={updateSkills} hasError={sectionErrors.hasSkillsError} />
 
