@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Divider, Grid, InputAdornment, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonBase, Checkbox, Divider, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import { useState, type FC } from "react";
 import styles from './SkillsSection.module.scss';
 import sharedStyles from '../shared/DetailsPannelShared.module.scss'
@@ -40,6 +40,11 @@ const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
         props.callback(updatedSkills)
     }
 
+    const removeAllSkills = () => {
+        setSkills([]);
+        props.callback([]);
+    }
+
     return (
         <Grid className={`${styles.section}`}>
             <Box className={`${sharedStyles.errorBox} ${props.hasError ? sharedStyles.showError + ' shake' : ''}`}>
@@ -70,33 +75,50 @@ const SkillsSection: FC<SkillSectionProps> = (props: SkillSectionProps) => {
                             }}
                         />
                     </Grid>
-                </Grid>
-                <Grid container className={`${styles.row}`} gap={1} >
+                </Grid>                
+                <Box className={`${styles.row}`}>
                     {
                         skills.length === 0 ? (
-                            <Grid sx={{textAlign:'center'}} size={12}>
+                            <Grid sx={{textAlign:'center', padding:'1rem'}} size={12}>
                                 <Typography variant="h6" color={props.hasError ? "error" : "textSecondary"}>No skills added</Typography>
                             </Grid>
                         ) : (
-                            skills.map((skill, index) => {
-                                return (
-                                    <Grid container className={`${styles.skillChip}`} key={index}>
-                                        <Grid size='grow' sx={{padding: '0.5rem'}}>
-                                            <Typography>{skill}</Typography>
-                                        </Grid>
-                                        <Grid className={`${styles.skillAction}`}>
-                                            <ButtonBase className={`${styles.deleteBtn}`} onClick={() => removeSkill(skill)}>
-                                                <FontAwesomeIcon icon={faTrash} style={{fontSize:'1rem', color:'red'}} />
-                                            </ButtonBase>
-                                        </Grid>
-                                    </Grid>
-                                )
-                            })
+                            <Box>
+                                {
+                                    skills.length > 1 && (
+                                        <Box>
+                                            <Button variant="outlined" color="error" onClick={removeAllSkills}>
+                                                <FontAwesomeIcon icon={faTrash} style={{ fontSize: '1rem', color: 'red' }} />
+                                                <Typography variant="body1">Remove all</Typography>
+                                            </Button>
+                                        </Box>
+                                    )
+                                }
+                                <Grid container gap={1} sx={{marginTop:'1rem'}}>
+                                    {
+                                        skills.map((skill, index) => (
+                                            <Grid container className={styles.skillChip} key={index}>
+                                                <Grid size="grow" sx={{ padding: '0.5rem' }}>
+                                                    <Typography>{skill}</Typography>
+                                                </Grid>
+
+                                                <Grid className={styles.skillAction}>
+                                                    <ButtonBase 
+                                                        className={styles.deleteBtn} 
+                                                        onClick={() => removeSkill(skill)}
+                                                    >
+                                                        <FontAwesomeIcon icon={faTrash} style={{ fontSize: '1rem', color: 'red' }} />
+                                                    </ButtonBase>
+                                                </Grid>
+                                            </Grid>
+                                        ))
+                                    }
+                                </Grid>
+                            </Box>
                         )
                     }
-                    
-                    
-                </Grid>
+
+                </Box>
                 <Grid className={`${sharedStyles.errorMessageBox}`} gap={0.25}>                    
                     <Grid >
                         <Typography color="textPrimary">Looks like you skipped this step! Type a skill (or several) to move forward.</Typography>
