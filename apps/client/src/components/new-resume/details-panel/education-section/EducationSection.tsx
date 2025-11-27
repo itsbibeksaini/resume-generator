@@ -10,6 +10,8 @@ import type { EducationInfo } from "../../../../core/template-data/TemplateData"
 import type { Dayjs } from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import SectionRenderer from "../../../../core/dynamic-fields/renderers/SectionRenderer";
+import { EDUCATIONAL_DETAILS } from "../../../../core/dynamic-fields/sections/education-details";
 
 type EdicationalSectionProps = {
     callback: (educationalData: EducationInfo[]) => void
@@ -24,13 +26,13 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
     const [errors, setErrors] = useState<Partial<Record<keyof EducationInfo, string>>>({});
 
     function updateField(evt: React.FocusEvent<Element> | Dayjs, fieldName: string) {
-        
+
         let value = "";
 
         if (dayjs.isDayjs(evt)) {
             value = evt.format("MM/YYYY");
         } else if (evt && "target" in evt) {
-            value = (evt.target as HTMLInputElement).value;    
+            value = (evt.target as HTMLInputElement).value;
         }
 
         validateField(fieldName, value)
@@ -39,16 +41,16 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
             ...data,
             [fieldName]: value,
         }));
-        
+
     }
 
-    const validateField = (name:string, value:string) => {
+    const validateField = (name: string, value: string) => {
         let fieldSchema = EducationInfoSchema.shape[name as keyof EducationInfo]
-        if(!fieldSchema) return
+        if (!fieldSchema) return
 
         let result = fieldSchema.safeParse(value)
 
-        if(result.error){
+        if (result.error) {
             console.log(result.error)
         }
 
@@ -56,85 +58,85 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
             ...prev,
             [name]: result.success ? undefined : result.error.issues[0].message,
         }));
-     }
+    }
 
-     const validateAll = (data: EducationInfo): boolean => {
+    const validateAll = (data: EducationInfo): boolean => {
 
         let result = EducationInfoSchema.safeParse(data)
-        if(!result.success){
+        if (!result.success) {
             const flattened = result.error.flatten();
             const fieldErrors: Partial<Record<keyof typeof data, string>> = {};
 
             // Map first error per field
             for (const key in flattened.fieldErrors) {
-            const messages = flattened.fieldErrors[key as keyof typeof data];
-            if (messages && messages.length > 0) {
-                fieldErrors[key as keyof typeof data] = messages[0];
-            }
+                const messages = flattened.fieldErrors[key as keyof typeof data];
+                if (messages && messages.length > 0) {
+                    fieldErrors[key as keyof typeof data] = messages[0];
+                }
             }
 
             setErrors(fieldErrors);
         }
 
         return result.success
-            
-     }
+
+    }
 
     const getDataValue = (fieldName: string): string => {
         return fieldData[fieldName] || ''
     }
 
-    const dialogClose = () => {        
+    const dialogClose = () => {
         let educationData: EducationInfo = {
-                                                schoolName: getDataValue('schoolName'),
-                                                course: getDataValue('course'),
-                                                startDate: getDataValue('startDate'),
-                                                completionDate: getDataValue('completionDate'),
-                                                city: getDataValue('city'),
-                                                state: getDataValue('state'),
-                                                country: getDataValue('country')
-                                            }
+            schoolName: getDataValue('schoolName'),
+            course: getDataValue('course'),
+            startDate: getDataValue('startDate'),
+            completionDate: getDataValue('completionDate'),
+            city: getDataValue('city'),
+            state: getDataValue('state'),
+            country: getDataValue('country')
+        }
 
-        let isValid =  validateAll(educationData)
+        let isValid = validateAll(educationData)
         let updatedEducationalData = [...educationalData, educationData]
 
-        if(isValid){
+        if (isValid) {
             props.callback(updatedEducationalData)
             setEducationalData(updatedEducationalData)
             setDialogOpen(false)
             setFieldData({})
-        }        
+        }
     }
-    
+
 
     const deleteEducationData = (data: EducationInfo) => {
         let updatedEducationalData = educationalData.filter(s => s !== data)
-        setEducationalData(updatedEducationalData)    
+        setEducationalData(updatedEducationalData)
         props.callback(updatedEducationalData)
     }
 
-    return(
+    return (
         <Grid className={`${styles.section}`}>
             <Box className={`${sharedStyles.errorBox} ${props.hasError ? sharedStyles.showError + ' shake' : ''}`}>
                 <Box>
                     <Typography variant="h6">Education</Typography>
                 </Box>
-                
+
                 <Grid container className={`${styles.row}`}>
 
                     {
-                        educationalData.length == 0 && (<Grid sx={{textAlign:'center'}} size={12}>
+                        educationalData.length == 0 && (<Grid sx={{ textAlign: 'center' }} size={12}>
                             <Typography variant="h6" color={props.hasError ? "error" : "textSecondary"}>No education details added yet.</Typography>
-                        </Grid>)                                        
+                        </Grid>)
                     }
 
-                    <Grid container size={12} className={`${styles.row}`} gap={2} sx={{justifyContent: 'center'}}>
+                    <Grid container size={12} className={`${styles.row}`} gap={2} sx={{ justifyContent: 'center' }}>
                         {
                             educationalData.map((data, index) => {
-                                return(                                
-                                    <Grid key={index} sx={{border:'1px solid', padding:'0.5rem', borderRadius:'0.25rem'}} size={3}>
-                                        <Box sx={{ textAlign:'right'}}>
-                                            <FontAwesomeIcon icon={faTrash} style={{color:'red'}} onClick={() => {deleteEducationData(data)}} />
+                                return (
+                                    <Grid key={index} sx={{ border: '1px solid', padding: '0.5rem', borderRadius: '0.25rem' }} size={3}>
+                                        <Box sx={{ textAlign: 'right' }}>
+                                            <FontAwesomeIcon icon={faTrash} style={{ color: 'red' }} onClick={() => { deleteEducationData(data) }} />
                                         </Box>
                                         <Typography variant="h4">{data.schoolName}</Typography>
                                         <Typography variant="body1">{data.course}</Typography>
@@ -142,7 +144,7 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                                         <Typography variant="subtitle2">
                                             {data.city} {data.state} - {data.country}
                                         </Typography>
-                                    </Grid>                    
+                                    </Grid>
                                 )
                             })
                         }
@@ -150,43 +152,43 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                 </Grid>
 
                 <Grid container className={`${styles.row}`}>
-                    <Grid sx={{textAlign:'center'}} size={12}>
+                    <Grid sx={{ textAlign: 'center' }} size={12}>
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => setDialogOpen(true)}                            
+                            onClick={() => setDialogOpen(true)}
                         >
                             Add Education
                         </Button>
                     </Grid>
                 </Grid>
 
-                <Grid className={`${sharedStyles.errorMessageBox}`} gap={0.25}>                    
+                <Grid className={`${sharedStyles.errorMessageBox}`} gap={0.25}>
                     <Grid >
                         <Typography color="textPrimary">Looks like you missed this step — please enter at least one education detail to continue.</Typography>
                     </Grid>
                 </Grid>
             </Box>
 
-            <Box sx={{padding:'10px', margin:'1rem 0' }}>
-                <Divider/>
+            <Box sx={{ padding: '10px', margin: '1rem 0' }}>
+                <Divider />
             </Box>
-                
-            <CustomDialog 
-                open={dialogOpen} 
-                title="Education" 
-                titleIcon={faGraduationCap} 
-                close={() => {setDialogOpen(false); setFieldData({}); setErrors({})}}
-                actionButtons={[{label: 'Save', clickAction: dialogClose}]}
+
+            <CustomDialog
+                open={dialogOpen}
+                title="Education"
+                titleIcon={faGraduationCap}
+                close={() => { setDialogOpen(false); setFieldData({}); setErrors({}) }}
+                actionButtons={[{ label: 'Save', clickAction: dialogClose }]}
             >
-                <Grid sx={{padding:'20px 30px'}} size={12} container>
-                    <Grid sx={{padding:'0.5rem'}}>
+                <Grid sx={{ padding: '20px 30px' }} size={12} container>
+                    <Grid sx={{ padding: '0.5rem' }}>
                         <Typography variant="body1">
                             Enter your education details as they should appear on your resume. Include your institution, program, dates attended, and location.
-                        </Typography>                    
+                        </Typography>
                     </Grid>
 
-                    {
+                    {/* {
                         EDUCATION_SECTIONS[0].rows.map((row, index) => {
                             return(
                                 <Grid size={12} container key={index}>
@@ -224,7 +226,8 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                                 </Grid>
                             )
                         })
-                    }
+                    } */}
+                    <SectionRenderer section={EDUCATIONAL_DETAILS} hasError={false} />
                 </Grid>
             </CustomDialog>
         </Grid>
