@@ -18,21 +18,18 @@ const CustomTextField: DynamicField = {
                         id={config.id}
                         name={config.name}
                         placeholder={config.placeholder}
-                        // onChange={config.onChange as (e: React.ChangeEvent<HTMLInputElement>) => void}
-                        // onBlur={config.onBlur}
                         helperText={config.helperText}
-                        // onKeyDown={config.onKeyDown}
                         required={config.required}
                         error={showError}
                         className={`${styles.field}`}
                         {
-                        ...
-                        (config.events?.reduce((acc, event) => {
-                            if (event.type === 'blur' && event.handler) {
-                                acc.onBlur = event.handler;
-                            }
-                            return acc;
-                        }, {} as Record<string, (evt: React.FocusEvent) => void>) || {})
+                            ...
+                            (config.events?.reduce((acc, event) => {
+                                if (event.type === 'blur' && event.handler) {
+                                    acc.onBlur = event.handler;
+                                }
+                                return acc;
+                            }, {} as Record<string, (evt: React.FocusEvent) => void>) || {})
                         }
                         slotProps={{
                             input: {
