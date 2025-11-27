@@ -1,6 +1,8 @@
-import { useEffect, useState, type FocusEvent } from "react"
+import { useEffect, useState, type FocusEvent, type ChangeEvent } from "react"
 import type { FieldConfig, FieldEvents } from "../core/FieldConfig"
 import { FieldFactoryImpl } from "../factories/FieldFactory"
+import type { Dayjs } from "dayjs"
+import dayjs from "dayjs"
 
 type FieldRendererProps = {
     config: FieldConfig
@@ -39,19 +41,26 @@ export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }
         return false;
     }
 
+    const updateDataValue = (evt: FocusEvent<Element> | ChangeEvent<Element> | Dayjs) => {
+        let value = "";
+        if (dayjs.isDayjs(evt)) {
+            value = evt.format("MM/YYYY");
+        } else if (evt && "target" in evt) {
+            value = (evt.target as HTMLInputElement).value;
+        }
+        if (validateField(value)) {
+            setDataValue(value);
+            updateSection(config.name, value);
+        }
+    }
+
     const updatedConfig: FieldConfig = {
         ...config,
         events: config.events?.map(event => {
-            if (event.type === 'blur') {
+            if (event.type === 'blur' || event.type === 'change') {
                 return {
                     ...event,
-                    handler: (evt: FocusEvent<Element>) => {
-                        const target = evt.target as HTMLInputElement;
-                        if (validateField(target.value)) {
-                            setDataValue(target.value);
-                            updateSection(config.name, target.value);
-                        }
-                    }
+                    handler: updateDataValue
                 }
             }
             return event
