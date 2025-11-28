@@ -1,7 +1,7 @@
 import { useState, type FC } from "react"
 import styles from './SummarySection.module.scss'
 import sharedStyles from '../shared/DetailsPannelShared.module.scss'
-import { Box, Divider, Grid, InputAdornment, TextField, Typography } from "@mui/material"
+import { Box, Divider, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClipboardList, faTrash } from "@fortawesome/free-solid-svg-icons"
 
@@ -78,9 +78,17 @@ const SummarySection: FC<SummarySectionProps> = (props: SummarySectionProps) =>{
                         {
                             summary.map((data, index) => {
                                 return(
-                                    <li key={index} style={{position:'relative'}}>
-                                        <Typography variant="body1">{data}</Typography>
-                                        <FontAwesomeIcon icon={faTrash} style={{position:'absolute', right:'0', top:'50%', transform:'translateY(-50%)'}} onClick={() => deleteSummaryPoint(data)} />
+                                    <li key={index}>                                        
+                                        <Grid container className={styles.item}>
+                                            <Grid size="grow" sx={{p:1}}>
+                                                <Typography variant="body1">{data}</Typography>
+                                            </Grid>
+                                            <Grid sx={{position:'relative'}} size={0.45}>
+                                                <IconButton color="error" size="small" className={`${styles.deleteIcon}`} onClick={() => deleteSummaryPoint(data)}>
+                                                    <FontAwesomeIcon icon={faTrash} style={{}}/>
+                                                </IconButton>
+                                            </Grid>
+                                        </Grid>                                        
                                     </li>
                                 )
                             })

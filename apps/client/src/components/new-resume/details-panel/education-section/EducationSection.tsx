@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import { useState, type FC, type FocusEvent, type MouseEventHandler } from "react";
+import { useRef, useState, type FC, type FocusEvent, type MouseEventHandler } from "react";
 import styles from './EducationSection.module.scss'
 import sharedStyles from '../shared/DetailsPannelShared.module.scss'
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog";
@@ -10,7 +10,7 @@ import type { EducationInfo } from "../../../../core/template-data/TemplateData"
 import type { Dayjs } from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import SectionRenderer from "../../../../core/dynamic-fields/renderers/SectionRenderer";
+import SectionRenderer, { type SectionRendererHandle } from "../../../../core/dynamic-fields/renderers/SectionRenderer";
 import { EDUCATIONAL_DETAILS } from "../../../../core/dynamic-fields/sections/education-details";
 
 type EdicationalSectionProps = {
@@ -24,63 +24,8 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
     const [fieldData, setFieldData] = useState<Record<string, string>>({});
     const [educationalData, setEducationalData] = useState<EducationInfo[]>([]);
     const [errors, setErrors] = useState<Partial<Record<keyof EducationInfo, string>>>({});
-
-    function updateField(evt: React.FocusEvent<Element> | Dayjs, fieldName: string) {
-
-        let value = "";
-
-        if (dayjs.isDayjs(evt)) {
-            value = evt.format("MM/YYYY");
-        } else if (evt && "target" in evt) {
-            value = (evt.target as HTMLInputElement).value;
-        }
-
-        validateField(fieldName, value)
-
-        setFieldData((data) => ({
-            ...data,
-            [fieldName]: value,
-        }));
-
-    }
-
-    const validateField = (name: string, value: string) => {
-        let fieldSchema = EducationInfoSchema.shape[name as keyof EducationInfo]
-        if (!fieldSchema) return
-
-        let result = fieldSchema.safeParse(value)
-
-        if (result.error) {
-            console.log(result.error)
-        }
-
-        setErrors((prev) => ({
-            ...prev,
-            [name]: result.success ? undefined : result.error.issues[0].message,
-        }));
-    }
-
-    const validateAll = (data: EducationInfo): boolean => {
-
-        let result = EducationInfoSchema.safeParse(data)
-        if (!result.success) {
-            const flattened = result.error.flatten();
-            const fieldErrors: Partial<Record<keyof typeof data, string>> = {};
-
-            // Map first error per field
-            for (const key in flattened.fieldErrors) {
-                const messages = flattened.fieldErrors[key as keyof typeof data];
-                if (messages && messages.length > 0) {
-                    fieldErrors[key as keyof typeof data] = messages[0];
-                }
-            }
-
-            setErrors(fieldErrors);
-        }
-
-        return result.success
-
-    }
+    const childRef = useRef<SectionRendererHandle>(null);
+    
 
     const getDataValue = (fieldName: string): string => {
         return fieldData[fieldName] || ''
@@ -97,7 +42,7 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
             country: getDataValue('country')
         }
 
-        let isValid = validateAll(educationData)
+        let isValid = childRef.current?.validate()
         let updatedEducationalData = [...educationalData, educationData]
 
         if (isValid) {
@@ -188,46 +133,7 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                         </Typography>
                     </Grid>
 
-                    {/* {
-                        EDUCATION_SECTIONS[0].rows.map((row, index) => {
-                            return(
-                                <Grid size={12} container key={index}>
-                                    {
-                                        row.fields.map((field, index) => {
-                                            if (!field.type) return null;
-                                            const FieldComponent = getDyanamicField(field.type);
-                               
-                                            return(
-                                                <Grid size={field.col} sx={{padding:'0.5rem'}} key={index}>
-                                                    <FieldComponent 
-                                                            label={field.label} 
-                                                            id={field.id} 
-                                                            name={field.name} 
-                                                            col={0}
-                                                            required={field.required}
-                                                            icon={field.icon}
-                                                            errorText={errors[field.name as keyof EducationInfo]}                                                            
-                                                            {
-                                                                ...                                                            
-                                                                (() =>{
-                                                                    if(field.type === 'text') {
-                                                                        return { onBlur: (e: FocusEvent<Element>) => updateField(e, field.name) }
-                                                                    }
-                                                                    else if(field.type === 'date-picker') {
-                                                                        return { onChange: (e: Dayjs) => updateField(e, field.name) }
-                                                                    }
-                                                                })()                                                            
-                                                            }
-                                                        />
-                                                </Grid>                        
-                                            )
-                                        })
-                                    }
-                                </Grid>
-                            )
-                        })
-                    } */}
-                    <SectionRenderer section={EDUCATIONAL_DETAILS} hasError={false} />
+                    <SectionRenderer ref={childRef} section={EDUCATIONAL_DETAILS} hasError={false} />
                 </Grid>
             </CustomDialog>
         </Grid>
