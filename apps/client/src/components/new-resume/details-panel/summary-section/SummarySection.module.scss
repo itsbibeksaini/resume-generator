@@ -27,11 +27,34 @@
         margin: 0;
         position: relative;
 
+        & .item{
+            border:1px solid transparent;
+            border-radius:0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+
+            &:hover{
+                border-color:initial;
+                & .deleteIcon{
+                    display: block;
+                }
+            }
+
+            & .deleteIcon{
+                position:absolute;
+                right:0;
+                top:50%; 
+                transform:translateY(-50%);
+                display: none;
+            }
+
+        }
+
         &::after {
             content: '-';
             font-size: 2rem;
             position: absolute;
-            top: -0.6rem;
+            top: -0.2rem;
             left: -2.25rem;
         }
 
