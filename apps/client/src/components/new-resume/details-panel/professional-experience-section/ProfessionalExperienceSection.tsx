@@ -223,41 +223,6 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
 
                     <SectionRenderer ref={childRef} section={PROFESSIONAL_EXPERIENCE_DETAILS} />
 
-                    <Grid size={12} sx={{ padding: '10px' }}>
-                        <TextField fullWidth label="Achievements" placeholder="Enter job role's achievements" required onKeyDown={addAchievement}
-                            slotProps={{
-                                input: {
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <FontAwesomeIcon icon={faAward} />
-                                        </InputAdornment>
-                                    )
-                                }
-                            }} />
-                    </Grid>
-
-                    <Grid size={12} sx={{ padding: '10px' }}>
-
-                        {
-                            achievements.length === 0 ?
-                                <Box sx={{ textAlign: 'center' }}>
-                                    <Typography variant="h6">No achievements added</Typography>
-                                </Box> :
-                                <Box sx={{ marginBottom: '1rem' }}>
-                                    <Typography variant="subtitle1">Achievements</Typography>
-                                    <ul className={`${styles.timeline}`}>
-                                        {
-                                            achievements.map((item, index) => (
-                                                <li key={index}>
-                                                    <Typography variant="body2">{item}</Typography>
-                                                </li>
-                                            ))
-                                        }
-                                    </ul>
-                                </Box>
-                        }
-
-                    </Grid>
                 </Grid>
             </CustomDialog>
         </Grid>

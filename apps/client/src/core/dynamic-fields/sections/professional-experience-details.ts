@@ -1,4 +1,4 @@
-import { faBuilding, faCalendar, faCity, faClipboardList, faGlobe, faIdBadge, faMapLocation } from "@fortawesome/free-solid-svg-icons";
+import { faAward, faBuilding, faCalendar, faCity, faClipboardList, faGlobe, faIdBadge, faMapLocation } from "@fortawesome/free-solid-svg-icons";
 import type { Section } from "../renderers/SectionRenderer";
 import z from "zod";
 
@@ -167,6 +167,36 @@ export const PROFESSIONAL_EXPERIENCE_DETAILS: Section = {
                             .regex(/^[a-zA-Z0-9\s.,-]+$/, "Invalid responsibilities")
                     )
                     .min(1, "At least one responsibility is required")
+            }
+        ]
+    }, {
+        subSection: false,
+        fields: [
+            {
+                id: 'txt-achievements',
+                name: 'achievements',
+                placeholder: 'Enter job role\'s achievements',
+                type: "text",
+                label: 'Achievements',
+                col: 12,
+                icon: faAward,
+                required: true,
+                isMultiValue: true,
+                multiValueOptions: {
+                    placeholder: 'No achievements added.'
+                },
+                events: [
+                    { type: 'key-down' }
+                ],
+                validations: z
+                    .array(
+                        z.string()
+                            .trim()
+                            .min(100, "Achievements must be at least 100 characters")
+                            .max(1000, "Achievements must be less than 1000 characters")
+                            .regex(/^[a-zA-Z0-9\s.,-]+$/, "Invalid achievements")
+                    )
+                    .min(1, "At least one achievement is required")
             }
         ]
     }]
