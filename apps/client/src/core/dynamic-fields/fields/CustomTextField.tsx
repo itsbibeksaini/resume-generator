@@ -1,9 +1,9 @@
-import { Box, Grid, InputAdornment, TextField, Typography } from "@mui/material";
+import { Box, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import type { DynamicField } from "../core/DynamicField";
 import type { FieldConfig } from "../core/FieldConfig";
-import styles from '../core/FieldStyles.module.scss'
+import styles from './FieldStyles.module.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation, faTrash, faTrashAlt, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import z from "zod";
 
 const CustomTextField: DynamicField = {
@@ -63,8 +63,34 @@ const CustomTextField: DynamicField = {
                     </Grid>
                     {
                         config.isMultiValue && (
-                            <Box>
-                                <Typography variant="caption">{config.value}</Typography>
+                            <Box className={`${styles.multiValue}`}>
+                                {
+                                    config.value?.length === 0 ? (
+                                        <Box className={`${styles.multiValuePlaceholder}`}>
+                                            <Typography variant="h6" color={showError ? "error" : ""}>{config.multiValueOptions?.placeholder}</Typography>
+                                        </Box>
+                                    ) : (
+                                        <ul className={`${styles.timeline}`}>
+                                            {
+                                                Array.isArray(config.value) && config.value.map((item, index) => (
+                                                    <li key={index}>
+                                                        <Grid container gap={1}>
+                                                            <Grid size='grow'>
+                                                                <Typography variant="body2">{item}</Typography>
+                                                            </Grid>
+                                                            <Grid size={0.60}>
+                                                                <IconButton size="small" color="error" className={`vertical-center ${styles.deleteIcon}`}>
+                                                                    <FontAwesomeIcon icon={faTrash} />
+                                                                </IconButton>
+                                                            </Grid>
+
+                                                        </Grid>
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    )
+                                }
                             </Box>
                         )
                     }

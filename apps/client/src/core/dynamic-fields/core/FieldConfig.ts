@@ -20,7 +20,7 @@ export type FieldConfig = {
     name: string,
     type?: FieldType,
     label: string,
-    value?: string,
+    value?: string | string[],
     placeholder?: string,
     col: number,
     helperText?: string,
@@ -31,10 +31,6 @@ export type FieldConfig = {
     validations?: z.ZodType<any>
     isMultiValue?: boolean
     multiValueOptions?: {
-        placeHoleder: string
+        placeholder: string
     }
-    // onChange?: ((evt: React.ChangeEvent) => void) |
-    // ((value: Dayjs) => void),
-    // onBlur?: (evt: React.FocusEvent) => void,
-    // onKeyDown?: (evt: React.KeyboardEvent) => void
 }
