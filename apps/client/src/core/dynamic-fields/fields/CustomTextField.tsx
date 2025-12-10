@@ -8,7 +8,7 @@ import z from "zod";
 
 const CustomTextField: DynamicField = {
     create: (config: FieldConfig) => ({
-        render: () => {            
+        render: () => {
             const showError = Boolean(config.errorText && config.errorText.trim().length > 0);
             return (
                 <Box className={`${styles.fieldWrapper} ${showError ? styles.showError + ' shake' : ''}`}>
@@ -23,13 +23,16 @@ const CustomTextField: DynamicField = {
                         error={showError}
                         className={`${styles.field}`}
                         {
-                            ...
-                            (config.events?.reduce((acc, event) => {
-                                if (event.type === 'blur' && event.handler) {
-                                    acc.onBlur = event.handler;
-                                }
-                                return acc;
-                            }, {} as Record<string, (evt: React.FocusEvent) => void>) || {})
+                        ...
+                        (config.events?.reduce((acc, event) => {
+                            if (event.type === 'blur' && event.handler) {
+                                acc.onBlur = event.handler;
+                            }
+                            if (event.type === 'key-down' && event.handler) {
+                                acc.onKeyDown = event.handler
+                            }
+                            return acc;
+                        }, {} as Record<string, any>) || {})
                         }
                         slotProps={{
                             input: {
@@ -58,7 +61,15 @@ const CustomTextField: DynamicField = {
                             <Typography variant="caption" color="error">{config.errorText}</Typography>
                         </Grid>
                     </Grid>
+                    {
+                        config.isMultiValue && (
+                            <Box>
+                                <Typography variant="caption">{config.value}</Typography>
+                            </Box>
+                        )
+                    }
                 </Box>
+
             )
         },
         schema: () => {

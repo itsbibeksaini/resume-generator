@@ -79,6 +79,12 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
             achievements: achievements
         }
 
+        let isValid = childRef.current?.validate()
+
+        if (!isValid) {
+            return
+        }
+
         setprofessionalExperienceData([...professionalExperienceData, experienceData])
         props.callback(experienceData)
         setDialogOpen(false)

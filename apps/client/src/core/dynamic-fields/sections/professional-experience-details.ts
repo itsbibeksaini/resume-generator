@@ -151,8 +151,12 @@ export const PROFESSIONAL_EXPERIENCE_DETAILS: Section = {
                 col: 12,
                 icon: faClipboardList,
                 required: true,
+                isMultiValue: true,
+                multiValueOptions: {
+                    placeHoleder: 'No responsibilities added.'
+                },
                 events: [
-                    { type: 'blur' }
+                    { type: 'key-down' }
                 ],
                 validations: z.string().trim()
                     .min(1, 'Responsibilities is required')

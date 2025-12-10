@@ -28,11 +28,11 @@ type SectionRendererProps = {
 
 const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>((props: SectionRendererProps, ref) => {
 
-    const [dataValue, setDataValues] = useState<Record<string, string>>(
+    const [dataValue, setDataValues] = useState<Record<string, any>>(
         props.section.rows.flatMap(row => row.fields).reduce((acc, field) => {
-            acc[field.name] = "";
+            acc[field.name] = field.isMultiValue ? [] : "";
             return acc;
-        }, {} as Record<string, string>)
+        }, {} as Record<string, any>)
     );
 
     const [errors, setErrors] = useState<Record<string, string>>({});
