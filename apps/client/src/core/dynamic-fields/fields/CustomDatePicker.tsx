@@ -1,7 +1,7 @@
 import { Box, Grid, InputAdornment, Typography } from "@mui/material";
 import type { DynamicField } from "../core/DynamicField";
 import type { FieldConfig } from "../core/FieldConfig";
-import styles from '../core/FieldStyles.module.scss'
+import styles from './FieldStyles.module.scss'
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";

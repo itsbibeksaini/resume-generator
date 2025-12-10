@@ -46,7 +46,7 @@ const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>(
         }, {} as Record<string, z.ZodType<any>>)
     );
 
-    const updateDataValue = (name: string, value: string) => {
+    const updateDataValue = (name: string, value: string | string[]) => {
         setDataValues({
             ...dataValue,
             [name]: value

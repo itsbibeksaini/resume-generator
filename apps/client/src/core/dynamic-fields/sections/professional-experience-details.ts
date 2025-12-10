@@ -153,15 +153,20 @@ export const PROFESSIONAL_EXPERIENCE_DETAILS: Section = {
                 required: true,
                 isMultiValue: true,
                 multiValueOptions: {
-                    placeHoleder: 'No responsibilities added.'
+                    placeholder: 'No responsibilities added.'
                 },
                 events: [
                     { type: 'key-down' }
                 ],
-                validations: z.string().trim()
-                    .min(1, 'Responsibilities is required')
-                    .max(100, 'Responsibilities must be less than 100 characters')
-                    .regex(/^[a-zA-Z0-9\s.,-]+$/, 'Invalid responsibilities')
+                validations: z
+                    .array(
+                        z.string()
+                            .trim()
+                            .min(100, "Responsibilities must be at least 100 characters")
+                            .max(1000, "Responsibilities must be less than 1000 characters")
+                            .regex(/^[a-zA-Z0-9\s.,-]+$/, "Invalid responsibilities")
+                    )
+                    .min(1, "At least one responsibility is required")
             }
         ]
     }]

@@ -8,19 +8,21 @@ type FieldRendererProps = {
     config: FieldConfig
     value?: string
     sectionErrorText?: string
-    updateSection: (name: string, value: string) => void
+    updateSection: (name: string, value: string | string[]) => void
 }
 
 export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }: FieldRendererProps) => {
     const fieldFactory = FieldFactoryImpl
-    const [dataValue, setDataValue] = useState<string>(value || "")
+    const [dataValue, setDataValue] = useState<string | string[]>(
+        Array.isArray(value) ? value : value ?? ""
+    );
     const [errorText, setErrorText] = useState<string>(sectionErrorText || "")
 
     useEffect(() => {
         setErrorText(sectionErrorText || "");
     }, [sectionErrorText]);
 
-    const validateField = (value: string): boolean => {
+    const validateField = (value: string | string[]): boolean => {
         // if no validation schema → field is automatically valid
         if (!config.validations) {
             setErrorText("");
@@ -42,38 +44,55 @@ export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }
     }
 
     const updateDataValue = (evt: FocusEvent<Element> | ChangeEvent<Element> | KeyboardEvent<Element> | Dayjs) => {
-        debugger
-        let value = "";
-        // if (dayjs.isDayjs(evt)) {
-        //     value = evt.format("MM/YYYY");
-        // } else if (evt && "target" in evt && evt as FocusEvent) {
-        //     value = (evt.target as HTMLInputElement).value;
-        // } else if (evt && "key" in evt && (evt as KeyboardEvent).key === "Enter") {
-        //     value = ((evt as KeyboardEvent).target as HTMLInputElement).value;
-        // }
 
+        let rawValue = "";
         let shouldValidate = true;
 
+        // Date-picker field
         if (dayjs.isDayjs(evt)) {
-            value = evt.format("MM/YYYY");
+            rawValue = evt.format("MM/YYYY");
         }
+        // Keyboard event fielf
         else if (isKeyboard(evt)) {
-            if ((evt as KeyboardEvent).key === "Enter") {
-                value = (evt.target as HTMLInputElement).value;
+            let key = (evt as KeyboardEvent).key
+            let inputValue = (evt.target as HTMLInputElement).value
+
+            if (key === "Enter") {
+                rawValue = inputValue
             }
             else {
-                shouldValidate = false;
+                shouldValidate = false // validate only on enter key
             }
         }
+        // Focus event field
         else if ("target" in evt) {
-            // fallback for focus/blur/etc events
-            value = (evt.target as HTMLInputElement).value;
+            rawValue = (evt.target as HTMLInputElement).value
         }
 
+        // Multi-value field
+        if (config.isMultiValue) {
+            if (!shouldValidate || !rawValue.trim()) {
+                return
+            }
 
-        if (shouldValidate && validateField(value)) {
-            setDataValue(value);
-            updateSection(config.name, value);
+            // Convert state to array.
+            let existingValue = Array.isArray(dataValue) ? dataValue : []
+
+            // Update array.
+            let updatedArray = [...existingValue, rawValue.trim()]
+
+            if (validateField(updatedArray)) {
+                setDataValue(updatedArray)
+                updateSection(config.name, updatedArray)
+            }
+
+            return
+        }
+
+        // Single-value field
+        if (shouldValidate && validateField(rawValue)) {
+            setDataValue(rawValue)
+            updateSection(config.name, rawValue)
         }
     }
 
