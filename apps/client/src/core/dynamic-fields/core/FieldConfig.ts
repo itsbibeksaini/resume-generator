@@ -16,18 +16,23 @@ export type FieldEvents = {
 }
 
 export type FieldConfig = {
-    id:string,
-    name:string,
+    id: string,
+    name: string,
     type?: FieldType,
     label: string,
-    placeholder?:string,
+    value?: string,
+    placeholder?: string,
     col: number,
     helperText?: string,
-    required:boolean,  
+    required: boolean,
     errorText?: string,
-    icon?:IconProp,
+    icon?: IconProp,
     events?: FieldEvents[]
-    validations?: z.ZodType<any>    
+    validations?: z.ZodType<any>
+    isMultiValue?: boolean
+    multiValueOptions?: {
+        placeHoleder: string
+    }
     // onChange?: ((evt: React.ChangeEvent) => void) |
     // ((value: Dayjs) => void),
     // onBlur?: (evt: React.FocusEvent) => void,
