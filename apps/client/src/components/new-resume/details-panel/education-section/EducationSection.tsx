@@ -1,17 +1,13 @@
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import { useRef, useState, type FC, type FocusEvent, type MouseEventHandler } from "react";
+import { useRef, useState, type FC } from "react";
 import styles from './EducationSection.module.scss'
 import sharedStyles from '../shared/DetailsPannelShared.module.scss'
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog";
 import { faGraduationCap, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { EDUCATION_SECTIONS, EducationInfoSchema } from "./data/EducationFields";
-import { getDyanamicField } from "../../../../core/fields/DynamicField";
 import type { EducationInfo } from "../../../../core/template-data/TemplateData";
-import type { Dayjs } from "dayjs";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
 import SectionRenderer, { type SectionRendererHandle } from "../../../../core/dynamic-fields/renderers/SectionRenderer";
 import { EDUCATIONAL_DETAILS } from "../../../../core/dynamic-fields/sections/education-details";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type EdicationalSectionProps = {
     callback: (educationalData: EducationInfo[]) => void
@@ -21,35 +17,19 @@ type EdicationalSectionProps = {
 const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSectionProps) => {
 
     const [dialogOpen, setDialogOpen] = useState(false)
-    const [fieldData, setFieldData] = useState<Record<string, string>>({});
     const [educationalData, setEducationalData] = useState<EducationInfo[]>([]);
-    const [errors, setErrors] = useState<Partial<Record<keyof EducationInfo, string>>>({});
     const childRef = useRef<SectionRendererHandle>(null);
-    
 
-    const getDataValue = (fieldName: string): string => {
-        return fieldData[fieldName] || ''
-    }
 
     const dialogClose = () => {
-        let educationData: EducationInfo = {
-            schoolName: getDataValue('schoolName'),
-            course: getDataValue('course'),
-            startDate: getDataValue('startDate'),
-            completionDate: getDataValue('completionDate'),
-            city: getDataValue('city'),
-            state: getDataValue('state'),
-            country: getDataValue('country')
-        }
 
         let isValid = childRef.current?.validate()
-        let updatedEducationalData = [...educationalData, educationData]
+        let updatedEducationalData = [...educationalData, childRef.current?.getDataValue() as EducationInfo]
 
         if (isValid) {
             props.callback(updatedEducationalData)
             setEducationalData(updatedEducationalData)
             setDialogOpen(false)
-            setFieldData({})
         }
     }
 
@@ -123,7 +103,7 @@ const EducationSection: FC<EdicationalSectionProps> = (props: EdicationalSection
                 open={dialogOpen}
                 title="Education"
                 titleIcon={faGraduationCap}
-                close={() => { setDialogOpen(false); setFieldData({}); setErrors({}) }}
+                close={() => { setDialogOpen(false) }}
                 actionButtons={[{ label: 'Save', clickAction: dialogClose }]}
             >
                 <Grid sx={{ padding: '20px 30px' }} size={12} container>

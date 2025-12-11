@@ -18,6 +18,7 @@ type SectionRow = {
 
 export type SectionRendererHandle = {
     validate: () => boolean
+    getDataValue: () => Record<string, any>
 }
 
 type SectionRendererProps = {
@@ -70,7 +71,8 @@ const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>(
     }
 
     useImperativeHandle(ref, () => ({
-        validate: validateSection
+        validate: validateSection,
+        getDataValue: () => dataValue
     }))
 
     return (

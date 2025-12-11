@@ -44,9 +44,9 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         hasSkillsError: false,
         hasEducationError: false,
         hasSummaryError: false,
-        hasProfessionalExperienceError: true,
-        hasProjectsError: true,
-        hasAwardsError: true
+        hasProfessionalExperienceError: false,
+        hasProjectsError: false,
+        hasAwardsError: false
     })
 
     const navigate = useNavigate();
@@ -194,7 +194,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                 <Typography variant="h5">Resume details</Typography>
             </header>
 
-            <Box sx={{padding:'0 30px', marginTop:'20px'}}>
+            <Box sx={{ padding: '0 30px', marginTop: '20px' }}>
                 <SectionRenderer ref={(el) => {
                     childRef.current[0] = el!
                 }} section={PERSONAL_DETAILS} hasError={false} addDivider />
@@ -203,9 +203,9 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                     childRef.current[1] = el!
                 }} section={SOCIAL_MEDIA_DETAILS} hasError={false} addDivider />
             </Box>
-            
 
-            
+
+
 
             <SkillsSection callback={updateSkills} hasError={sectionErrors.hasSkillsError} />
 
