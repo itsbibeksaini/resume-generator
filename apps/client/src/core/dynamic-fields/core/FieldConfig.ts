@@ -15,6 +15,8 @@ export type FieldEvents = {
     handler?: (evt: KeyboardEvent<Element>) => void
 }
 
+type MultiValueView = 'timeline' | 'tags'
+
 export type FieldConfig = {
     id: string,
     name: string,
@@ -29,9 +31,10 @@ export type FieldConfig = {
     icon?: IconProp,
     events?: FieldEvents[]
     validations?: z.ZodType<any>
-    isMultiValue?: boolean
+    multiValue?: boolean
     multiValueOptions?: {
         placeholder: string
         deleteAction?: (index: number) => void
+        view: MultiValueView
     }
 }
