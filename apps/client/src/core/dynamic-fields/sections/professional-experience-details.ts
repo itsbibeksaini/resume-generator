@@ -1,6 +1,6 @@
 import { faAward, faBuilding, faCalendar, faCity, faClipboardList, faGlobe, faIdBadge, faMapLocation } from "@fortawesome/free-solid-svg-icons";
 import type { Section } from "../renderers/SectionRenderer";
-import z from "zod";
+import z, { refine } from "zod";
 
 const parseMonthYear = (value: string) => {
     const [monthStr, yearStr] = value.split('/');
@@ -199,6 +199,12 @@ export const PROFESSIONAL_EXPERIENCE_DETAILS: Section = {
                     .optional()
             }
         ]
-    }]
-
+    }],
+    validations: z.any().refine((data: any) => {
+        if (!data.endDate || !data.startDate) return true;
+        return data.endDate >= data.startDate;
+    }, {
+        message: "End date cannot be before start date.",
+        path: ["endDate"]
+    })
 }

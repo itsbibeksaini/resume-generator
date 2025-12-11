@@ -10,7 +10,7 @@ import SectionRenderer, { type SectionRendererHandle } from "../../../../core/dy
 import { PROFESSIONAL_EXPERIENCE_DETAILS } from "../../../../core/dynamic-fields/sections/professional-experience-details";
 
 type ProfessionalExperienceSectionProps = {
-    callback: (professionalExperienceData: ProfessionalExperienceInfo) => void
+    callback: (professionalExperienceData: ProfessionalExperienceInfo[]) => void
     hasError: boolean
 
 }
@@ -21,9 +21,6 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
     const childRef = useRef<SectionRendererHandle>(null);
 
     const dialogClose = () => {
-
-
-
         let isValid = childRef.current?.validate()
 
         let experienceData = childRef.current?.getDataValue() as ProfessionalExperienceInfo
@@ -33,8 +30,15 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
         }
 
         setprofessionalExperienceData([...professionalExperienceData, experienceData])
-        props.callback(experienceData)
+        props.callback([...professionalExperienceData, experienceData])
         setDialogOpen(false)
+    }
+
+    const deleteExperience = (index: number) => {
+        let updatedData = [...professionalExperienceData]
+
+        updatedData.splice(index, 1)
+        setprofessionalExperienceData(updatedData)
     }
 
     return (
@@ -113,7 +117,7 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
                                         }
 
                                         <Box sx={{ position: 'relative' }}>
-                                            <IconButton className={`${styles.trashButton}`} size="small" color="error">
+                                            <IconButton className={`${styles.trashButton}`} size="small" color="error" onClick={() => deleteExperience(index)}>
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </IconButton>
                                         </Box>

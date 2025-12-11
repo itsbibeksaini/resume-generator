@@ -8,6 +8,7 @@ import z from "zod"
 export type Section = {
     rows: SectionRow[]
     header: string
+    validations?: z.ZodType<any>
 }
 
 type SectionRow = {
@@ -38,7 +39,7 @@ const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>(
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    const schema = z.object(
+    let schema: z.ZodType<any> = z.object(
         props.section.rows.flatMap(row => row.fields).reduce((acc, field) => {
             if (field.validations) {
                 acc[field.name] = field.validations;
@@ -46,6 +47,10 @@ const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>(
             return acc;
         }, {} as Record<string, z.ZodType<any>>)
     );
+
+    if (props.section.validations) {
+        schema = schema.pipe(props.section.validations);
+    }
 
     const updateDataValue = (name: string, value: string | string[]) => {
         setDataValues({

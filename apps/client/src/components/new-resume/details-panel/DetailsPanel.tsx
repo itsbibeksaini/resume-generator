@@ -127,8 +127,8 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         }));
     }
 
-    const updateProfessionalExperienceData = (newData: ProfessionalExperienceInfo) => {
-        setProfessionalExperienceData(prevData => [...prevData, newData]);
+    const updateProfessionalExperienceData = (newData: ProfessionalExperienceInfo[]) => {
+        setProfessionalExperienceData(newData);
         setSectionErrors(prev => ({
             ...prev,
             hasProfessionalExperienceError: false,

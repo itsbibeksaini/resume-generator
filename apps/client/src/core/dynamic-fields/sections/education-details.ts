@@ -127,5 +127,12 @@ export const EDUCATIONAL_DETAILS: Section = {
                     .max(50, "Country name must be at most 50 characters long.")
             }
         ]
-    }]
+    }],
+    validations: z.any().refine((data: any) => {
+        if (!data.completionDate || !data.startDate) return true;
+        return data.completionDate >= data.startDate;
+    }, {
+        message: "Completion date cannot be before start date.",
+        path: ["completionDate"]
+    })
 }
