@@ -26,60 +26,18 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
     const [professionalExperienceData, setprofessionalExperienceData] = useState<ProfessionalExperienceInfo[]>([]);
     const childRef = useRef<SectionRendererHandle>(null);
 
-    const updateField = (evt: ChangeEvent<Element> | FocusEvent<Element> | Dayjs, fieldName: string) => {
-
-        let value = "";
-
-        if (dayjs.isDayjs(evt)) {
-            value = evt.format("MM/YYYY");
-        } else if (evt && "target" in evt) {
-            value = (evt.target as HTMLInputElement).value;
-        }
-
-        setFieldData((data) => ({ ...data, [fieldName]: value }));
-
-    }
-
-    const addResponsibility = (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            const input = e.target as HTMLInputElement;
-            const value = input.value.trim();
-            if (value && !responsibilities.includes(value)) {
-                setResponsibilities((prev) => [...prev, value]);
-                input.value = '';
-            }
-        }
-    }
-
-    const addAchievement = (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            const input = e.target as HTMLInputElement;
-            const value = input.value.trim();
-            if (value && !achievements.includes(value)) {
-                setAchievements((prev) => [...prev, value]);
-                input.value = '';
-            }
-        }
-    }
 
     const getDataValue = (fieldName: string): string => {
         return fieldData[fieldName] || ''
     }
 
     const dialogClose = () => {
-        let experienceData: ProfessionalExperienceInfo = {
-            jobPosition: getDataValue('jobPosition'),
-            companyName: getDataValue('companyName'),
-            startDate: getDataValue('startDate'),
-            endDate: getDataValue('endDate'),
-            city: getDataValue('city'),
-            state: getDataValue('state'),
-            country: fieldData['country'],
-            responsibilities: responsibilities,
-            achievements: achievements
-        }
+
+
 
         let isValid = childRef.current?.validate()
+        
+        let experienceData = childRef.current?.getDataValue() as ProfessionalExperienceInfo
 
         if (!isValid) {
             return
