@@ -1,13 +1,10 @@
-import { useRef, useState, type ChangeEvent, type FC, type FocusEvent, type KeyboardEvent } from "react";
+import { useRef, useState, type FC } from "react";
 import styles from './ProfessionalExperienceSection.module.scss'
 import sharedStyles from '../shared/DetailsPannelShared.module.scss'
-import { Box, Button, ButtonBase, Divider, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonBase, Divider, Grid, Typography } from "@mui/material";
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog";
-import { faAward, faBriefcase, faCertificate, faCircleExclamation, faClipboardList, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { PROFESSIONAL_EXPERIENCE_SECTIONS } from "./data/ProfessionalExperienceFields";
-import { getDyanamicField } from "../../../../core/fields/DynamicField";
+import { faAward, faBriefcase, faClipboardList, faTrash } from "@fortawesome/free-solid-svg-icons";
 import type { ProfessionalExperienceInfo } from "../../../../core/template-data/TemplateData";
-import dayjs, { Dayjs } from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionRenderer, { type SectionRendererHandle } from "../../../../core/dynamic-fields/renderers/SectionRenderer";
 import { PROFESSIONAL_EXPERIENCE_DETAILS } from "../../../../core/dynamic-fields/sections/professional-experience-details";
@@ -20,23 +17,15 @@ type ProfessionalExperienceSectionProps = {
 
 const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (props: ProfessionalExperienceSectionProps) => {
     const [dialogOpen, setDialogOpen] = useState(false)
-    const [fieldData, setFieldData] = useState<Record<string, string>>({});
-    const [responsibilities, setResponsibilities] = useState<string[]>([]);
-    const [achievements, setAchievements] = useState<string[]>([]);
     const [professionalExperienceData, setprofessionalExperienceData] = useState<ProfessionalExperienceInfo[]>([]);
     const childRef = useRef<SectionRendererHandle>(null);
-
-
-    const getDataValue = (fieldName: string): string => {
-        return fieldData[fieldName] || ''
-    }
 
     const dialogClose = () => {
 
 
 
         let isValid = childRef.current?.validate()
-        
+
         let experienceData = childRef.current?.getDataValue() as ProfessionalExperienceInfo
 
         if (!isValid) {
@@ -46,13 +35,6 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
         setprofessionalExperienceData([...professionalExperienceData, experienceData])
         props.callback(experienceData)
         setDialogOpen(false)
-        resetDialog()
-    }
-
-    const resetDialog = () => {
-        setResponsibilities([]);
-        setAchievements([]);
-        setFieldData({});
     }
 
     return (
