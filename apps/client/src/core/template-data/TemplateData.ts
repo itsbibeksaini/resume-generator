@@ -27,8 +27,8 @@ const ProfessionalExperienceInfoSchema = z.object({
   city: z.string().min(1, "City is required"),
   state: z.string().min(1, "State is required"),
   country: z.string().optional(),
-  responsibilities: z.array(z.string().min(1, "Responsibility cannot be empty")).nonempty("Responsibilities must not be empty"),
-  achievements: z.array(z.string().min(1, "Achievement cannot be empty")).nonempty("Achievements must not be empty"),
+  responsibilities: z.array(z.string().min(100, "Responsibility cannot be empty")).nonempty("Responsibilities must not be empty"),
+  achievements: z.array(z.string().min(100, "Achievement cannot be empty")).nonempty("Achievements must not be empty"),
 });
 
 const ProjectInfoSchema = z.object({
