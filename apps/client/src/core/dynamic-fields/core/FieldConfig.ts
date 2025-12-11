@@ -1,5 +1,5 @@
 import type { IconProp } from "@fortawesome/fontawesome-svg-core"
-import type { ChangeEvent, FocusEvent, KeyboardEvent } from "react"
+import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent } from "react"
 import type z from "zod"
 
 export type FieldType = "text" | "date-picker"
@@ -32,5 +32,6 @@ export type FieldConfig = {
     isMultiValue?: boolean
     multiValueOptions?: {
         placeholder: string
+        deleteAction?: (index: number) => void
     }
 }

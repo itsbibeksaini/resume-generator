@@ -1,5 +1,5 @@
 import { useEffect, useState, type FocusEvent, type ChangeEvent, type KeyboardEvent } from "react"
-import type { FieldConfig, FieldEvents } from "../core/FieldConfig"
+import type { FieldConfig } from "../core/FieldConfig"
 import { FieldFactoryImpl } from "../factories/FieldFactory"
 import type { Dayjs } from "dayjs"
 import dayjs from "dayjs"
@@ -83,7 +83,10 @@ export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }
 
             if (validateField(updatedArray)) {
                 setDataValue(updatedArray)
-                updateSection(config.name, updatedArray)
+                updateSection(config.name, updatedArray);
+                if ("target" in evt) {
+                    (evt.target as HTMLInputElement).value = "";
+                }
             }
 
             return
@@ -115,7 +118,18 @@ export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }
             return event
         }),
         errorText: errorText,
-        value: dataValue
+        value: dataValue,
+        multiValueOptions: {
+            placeholder: config.multiValueOptions?.placeholder ?? "",
+            deleteAction: (index: number) => {
+                if (!config.isMultiValue || !Array.isArray(dataValue)) return;
+
+                const updatedArray = dataValue.filter((_, i) => i !== index);
+
+                setDataValue(updatedArray);
+                updateSection(config.name, updatedArray);
+            }
+        }
     }
 
     return fieldFactory.createField(updatedConfig);
