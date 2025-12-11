@@ -161,14 +161,7 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
                 actionButtons={[{ label: 'Save', clickAction: dialogClose }]}
             >
                 <Grid sx={{ padding: '20px 30px' }} size={12} container>
-                    <Grid sx={{ padding: '0.5rem' }}>
-                        <Typography variant="body1">
-                            Enter your education details as they should appear on your resume. Include your institution, program, dates attended, and location.
-                        </Typography>
-                    </Grid>
-
                     <SectionRenderer ref={childRef} section={PROFESSIONAL_EXPERIENCE_DETAILS} />
-
                 </Grid>
             </CustomDialog>
         </Grid>

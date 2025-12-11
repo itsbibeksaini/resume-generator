@@ -151,9 +151,10 @@ export const PROFESSIONAL_EXPERIENCE_DETAILS: Section = {
                 col: 12,
                 icon: faClipboardList,
                 required: true,
-                isMultiValue: true,
+                multiValue: true,
                 multiValueOptions: {
-                    placeholder: 'No responsibilities added.'
+                    placeholder: 'No responsibilities added.',
+                    view: 'timeline'
                 },
                 events: [
                     { type: 'key-down' }
@@ -181,9 +182,10 @@ export const PROFESSIONAL_EXPERIENCE_DETAILS: Section = {
                 col: 12,
                 icon: faAward,
                 required: false,
-                isMultiValue: true,
+                multiValue: true,
                 multiValueOptions: {
-                    placeholder: 'No achievements added.'
+                    placeholder: 'No achievements added.',
+                    view: 'timeline'
                 },
                 events: [
                     { type: 'key-down' }

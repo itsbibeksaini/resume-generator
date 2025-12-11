@@ -63,7 +63,7 @@ const CustomTextField: DynamicField = {
                         </Grid>
                     </Grid>
                     {
-                        config.isMultiValue && (
+                        config.multiValue && (
                             <Box className={`${styles.multiValue}`}>
                                 {
                                     config.value?.length === 0 ? (
