@@ -129,10 +129,18 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
 
     const updateProfessionalExperienceData = (newData: ProfessionalExperienceInfo) => {
         setProfessionalExperienceData(prevData => [...prevData, newData]);
+        setSectionErrors(prev => ({
+            ...prev,
+            hasProfessionalExperienceError: false,
+        }));
     }
 
     const updateProjectsData = (newData: ProjectInfo) => {
         setProjects(prevData => [...prevData, newData]);
+        setSectionErrors(prev => ({
+            ...prev,
+            hasProjectsError: false,
+        }));
     }
 
     const updateAwardsData = (newData: AwardsAndCertificationsInfo[]) => {
@@ -183,9 +191,37 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
             pageHasErrors = pageHasErrors && true
         }
 
+        // validate professional experience
 
+        if (professionalExperienceData.length == 0) {
+            setSectionErrors(prev => ({
+                ...prev,
+                hasProfessionalExperienceError: true,
+            }));
+            pageHasErrors = pageHasErrors && true
+        }
 
-        return true
+        // validate projects
+
+        if (projects.length == 0) {
+            setSectionErrors(prev => ({
+                ...prev,
+                hasProjectsError: true,
+            }));
+            pageHasErrors = pageHasErrors && true
+        }
+
+        // validate awards
+
+        if (awards.length == 0) {
+            setSectionErrors(prev => ({
+                ...prev,
+                hasAwardsError: true,
+            }));
+            pageHasErrors = pageHasErrors && true
+        }
+
+        return pageHasErrors
     }
 
     return (
