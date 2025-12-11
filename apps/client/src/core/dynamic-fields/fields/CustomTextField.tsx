@@ -5,6 +5,7 @@ import styles from './FieldStyles.module.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation, faTrash, faTrashAlt, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import z from "zod";
+import type { MouseEvent } from "react";
 
 const CustomTextField: DynamicField = {
     create: (config: FieldConfig) => ({
@@ -79,7 +80,8 @@ const CustomTextField: DynamicField = {
                                                                 <Typography variant="body2">{item}</Typography>
                                                             </Grid>
                                                             <Grid size={0.60}>
-                                                                <IconButton size="small" color="error" className={`vertical-center ${styles.deleteIcon}`}>
+                                                                <IconButton size="small" color="error" className={`vertical-center ${styles.deleteIcon}`}
+                                                                    onClick={() => config.multiValueOptions?.deleteAction?.(index)}>
                                                                     <FontAwesomeIcon icon={faTrash} />
                                                                 </IconButton>
                                                             </Grid>
