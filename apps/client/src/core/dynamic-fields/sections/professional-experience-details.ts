@@ -180,7 +180,7 @@ export const PROFESSIONAL_EXPERIENCE_DETAILS: Section = {
                 label: 'Achievements',
                 col: 12,
                 icon: faAward,
-                required: true,
+                required: false,
                 isMultiValue: true,
                 multiValueOptions: {
                     placeholder: 'No achievements added.'
@@ -196,7 +196,7 @@ export const PROFESSIONAL_EXPERIENCE_DETAILS: Section = {
                             .max(1000, "Achievements must be less than 1000 characters")
                             .regex(/^[a-zA-Z0-9\s.,-]+$/, "Invalid achievements")
                     )
-                    .min(1, "At least one achievement is required")
+                    .optional()
             }
         ]
     }]

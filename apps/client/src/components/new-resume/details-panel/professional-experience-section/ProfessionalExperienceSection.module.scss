@@ -1,13 +1,13 @@
-.section{
+.section {
     padding: 0 30px;
-    margin-top: 20px;    
+    margin-top: 20px;
 
-    & .row{
+    & .row {
         width: 100%;
         padding: 0.5rem 0;
         transition: all 0.3s ease-in-out;
 
-        & .col{
+        & .col {
             padding: 1rem;
             padding-bottom: 0;
             padding-left: 0;
@@ -15,33 +15,35 @@
     }
 }
 
-.timeline{
-    border-left: 2px solid ;
+.timeline {
+    border-left: 2px solid;
     padding: 10px 15px;
     list-style-type: none;
 
-    & .timelineEvent{
-        border: 1px solid #f5f5f5;
+    & .timelineEvent {
+        border: 1px solid transparent;
         border-radius: 0.25rem;
         padding: 1rem;
         transition: all 0.3s ease-in-out;
-        & .eventHeader{
-            
+        cursor: pointer;
+
+        & .eventHeader {
+
             position: relative;
 
-            &::before{
+            &::before {
                 position: absolute;
-                content: '';                            
+                content: '';
                 background-color: #121212;
                 width: 12px;
                 height: 12px;
                 border-radius: 50%;
-                left:-2.4rem;
-                top:1.25rem;
+                left: -2.45rem;
+                top: 1.2rem;
                 z-index: 1;
             }
 
-            &::after{
+            &::after {
                 position: absolute;
                 content: '';
                 background-color: #fff;
@@ -49,32 +51,31 @@
                 height: 18px;
                 border: 1px solid #121212;
                 border-radius: 50%;
-                left:-2.65rem;
+                left: -2.65rem;
                 top: 1rem;
             }
         }
 
-        & .iconBox{
-            // border: 1px solid red;
+        & .iconBox {
             position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: #fff;
-            left: -2.95rem;
+            width: 35px;
+            height: 35px;
+            background-color: var(--background-color);
+            left: -3.15rem;
             top: 0rem;
             border-radius: 50%;
         }
 
-        &:hover{
-            background-color: #f8f9fa;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);     
+        &:hover {
+            // background-color: #f8f9fa;
+            box-shadow: 0 4px 8px;
 
-            & .trashButton{
+            & .trashButton {
                 visibility: visible;
             }
         }
 
-        & .trashButton{            
+        & .trashButton {
             border-radius: 50%;
             height: 30px;
             width: 30px;
@@ -88,20 +89,21 @@
 
     }
 
-    & ul{
+    & ul {
         list-style: none;
-        & li{
+
+        & li {
             position: relative;
             margin-bottom: 0.5rem;
-        
-            &::before{
+
+            &::before {
                 content: '-';
                 position: absolute;
                 font-size: 2rem;
-                left: -2.35rem;
-                top: -0.70rem;
+                left: -2.40rem;
+                top: -0.85rem;
             }
         }
     }
-    
+
 }

@@ -1,7 +1,7 @@
 import { useRef, useState, type FC } from "react";
 import styles from './ProfessionalExperienceSection.module.scss'
 import sharedStyles from '../shared/DetailsPannelShared.module.scss'
-import { Box, Button, ButtonBase, Divider, Grid, Typography } from "@mui/material";
+import { Box, Button, ButtonBase, Divider, Grid, IconButton, Typography } from "@mui/material";
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog";
 import { faAward, faBriefcase, faClipboardList, faTrash } from "@fortawesome/free-solid-svg-icons";
 import type { ProfessionalExperienceInfo } from "../../../../core/template-data/TemplateData";
@@ -38,7 +38,9 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
     }
 
     return (
-        <Grid className={`${styles.section}`}>
+        <Grid className={`${styles.section}`} sx={(theme) => ({
+            '--background-color': theme.palette.background.default
+        })}>
             <Box className={`${sharedStyles.errorBox} ${props.hasError ? sharedStyles.showError + ' shake' : ''}`}>
                 <Box sx={{ marginBottom: '1rem' }}>
                     <Typography variant="h6">Professional Experience</Typography>
@@ -111,9 +113,9 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
                                         }
 
                                         <Box sx={{ position: 'relative' }}>
-                                            <ButtonBase className={`${styles.trashButton}`}>
+                                            <IconButton className={`${styles.trashButton}`} size="small" color="error">
                                                 <FontAwesomeIcon icon={faTrash} />
-                                            </ButtonBase>
+                                            </IconButton>
                                         </Box>
                                     </Box>
                                 ))
