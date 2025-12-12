@@ -32,7 +32,7 @@ const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>(
 
     const [dataValue, setDataValues] = useState<Record<string, any>>(
         props.section.rows.flatMap(row => row.fields).reduce((acc, field) => {
-            acc[field.name] = field.isMultiValue ? [] : "";
+            acc[field.name] = field.multiValue ? [] : "";
             return acc;
         }, {} as Record<string, any>)
     );
