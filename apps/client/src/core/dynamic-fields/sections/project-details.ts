@@ -143,9 +143,7 @@ export const PROJECT_DETAILS: Section = {
                     .array(
                         z.string()
                             .trim()
-                            .min(1, "Technology is required")
-                            .max(15, "Technology must be less than 15 characters")
-                            .regex(/^[a-zA-Z0-9\s.,-]+$/, "Invalid technology")
+                            .min(5, "Technology is required")
                     )
                     .min(1, "At least one technology is required")
             }

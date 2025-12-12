@@ -1,11 +1,10 @@
-import { Box, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { Box, ButtonBase, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import type { DynamicField } from "../core/DynamicField";
 import type { FieldConfig } from "../core/FieldConfig";
 import styles from './FieldStyles.module.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation, faTrash, faTrashAlt, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation, faTrash } from "@fortawesome/free-solid-svg-icons";
 import z from "zod";
-import type { MouseEvent } from "react";
 
 const CustomTextField: DynamicField = {
     create: (config: FieldConfig) => ({
@@ -71,32 +70,52 @@ const CustomTextField: DynamicField = {
                                             <Typography variant="h6" color={showError ? "error" : ""}>{config.multiValueOptions?.placeholder}</Typography>
                                         </Box>
                                     ) : (
-                                        <ul className={`${styles.timeline}`}>
-                                            {
-                                                Array.isArray(config.value) && config.value.map((item, index) => (
-                                                    <li key={index}>
-                                                        <Grid container gap={1}>
-                                                            <Grid size='grow'>
-                                                                <Typography variant="body2">{item}</Typography>
-                                                            </Grid>
-                                                            <Grid size={0.60}>
-                                                                <IconButton size="small" color="error" className={`vertical-center ${styles.deleteIcon}`}
-                                                                    onClick={() => config.multiValueOptions?.deleteAction?.(index)}>
-                                                                    <FontAwesomeIcon icon={faTrash} />
-                                                                </IconButton>
-                                                            </Grid>
+                                        config.multiValueOptions?.view === 'timeline' ? (
+                                            <ul className={`${styles.timeline}`}>
+                                                {
+                                                    Array.isArray(config.value) && config.value.map((item, index) => (
+                                                        <li key={index}>
+                                                            <Grid container gap={1}>
+                                                                <Grid size='grow'>
+                                                                    <Typography variant="body2">{item}</Typography>
+                                                                </Grid>
+                                                                <Grid size={0.60}>
+                                                                    <IconButton size="small" color="error" className={`vertical-center ${styles.deleteIcon}`}
+                                                                        onClick={() => config.multiValueOptions?.deleteAction?.(index)}>
+                                                                        <FontAwesomeIcon icon={faTrash} />
+                                                                    </IconButton>
+                                                                </Grid>
 
+                                                            </Grid>
+                                                        </li>
+                                                    ))
+                                                }
+                                            </ul>
+                                        ) : (
+                                            <Grid container gap={1}>
+                                                {
+                                                    Array.isArray(config.value) && config.value.map((item, index) => (
+                                                        <Grid key={index} container className={styles.skillChip}>
+                                                            <Grid sx={{ padding: '0.5rem' }} size='grow'>
+                                                                <Typography>{item}</Typography>
+                                                            </Grid>
+                                                            <Grid className={styles.skillAction}>
+                                                                <ButtonBase className={`${styles.deleteBtn}`}
+                                                                    onClick={() => config.multiValueOptions?.deleteAction?.(index)}>
+                                                                    <FontAwesomeIcon icon={faTrash} style={{ color: 'red' }} />
+                                                                </ButtonBase>
+                                                            </Grid>
                                                         </Grid>
-                                                    </li>
-                                                ))
-                                            }
-                                        </ul>
+                                                    ))
+                                                }
+                                            </Grid>
+                                        )
                                     )
                                 }
                             </Box>
                         )
                     }
-                </Box>
+                </Box >
 
             )
         },
