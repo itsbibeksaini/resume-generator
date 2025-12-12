@@ -70,7 +70,7 @@ export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }
         }
 
         // Multi-value field
-        if (config.isMultiValue) {
+        if (config.multiValue) {
             if (!shouldValidate || !rawValue.trim()) {
                 return
             }
@@ -78,8 +78,12 @@ export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }
             // Convert state to array.
             let existingValue = Array.isArray(dataValue) ? dataValue : []
 
-            // Update array.
-            let updatedArray = [...existingValue, rawValue.trim()]
+            let updatedArray = [""]
+
+            if (config.multiValueOptions?.view === 'tags')
+                updatedArray = [...existingValue, ...rawValue.split(',')]
+            else
+                updatedArray = [...existingValue, rawValue.trim()]
 
             if (validateField(updatedArray)) {
                 setDataValue(updatedArray)
@@ -121,8 +125,9 @@ export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }
         value: dataValue,
         multiValueOptions: {
             placeholder: config.multiValueOptions?.placeholder ?? "",
+            view: config.multiValueOptions?.view!!,
             deleteAction: (index: number) => {
-                if (!config.isMultiValue || !Array.isArray(dataValue)) return;
+                if (!config.multiValue || !Array.isArray(dataValue)) return;
 
                 const updatedArray = dataValue.filter((_, i) => i !== index);
 
