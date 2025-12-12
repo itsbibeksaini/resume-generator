@@ -78,8 +78,12 @@ export const FieldRenderer = ({ config, value, sectionErrorText, updateSection }
             // Convert state to array.
             let existingValue = Array.isArray(dataValue) ? dataValue : []
 
-            // Update array.
-            let updatedArray = [...existingValue, rawValue.trim()]
+            let updatedArray = [""]
+
+            if (config.multiValueOptions?.view === 'tags')
+                updatedArray = [...existingValue, ...rawValue.split(',')]
+            else
+                updatedArray = [...existingValue, rawValue.trim()]
 
             if (validateField(updatedArray)) {
                 setDataValue(updatedArray)
