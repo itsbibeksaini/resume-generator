@@ -12,6 +12,7 @@ const parseMonthYear = (value: string) => {
 
 export const PROJECT_DETAILS: Section = {
     header: '',
+    description: 'Provide the main details of your project, including its name, timeline, description, and the technologies you used.',
     rows: [{
         subSection: false,
         fields: [

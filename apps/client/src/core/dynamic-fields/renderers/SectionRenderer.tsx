@@ -7,7 +7,8 @@ import z from "zod"
 
 export type Section = {
     rows: SectionRow[]
-    header: string
+    header: string,
+    description?: string,
     validations?: z.ZodType<any>
 }
 
@@ -86,6 +87,13 @@ const SectionRenderer = forwardRef<SectionRendererHandle, SectionRendererProps>(
                 <Box>
                     <Typography variant="h6">{props.section.header}</Typography>
                 </Box>
+                {
+                    props.section.description && (
+                        <Box sx={{ padding: '10px' }}>
+                            <Typography variant="body1">{props.section.description}</Typography>
+                        </Box>
+                    )
+                }
                 {
                     props.section.rows.map((row, rowIndex) => {
                         return (
