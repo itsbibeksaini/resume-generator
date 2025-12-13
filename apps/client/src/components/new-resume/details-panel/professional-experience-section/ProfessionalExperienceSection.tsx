@@ -23,11 +23,11 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
     const dialogClose = () => {
         let isValid = childRef.current?.validate()
 
-        let experienceData = childRef.current?.getDataValue() as ProfessionalExperienceInfo
-
         if (!isValid) {
             return
         }
+
+        let experienceData = childRef.current?.getDataValue() as ProfessionalExperienceInfo
 
         setprofessionalExperienceData([...professionalExperienceData, experienceData])
         props.callback([...professionalExperienceData, experienceData])
@@ -162,6 +162,7 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
             >
                 <Grid sx={{ padding: '20px 30px' }} size={12} container>
                     <SectionRenderer ref={childRef} section={PROFESSIONAL_EXPERIENCE_DETAILS} />
+
                 </Grid>
             </CustomDialog>
         </Grid>
