@@ -1,16 +1,12 @@
-import { useState, type ChangeEvent, type FC, type FocusEvent, type KeyboardEvent } from "react"
+import { useRef, useState, type FC } from "react"
 import styles from './ProjectsSection.module.scss'
 import { Box, Button, ButtonBase, Divider, Grid, TextField, Typography } from "@mui/material"
 import CustomDialog from "../../../shared/dialogs/layout/CustomDialog"
 import { faClipboardList, faLaptopCode, faTrash } from "@fortawesome/free-solid-svg-icons"
-import { PROJECT_SECTION } from "./data/ProjectsFields"
-import { getDyanamicField } from "../../../../core/fields/DynamicField"
-import type { Dayjs } from "dayjs"
-import dayjs from "dayjs"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import type { ProjectInfo } from "../../../../core/template-data/TemplateData"
-import SectionRenderer from "../../../../core/dynamic-fields/renderers/SectionRenderer"
+import SectionRenderer, { type SectionRendererHandle } from "../../../../core/dynamic-fields/renderers/SectionRenderer"
 import { PROJECT_DETAILS } from "../../../../core/dynamic-fields/sections/project-details"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 type ProjectsSectionProps = {
     callback: (newProject: ProjectInfo) => void
@@ -18,71 +14,22 @@ type ProjectsSectionProps = {
 
 const ProjectsSection: FC<ProjectsSectionProps> = (props: ProjectsSectionProps) => {
     const [dialogOpen, setDialogOpen] = useState(false)
-    const [fieldData, setFieldData] = useState<Record<string, string>>({});
-    const [projectDescription, setProjectDescription] = useState<string[]>([]);
-    const [projectTechnologies, setProjectTechnologies] = useState<string[]>([]);
     const [projects, setProjects] = useState<ProjectInfo[]>([]);
-
-    const updateField = (evt: ChangeEvent<Element> | FocusEvent<Element> | Dayjs, fieldName: string) => {
-        let value = "";
-
-        if (dayjs.isDayjs(evt)) {
-            value = evt.format("MM/YYYY");
-        } else if (evt && "target" in evt) {
-            value = (evt.target as HTMLInputElement).value;
-        }
-
-        setFieldData((data) => ({ ...data, [fieldName]: value }));
-    }
-
-    const getDataValue = (fieldName: string): string => {
-        return fieldData[fieldName] || ''
-    }
-
-
-    const addProjectDescription = (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            const input = e.target as HTMLInputElement;
-            const value = input.value.trim();
-            if (value && !projectDescription.includes(value)) {
-                setProjectDescription((prev) => [...prev, value]);
-                input.value = '';
-            }
-        }
-    }
-
-    const addProjectTechnology = (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            const input = e.target as HTMLInputElement;
-            const value = input.value.trim();
-            if (value && !projectTechnologies.includes(value)) {
-                setProjectTechnologies((prev) => [...prev, value]);
-                input.value = '';
-            }
-        }
-    }
+    const childRef = useRef<SectionRendererHandle>(null);
 
     const dialogClose = () => {
 
-        let projects: ProjectInfo = {
-            projectName: getDataValue('projectName'),
-            subtitle: getDataValue('subtitle'),
-            startDate: getDataValue('startDate'),
-            endDate: getDataValue('endDate'),
-            projectDescription: projectDescription,
-            projectTechnologies: projectTechnologies
+        let isValid = childRef.current?.validate()
+
+        if (!isValid) {
+            return
         }
 
-        setProjects((prev) => [...prev, projects])
-        props.callback(projects)
-        setDialogOpen(false)
-        resetDialog()
-    }
+        let projectData = childRef.current?.getDataValue() as ProjectInfo
 
-    const resetDialog = () => {
-        setFieldData({})
-        setProjectDescription([])
-        setProjectTechnologies([])
+        setProjects((prev) => [...prev, projectData])
+        props.callback(projectData)
+        setDialogOpen(false)
     }
 
     return (
@@ -187,7 +134,7 @@ const ProjectsSection: FC<ProjectsSectionProps> = (props: ProjectsSectionProps) 
                 actionButtons={[{ label: 'Save', clickAction: dialogClose }]}
             >
                 <Grid sx={{ padding: '20px 30px' }} size={12} container>
-                    <SectionRenderer section={PROJECT_DETAILS} />
+                    <SectionRenderer ref={childRef} section={PROJECT_DETAILS} />
                 </Grid>
             </CustomDialog>
         </Grid>
