@@ -190,7 +190,13 @@ export const PERSONAL_DETAILS: Section = {
           }],
           validations: z
             .string().trim()
-            .regex(/^[A-Za-z0-9 ]{3,10}$/, "Postal code must be 3–10 characters long, using only letters, numbers, or spaces"),
+            .regex(
+              /^[A-Za-z]\d[A-Za-z][ ]?\d[A-Za-z]\d$/,
+              "Postal code must be in the format A1A 1A1"
+            )
+
+            .optional()
+            .or(z.literal(""))
         }
       ]
     }
