@@ -2,7 +2,7 @@ import type { IconProp } from "@fortawesome/fontawesome-svg-core"
 import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent } from "react"
 import type z from "zod"
 
-export type FieldType = "text" | "date-picker"
+export type FieldType = "text" | "date-picker" | "checkbox"
 
 export type FieldEvents = {
     type: 'blur',
@@ -13,6 +13,9 @@ export type FieldEvents = {
 } | {
     type: 'key-down',
     handler?: (evt: KeyboardEvent<Element>) => void
+} | {
+    type: 'click',
+    handler?: (evt: MouseEvent<Element>) => void
 }
 
 type MultiValueView = 'timeline' | 'tags'
