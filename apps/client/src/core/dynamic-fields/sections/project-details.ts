@@ -123,7 +123,7 @@ export const PROJECT_DETAILS: Section = {
         fields: [
             {
                 id: 'txt-technologiesUsed',
-                name: 'technologiesUsed',
+                name: 'projectTechnologies',
                 type: "text",
                 label: 'Technologies used',
                 placeholder: 'Enter technologies used to build the project',

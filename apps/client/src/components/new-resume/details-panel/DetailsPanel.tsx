@@ -135,8 +135,8 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         }));
     }
 
-    const updateProjectsData = (newData: ProjectInfo) => {
-        setProjects(prevData => [...prevData, newData]);
+    const updateProjectsData = (newData: ProjectInfo[]) => {
+        setProjects(newData);
         setSectionErrors(prev => ({
             ...prev,
             hasProjectsError: false,
@@ -251,7 +251,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
 
             <ProfessionalExperienceSection callback={updateProfessionalExperienceData} hasError={sectionErrors.hasProfessionalExperienceError} />
 
-            <ProjectsSection callback={updateProjectsData} />
+            <ProjectsSection callback={updateProjectsData} hasError={sectionErrors.hasProjectsError} />
 
             <AwardsSection callback={updateAwardsData} />
 
