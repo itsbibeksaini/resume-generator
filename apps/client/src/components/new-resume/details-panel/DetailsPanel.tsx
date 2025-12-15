@@ -32,7 +32,7 @@ type SectionErrors = {
 }
 
 const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
-    const [resumeData, setResumeData] = useState<Record<string, string>>({});
+
     const [skills, setSkills] = useState<string[]>([]);
     const [educationData, setEducationalData] = useState<EducationInfo[]>([]);
     const [summaryData, setSummaryData] = useState<string[]>([]);
@@ -52,15 +52,7 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     const navigate = useNavigate();
     const childRef = useRef<SectionRendererHandle[]>([]);
 
-    const updateField = (evt: FocusEvent<Element>, fieldID: string) => {
-        const value = (evt.target as HTMLInputElement).value;
-        validateField(fieldID, value)
-        setResumeData((data) => ({ ...data, [fieldID]: value }));
-    };
 
-    const getDataValue = (fieldId: string): string => {
-        return resumeData[fieldId] || '';
-    }
 
     const previewResume = () => {
         childRef.current?.map((ref) => ref.validate());
@@ -72,16 +64,19 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
     }
 
     const compileResumeData = () => {
+        let contactInfo = childRef.current[0].getDataValue();
+        let socialMediaInfo = childRef.current[1].getDataValue();
+
         let templateData: TemplateData = {
-            fullName: resumeData['firstname'] + ' ' + resumeData['lastname'],
-            jobTitle: getDataValue('jobtitle'),
+            fullName: contactInfo['firstName'] + ' ' + contactInfo['lastName'],
+            jobTitle: contactInfo['jobTitle'],
             contactInfo: {
-                location: getDataValue('city') + ' ' + getDataValue('province') + ' ' + getDataValue('country') + ' - ' + getDataValue('postalcode'),
-                email: getDataValue('email'),
-                phone: '+' + getDataValue('countrycode') + ' (' + getDataValue('areacode') + ') ' + getDataValue('number'),
-                linkedin: getDataValue('linkedin'),
-                github: getDataValue('github'),
-                website: getDataValue('website-portfolio')
+                location: contactInfo['city'] + ' ' + contactInfo['province'] + ' ' + contactInfo['country'] + ' - ' + contactInfo['postalCode'],
+                email: contactInfo['email'],
+                phone: '+' + contactInfo['countryCode'] + ' (' + contactInfo['areaCode'] + ') ' + contactInfo['number'],
+                linkedin: socialMediaInfo['linkedin'],
+                github: socialMediaInfo['github'],
+                website: socialMediaInfo['websitePortfolio']
             },
             skills: skills,
             educationInfo: educationData,
@@ -96,8 +91,6 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
         //     console.error("Data validation error:", parsedData.error);
         //     return;
         // }
-
-
 
 
         return DUMMY_DATA;
@@ -239,9 +232,6 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
                     childRef.current[1] = el!
                 }} section={SOCIAL_MEDIA_DETAILS} hasError={false} addDivider />
             </Box>
-
-
-
 
             <SkillsSection callback={updateSkills} hasError={sectionErrors.hasSkillsError} />
 

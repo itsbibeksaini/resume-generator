@@ -39,6 +39,7 @@ const ProjectsSection: FC<ProjectsSectionProps> = (props: ProjectsSectionProps) 
 
         updatedData.splice(index, 1)
         setProjects(updatedData)
+        props.callback(updatedData)
     }
 
     return (

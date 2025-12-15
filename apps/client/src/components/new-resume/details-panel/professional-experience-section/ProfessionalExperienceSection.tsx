@@ -39,6 +39,7 @@ const ProfessionalExperienceSection: FC<ProfessionalExperienceSectionProps> = (p
 
         updatedData.splice(index, 1)
         setprofessionalExperienceData(updatedData)
+        props.callback(updatedData)
     }
 
     return (
