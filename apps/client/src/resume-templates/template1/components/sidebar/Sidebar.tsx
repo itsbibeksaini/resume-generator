@@ -18,136 +18,145 @@ type ResumeSidebarProps = {
     };
     skills: string[]
     educationalData: EducationInfo[]
-    
+
 };
 
 const Sidebar: FC<ResumeSidebarProps> = (props: ResumeSidebarProps) => {
-  return (
-    <Grid className={`${styles.sidebar}`}>
-        <Box className={`${styles.section}`}>
-            <Grid container gap={1}>
-                <Grid sx={{position:'relative'}} size={1}>
-                    <FontAwesomeIcon icon={faIdBadge}/>
+    return (
+        <Grid className={`${styles.sidebar}`}>
+            <Box className={`${styles.section}`}>
+                <Grid container gap={1}>
+                    <Grid sx={{ position: 'relative' }} size={1}>
+                        <FontAwesomeIcon icon={faIdBadge} />
+                    </Grid>
+                    <Grid size='grow'>
+                        <Typography className={`${resumeStyles.resumeHeading}`}>contact information</Typography>
+                    </Grid>
+                    <Grid size={12}>
+                        <Divider sx={{ margin: '0 0.5rem' }} />
+                    </Grid>
                 </Grid>
-                <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeHeading}`}>contact information</Typography>
+                <Grid container gap={1} sx={{ marginTop: '0.5rem' }}>
+                    <Grid sx={{ position: 'relative' }} size={1}>
+                        <FontAwesomeIcon icon={faLocationPin} />
+                    </Grid>
+                    <Grid size='grow'>
+                        <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.location}</Typography>
+                    </Grid>
                 </Grid>
-                <Grid size={12}>
-                    <Divider sx={{margin: '0 0.5rem'}} />
+                <Grid container gap={1} sx={{ marginTop: '0.5rem' }}>
+                    <Grid sx={{ position: 'relative' }} size={1}>
+                        <FontAwesomeIcon icon={faMobileAlt} />
+                    </Grid>
+                    <Grid size='grow'>
+                        <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.phone}</Typography>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
-                <Grid sx={{position:'relative'}} size={1}>
-                    <FontAwesomeIcon icon={faLocationPin}/>
+                <Grid container gap={1} sx={{ marginTop: '0.5rem' }}>
+                    <Grid sx={{ position: 'relative' }} size={1}>
+                        <FontAwesomeIcon icon={faEnvelopeOpen} />
+                    </Grid>
+                    <Grid size='grow'>
+                        <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.email}</Typography>
+                    </Grid>
                 </Grid>
-                <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.location}</Typography>
-                </Grid>
-            </Grid>
-            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
-                <Grid sx={{position:'relative'}} size={1}>
-                    <FontAwesomeIcon icon={faMobileAlt}/>
-                </Grid>
-                <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.phone}</Typography>
-                </Grid>
-            </Grid>
-            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
-                <Grid sx={{position:'relative'}} size={1}>
-                    <FontAwesomeIcon icon={faEnvelopeOpen}/>
-                </Grid>
-                <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.email}</Typography>
-                </Grid>
-            </Grid>
-            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
-                <Grid sx={{position:'relative'}} size={1}>
-                    <FontAwesomeIcon icon={faLinkedin}/>
-                </Grid>
-                <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.linkedin}</Typography>
-                </Grid>
-            </Grid>
-            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
-                <Grid sx={{position:'relative'}} size={1}>
-                    <FontAwesomeIcon icon={faGithub}/>
-                </Grid>
-                <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.github}</Typography>
-                </Grid>
-            </Grid>
-            <Grid container gap={1} sx={{marginTop:'0.5rem'}}>
-                <Grid sx={{position:'relative'}} size={1}>
-                    <FontAwesomeIcon icon={faGlobe}/>
-                </Grid>
-                <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.website}</Typography>
-                </Grid>
-            </Grid>
-        </Box>
+                {
+                    props.contactInfo.linkedin &&
+                    <Grid container gap={1} sx={{ marginTop: '0.5rem' }}>
+                        <Grid sx={{ position: 'relative' }} size={1}>
+                            <FontAwesomeIcon icon={faLinkedin} />
+                        </Grid>
+                        <Grid size='grow'>
+                            <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.linkedin}</Typography>
+                        </Grid>
+                    </Grid>
+                }
+                {
+                    props.contactInfo.github &&
+                    <Grid container gap={1} sx={{ marginTop: '0.5rem' }}>
+                        <Grid sx={{ position: 'relative' }} size={1}>
+                            <FontAwesomeIcon icon={faGithub} />
+                        </Grid>
+                        <Grid size='grow'>
+                            <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.github}</Typography>
+                        </Grid>
+                    </Grid>
+                }
+                {
+                    props.contactInfo.website &&
+                    <Grid container gap={1} sx={{ marginTop: '0.5rem' }}>
+                        <Grid sx={{ position: 'relative' }} size={1}>
+                            <FontAwesomeIcon icon={faGlobe} />
+                        </Grid>
+                        <Grid size='grow'>
+                            <Typography className={`${resumeStyles.resumeBody}`}>{props.contactInfo.website}</Typography>
+                        </Grid>
+                    </Grid>
+                }
+            </Box>
 
-        <Box className={`${styles.section}`}>
-            <Grid container gap={1}>
-                <Grid sx={{position:'relative'}} size={1}>
-                    <FontAwesomeIcon icon={faScrewdriverWrench}/>
+            <Box className={`${styles.section}`}>
+                <Grid container gap={1}>
+                    <Grid sx={{ position: 'relative' }} size={1}>
+                        <FontAwesomeIcon icon={faScrewdriverWrench} />
+                    </Grid>
+                    <Grid size='grow'>
+                        <Typography className={`${resumeStyles.resumeHeading}`}>skills</Typography>
+                    </Grid>
+                    <Grid size={12}>
+                        <Divider sx={{ margin: '0.25rem 0.5rem' }} />
+                    </Grid>
+                    <Grid container size={12} gap={1}>
+                        {
+                            props.skills?.map((skill, index) => {
+                                return (
+                                    <Grid size='auto' className={`${styles.skill}`} key={index}>
+                                        <Typography className={`${resumeStyles.resumeBody}`}>{skill}</Typography>
+                                    </Grid>
+                                )
+                            })
+                        }
+                    </Grid>
                 </Grid>
-                <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeHeading}`}>skills</Typography>
-                </Grid>
-                <Grid size={12}>
-                    <Divider sx={{margin: '0.25rem 0.5rem'}} />
-                </Grid>
-                <Grid container size={12} gap={1}>
-                    {
-                        props.skills?.map((skill, index) => {
-                            return(
-                                <Grid size='auto' className={`${styles.skill}`} key={index}>
-                                    <Typography className={`${resumeStyles.resumeBody}`}>{skill}</Typography>
-                                </Grid>
-                            )
-                        })
-                    }
-                </Grid>
-            </Grid>
-            
-        </Box>
 
-        <Box className={`${styles.section}`}>
-            <Grid container gap={1}>
-                <Grid sx={{position:'relative'}} size={1}>
-                    <FontAwesomeIcon icon={faGraduationCap}/>
+            </Box>
+
+            <Box className={`${styles.section}`}>
+                <Grid container gap={1}>
+                    <Grid sx={{ position: 'relative' }} size={1}>
+                        <FontAwesomeIcon icon={faGraduationCap} />
+                    </Grid>
+                    <Grid size='grow'>
+                        <Typography className={`${resumeStyles.resumeHeading}`}>education</Typography>
+                    </Grid>
+                    <Grid size={12}>
+                        <Divider sx={{ margin: '0 0.5rem' }} />
+                    </Grid>
+                    <Grid gap={1} className={`${styles.educationalSection}`} size={12} sx={{
+                        breakBefore: 'always',
+                        pageBreakBefore: 'always'
+                    }}>
+                        {
+                            props.educationalData.length === 0 && <Typography>No educational Data</Typography>
+                        }
+                        {
+                            props.educationalData.map((data, index) => {
+                                return (
+                                    <Grid className={`${styles.education}`} size={12} key={index} >
+                                        <Typography className={`${resumeStyles.resumeHeading}`} sx={{ textTransform: 'none' }}>{data.schoolName}</Typography>
+                                        <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{ lineHeight: '1.5 !important' }}>{data.city} {data.state} - {data.country}</Typography>
+                                        <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" >{data.course}</Typography>
+                                        <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" >{data.startDate} - {data.completionDate}</Typography>
+                                    </Grid>
+                                )
+                            })
+                        }
+                    </Grid>
                 </Grid>
-                <Grid  size='grow'>
-                    <Typography className={`${resumeStyles.resumeHeading}`}>education</Typography>
-                </Grid>
-                <Grid size={12}>
-                    <Divider sx={{margin: '0 0.5rem'}} />
-                </Grid>
-                <Grid gap={1} className={`${styles.educationalSection}`} size={12} sx={{
-                                    breakBefore: 'always',
-                                    pageBreakBefore: 'always'
-                                }}>
-                    {
-                        props.educationalData.length === 0 && <Typography>No educational Data</Typography>
-                    }
-                    {
-                        props.educationalData.map((data, index) => {
-                            return(
-                                <Grid className={`${styles.education}`} size={12} key={index} >
-                                    <Typography className={`${resumeStyles.resumeHeading}`} sx={{textTransform: 'none'}}>{data.schoolName}</Typography>
-                                    <Typography className={`${resumeStyles.resumeSubHeading}`} sx={{lineHeight:'1.5 !important'}}>{data.city} {data.state} - {data.country}</Typography>
-                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" >{data.course}</Typography>
-                                    <Typography className={`${resumeStyles.resumeBody}`} color="textSecondary" >{data.startDate} - {data.completionDate}</Typography>                                    
-                                </Grid>
-                            )
-                        })
-                    }
-                </Grid>
-            </Grid>
-            
-        </Box>
-    </Grid>
-  );
+
+            </Box>
+        </Grid>
+    );
 };
 
 export default Sidebar;
