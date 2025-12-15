@@ -148,5 +148,12 @@ export const PROJECT_DETAILS: Section = {
                     .min(1, "At least one technology is required")
             }
         ]
-    }]
+    }],
+    validations: z.any().refine((data: any) => {
+        if (!data.endDate || !data.startDate) return true;
+        return data.endDate >= data.startDate;
+    }, {
+        message: "End date cannot be before start date.",
+        path: ["endDate"]
+    })
 }
