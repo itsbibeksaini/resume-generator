@@ -9,6 +9,11 @@ const ContactInfoSchema = z.object({
   website: z.string().url("Website must be a valid URL").optional().or(z.literal("")),
 });
 
+const SkillsSchema = z.object({
+  category: z.string().min(1, "Category is required"),
+  skills: z.array(z.string().min(1, "Skill cannot be empty")).nonempty("Skills must not be empty"),
+});
+
 const EducationInfoSchema = z.object({
   schoolName: z.string().min(1, "School name is required"),
   course: z.string().min(1, "Course name is required"),
@@ -52,7 +57,7 @@ export const TemplateDataSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
   jobTitle: z.string().min(1, "Job title is required"),
   contactInfo: ContactInfoSchema,
-  skills: z.array(z.string().min(1, "Skill cannot be empty")).nonempty("Skills must not be empty"),
+  skills: z.array(SkillsSchema),
   educationInfo: z.array(EducationInfoSchema).nonempty("Education information is required"),
   summary: z.array(z.string().min(1, "Summary item cannot be empty")).nonempty("Summary is required"),
   professionalExperience: z.array(ProfessionalExperienceInfoSchema).nonempty("Professional experience is required"),
@@ -68,163 +73,208 @@ export type AwardsAndCertificationsInfo = z.infer<typeof AwardsAndCertifications
 
 
 export const DUMMY_DATA: TemplateData = {
-  fullName: "John Doe",
-  jobTitle: "Senior Full Stack Software Engineer",
+  fullName: "Bibek Saini",
+  jobTitle: "Full Stack Software Engineer",
   contactInfo: {
-    location: "San Francisco, CA",
-    email: "john.doe@example.com",
-    phone: "+1 555-123-4567",
-    linkedin: "https://www.linkedin.com/in/johndoe",
-    github: "https://github.com/johndoe",
-    website: "https://johndoe.dev"
+    location: "Toronto, ON",
+    email: "itsbibeksaini@gmail.com",
+    phone: "+1 (416) 559-9209",
+    linkedin: "linkedin.com/in/itsbibeksaini",
+    github: "github.com/itsbibeksaini",
+    website: "itsbibeksaini.com"
   },
   skills: [
-    "JavaScript", "TypeScript", "React.js", "Next.js", "Angular",
-    "Node.js", "Express.js", "Python", "Django", "Flask",
-    "RESTful APIs", "GraphQL", "Microservices", "Docker", "Kubernetes",
-    "AWS", "Azure", "GCP", "CI/CD", "Git", "PostgreSQL", "MongoDB", "Redis",
-    "WebSockets", "Agile Methodologies", "TDD", "Unit Testing", "Jest", "Cypress",
-    "System Design", "Technical Leadership", "Mentoring"
+    {
+      "category": "Backend",
+      "skills": ["Java 17+", "Kotlin"]
+    },
+    {
+      "category": "Frontend",
+      "skills": ["React", "Angular", "Node.js", "Typescript", "JavaScript", "HTML", "CSS"]
+    },
+    {
+      "category": "Frameworks",
+      "skills": ["Spring Boot", "Spring Cloud", "Spring Web", "Spring Data"]
+    },
+    {
+      "category": "Testing",
+      "skills": ["JUnit 5", "Mockito 5", "TDD", "BDD", "Integration Testing"]
+    },
+    {
+      "category": "Messaging",
+      "skills": ["Apache Kafka", "Azure Service Bus", "JMS"]
+    },
+    {
+      "category": "Databases",
+      "skills": ["MongoDB (NO SQL)", "MS SQL"]
+    },
+    {
+      "category": "DevOps & CI/CD",
+      "skills": ["Git", "GitHub", "GitHub Actions", "Azure Pipeline’s", "Bitbucket", "CI/CD"]
+    },
+    {
+      "category": "Cloud & Containerization",
+      "skills": ["Docker", "Kubernetes", "Azure Kubernetes Services (AKS)", "Azure Container Registry (ACR)"]
+    },
+    {
+      "category": "Architecture",
+      "skills": ["Micro-services", "REST APIs", "Design Patterns", "gRPC", "Event-Driven Architecture"]
+    },
+    {
+      "category": "Methodologies",
+      "skills": ["Agile", "Scrum", "Kanban", "Continuous Integration"]
+    },
+    {
+      "category": "Other",
+      "skills": ["Code Reviews", "Performance Tuning", "Troubleshooting", "Apache Tomcat", "JBoss Undertow"]
+    },
+    {
+      "category": "Productivity tools",
+      "skills": ["GitHub Co-pilot", "GPT-models", "Cursor", "Gemini"]
+    }
   ],
   educationInfo: [
     {
-      schoolName: "IK Gujral Punjab Technical University",
-      course: "B.TECH in Computer Science",
-      startDate: "2012-08-01",
-      completionDate: "2016-05-01",
-      city: "San Francisco",
-      state: "CA",
-      country: "USA"
+      schoolName: "Northern College",
+      course: "Post Graduate Certificate in Information System Business Analysis.",
+      startDate: "05/2024",
+      completionDate: "12/2024",
+      city: "Toronto",
+      state: "ON",
+      country: "Canada"
     }, {
-      schoolName: "XYZ University",
-      course: "B.TECH in Computer Science",
-      startDate: "2012-08-01",
-      completionDate: "2016-05-01",
-      city: "San Francisco",
-      state: "CA",
-      country: "USA"
-    },{
-      schoolName: "XYZ University",
-      course: "B.TECH in Computer Science",
-      startDate: "2012-08-01",
-      completionDate: "2016-05-01",
-      city: "San Francisco",
-      state: "CA",
-      country: "USA"
+      schoolName: "Northern College",
+      course: "Post Graduate Certificate in Mobile Application Development.",
+      startDate: "05/2023",
+      completionDate: "12/2023",
+      city: "Toronto",
+      state: "ON",
+      country: "Canada"
+    }, {
+      schoolName: "IK Gujral Punjab Technical University",
+      course: "Bachelor of Technology in Computer Science",
+      startDate: "08/2012",
+      completionDate: "06/2016",
+      city: "Amritsar",
+      state: "PB",
+      country: "India"
     }
   ],
   summary: [
-    "Results-driven Senior Full Stack Software Engineer with 7+ years of experience designing, developing, and deploying scalable web applications.",
-    "Proficient in JavaScript, TypeScript, React.js, Node.js, Python, and cloud technologies (AWS, Docker, Kubernetes).",
-    "Proven track record of leading cross-functional teams, optimizing system performance, and delivering high-quality, maintainable code.",
-    "Passionate about modern architectures, continuous integration, and mentoring junior developers."
+    "<strong>8+ Years of Full-Stack Expertise:</strong> Seasoned engineer specializing in building enterprise-grade web applications, cloud-based microservices, and event-driven systems.",
+    "<strong>Modern Java & Kotlin Backend:</strong> Proficient in architecting high-throughput backend services using Java 17+, Kotlin, Spring Boot, and Apache Kafka.",
+    "<strong>State-Driven Frontend Architecture:</strong> Experienced in building responsive UIs using React (Hooks/Redux) and Angular (RxJS) integrated seamlessly with RESTful APIs.",
+    "<strong>Cloud Infrastructure & Orchestration:</strong> Strong hands-on experience deploying to Azure and managing containerized states using Docker and Kubernetes YAML manifests.",
+    "<strong>End-to-End CI/CD & DevOps:</strong> Skilled in implementing automated deployment pipelines using Azure Pipelines, GitHub Actions, SonarQube, and Maven/Gradle.",
+    "<strong>Technical Leadership & Agile:</strong> Adept at mentoring junior developers, conducting rigorous code reviews, and collaborating with cross-functional teams in Scrum environments."
   ],
   professionalExperience: [
     {
-      jobPosition: "Senior Full Stack Software Engineer",
-      companyName: "ABC Tech Solutions",
-      startDate: "2021-01-01",
-      endDate: "Present",
-      city: "San Francisco",
-      state: "CA",
-      country: "USA",
+      jobPosition: "Full Stack Software Engineer",
+      companyName: "Cicana.",
+      startDate: "07/2024",
+      endDate: "11/2025",
+      city: "Remote",
+      state: "",
+      country: "",
       responsibilities: [
-        "Led the development of scalable web applications using React.js, Node.js, and Express.",
-        "Designed and implemented RESTful APIs and GraphQL endpoints for multiple microservices.",
-        "Architected and deployed applications on AWS using EC2, S3, RDS, and Lambda.",
-        "Implemented CI/CD pipelines using GitHub Actions and Docker.",
-        "Mentored and guided a team of 5+ junior developers, establishing coding standards and best practices.",
-        "Optimized application performance through database indexing, caching, and code refactoring."
-      ],
+        "Worked closely with product owners, QA, DevOps, and stakeholders within an Agile/Scrum environment using JIRA and Confluence.",
+        "Designed, developed, and deployed cloud-based microservices using Java 17+, Kotlin, Spring Boot, Spring MVC, Spring Security, and Kafka.",
+        "Designed and implemented logging, monitoring, and tracing solutions using Spring Boot Actuator and Prometheus.",
+        "Accelerated backend development and system architecture by utilizing GitHub Co-pilot, Gemini, and GPT models to automate complex API boilerplate, optimize SQL queries, and generate comprehensive unit tests, significantly reducing technical debt and improving delivery speed.",
+        "Optimized the performance of database queries using Hibernate caching mechanisms and SQL tuning.",
+        "Configured and customized embedded Tomcat and JBoss Undertow within Spring Boot applications to optimize thread pools, connection timeouts, and server performance.",
+        "Implemented Spring Security with OAuth2/JWT to secure microservices.",
+        "Developed frontend components using React.js, Angular, integrating them with backend microservices via REST APIs."
+      ]
+      ,
       achievements: [
         "Reduced system downtime by 50% through infrastructure optimization.",
         "Awarded Employee of the Year 2022 for delivering high-impact projects and mentoring initiatives."
       ]
     },
     {
-      jobPosition: "Full Stack Software Engineer",
-      companyName: "XYZ Innovations",
-      startDate: "2017-06-01",
-      endDate: "2020-12-01",
-      city: "San Jose",
-      state: "CA",
-      country: "USA",
+      jobPosition: "Senior Software Engineer",
+      companyName: "CatalystOne Info Pvt. Ltd.",
+      startDate: "04/2016",
+      endDate: "03/2023",
+      city: "Mohali",
+      state: "PB",
+      country: "India",
       responsibilities: [
-        "Developed full-stack features for enterprise web applications using React.js, Angular, Node.js, and MongoDB.",
-        "Integrated third-party services, payment gateways, and REST APIs to enhance application functionality.",
-        "Participated in system design and architecture discussions to ensure scalable solutions.",
-        "Conducted unit and integration testing using Jest and Mocha.",
-        "Collaborated with cross-functional teams in an Agile environment."
-      ],
+        "Designed and developed cloud-based microservices on Azure using Spring Boot, supporting high-volume enterprise applications utilizing JPA, SpringData to build connectivity to SQL Server.",
+        "Architected and implemented RESTful APIs using Spring MVC and JAX-RS following SOA principles.",
+        "Authored declarative YAML manifests for kubernetes including Deployments, Services, Ingress resources, and Persistent Volumes to manage complex infrastructure states.",
+        "Built scalable front-end solutions using Angular (RxJS, Reactive Forms) and React (Hooks, Context API/Redux) to manage complex application state efficiently.",
+        "Built event-driven systems using Apache Kafka, including topic design, producers, consumers, and stream processing.",
+        "Applied distributed system design patterns such as service discovery, routing, circuit breakers, and service-to-service communication.",
+        "Replaced default Tomcat with JBoss Undertow in Spring Boot to leverage non-blocking I/O and improve application throughput and startup time.",
+        "Led CI/CD pipeline implementation using Azure pipelines, GitHub actions, Git, Maven/Gradle, Artifactory, and SonarQube.",
+        "Optimized database performance across MongoDB, PostgreSQL, and SQL Server environments.",
+        "Monitored, debugged, and resolved production issues using Azure App Insights.",
+        "Wrote and reviewed JUnit test cases, improving code coverage and system stability.",
+        "Acted as a technical mentor, providing guidance, code reviews, and best practices to junior developers.",
+        "Collaborated with cross-functional teams to understand requirements and deliver solutions.",
+        "Built UI using HTML5, CSS3, JavaScript, and TypeScript, ensuring responsive and dynamic web applications."
+      ]
+      ,
       achievements: [
         "Delivered a major product module 2 weeks ahead of schedule, improving client satisfaction.",
         "Optimized database queries, reducing average response time by 35%."
-      ]
-    },
-    {
-      jobPosition: "Software Engineer",
-      companyName: "TechStart Solutions",
-      startDate: "2015-01-01",
-      endDate: "2017-05-01",
-      city: "San Francisco",
-      state: "CA",
-      country: "USA",
-      responsibilities: [
-        "Developed dynamic frontend interfaces using HTML5, CSS3, JavaScript, and React.js.",
-        "Assisted in backend API development with Node.js and Express.",
-        "Implemented authentication and authorization mechanisms.",
-        "Participated in code reviews, debugging, and deployment tasks."
-      ],
-      achievements: [
-        "Implemented user authentication module, securing the application for 10,000+ users.",
-        "Contributed to a team project that won an internal innovation award for efficient UI design."
       ]
     }
   ],
   projects: [
     {
-      projectName: "Resume Generator Web Application",
-      subtitle: "Dynamic web app to create professional resumes",
-      startDate: "2022-01-01",
-      endDate: "2022-03-01",
-      projectDescription: [
-        "Built a dynamic web app to generate professional resumes from user input with live preview and PDF export.",
-        "Implemented multiple templates, real-time editing, and downloadable PDF output."
+      "projectName": "Custom Gradle Plugins",
+      "subtitle": "Gradle API & Kotlin/Java",
+      "startDate": "",
+      "endDate": "",
+      "projectDescription": [
+        "An assortment of Gradle plugins customized to configure essentials plugins and settings required by projects."
       ],
-      projectTechnologies: ["React.js", "Node.js", "Express.js", "MongoDB", "jsPDF", "Tailwind CSS"]
+      "projectTechnologies": ["Gradle API", "Kotlin"]
     },
     {
-      projectName: "Project Scaffolder CLI Tool",
-      subtitle: "CLI tool to generate ready-to-use project templates",
-      startDate: "2021-06-01",
-      endDate: "2021-09-01",
-      projectDescription: [
-        "Developed a command-line scaffolding tool to generate project templates for React, Node.js, and Django.",
-        "Automated folder structure creation, configuration files, Git initialization, and optional dependency installation."
+      "projectName": "Project Generator (Code as Automation)",
+      "subtitle": "Gradle API & Kotlin",
+      "startDate": "",
+      "endDate": "",
+      "projectDescription": [
+        "Custom Gradle plugin with dynamic code generation capabilities to auto generate boiler-plate repetitive code for project."
       ],
-      projectTechnologies: ["Node.js", "Inquirer.js", "fs module", "Python"]
+      "projectTechnologies": ["Gradle API", "Kotlin", "JavaPoet"]
     },
     {
-      projectName: "E-Commerce Web Platform",
-      subtitle: "Full-stack e-commerce application",
-      startDate: "2020-01-01",
-      endDate: "2020-06-01",
-      projectDescription: [
-        "Designed and implemented a full-stack e-commerce application with frontend, backend, and database integration.",
-        "Integrated payment gateways, product catalog, user authentication, and order management."
+      "projectName": "Custom SpringBoot Starters",
+      "subtitle": "SpringBoot & Kotlin",
+      "startDate": "",
+      "endDate": "",
+      "projectDescription": [
+        "Collection of BOMs, libraries and SpringBoot Starters to provide consistent dependency alignment and configuration conventions across microservices projects to build services."
       ],
-      projectTechnologies: ["React.js", "Node.js", "Express.js", "PostgreSQL", "Stripe API", "Docker", "AWS EC2", "GitHub Actions"]
+      "projectTechnologies": ["SpringBoot", "Kotlin", "Exposed", "JUnit"]
     },
     {
-      projectName: "Real-Time Chat Application",
-      subtitle: "Messaging platform for internal team communication",
-      startDate: "2019-05-01",
-      endDate: "2019-09-01",
-      projectDescription: [
-        "Developed a real-time messaging platform with user authentication, chat rooms, and message persistence.",
-        "Implemented real-time updates using WebSockets."
+      "projectName": "Notification Service",
+      "subtitle": "SpringBoot & Java",
+      "startDate": "",
+      "endDate": "",
+      "projectDescription": [
+        "Micro-service providing email and SMS notification capabilities. Implements JMS and Azure Service Bus."
       ],
-      projectTechnologies: ["React.js", "Node.js", "Express.js", "WebSockets", "Redis", "MongoDB", "Tailwind CSS"]
+      "projectTechnologies": ["SpringBoot", "Java", "JMS", "Azure Service Bus"]
+    },
+    {
+      "projectName": "Workflows",
+      "subtitle": "Java EE, SpringBoot",
+      "startDate": "",
+      "endDate": "",
+      "projectDescription": [
+        "Workflows modules help organizations to manage their tasks which occurs in particular order.",
+        "With workflows organizations can design the flow with various pre-defined task."
+      ],
+      "projectTechnologies": ["Java EE", "SpringBoot", "Core Java"]
     }
   ],
   awardsAndCertifications: [

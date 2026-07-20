@@ -122,13 +122,13 @@ const Template2: FC = () => {
                         </Grid>
                         <Grid container size={12} gap={1}>
                             {
-                                resumeData.skills?.map((skill, index) => {
-                                    return (
-                                        <Grid size='auto' className={`${styles.skill}`} key={index}>
-                                            <Typography className={`${resumeStyles.resumeBody}`}>{skill}</Typography>
-                                        </Grid>
-                                    )
-                                })
+                                // resumeData.skills?.map((skill, index) => {
+                                //     return (
+                                //         <Grid size='auto' className={`${styles.skill}`} key={index}>
+                                //             <Typography className={`${resumeStyles.resumeBody}`}>{skill}</Typography>
+                                //         </Grid>
+                                //     )
+                                // })
                             }
                         </Grid>
                     </Grid>

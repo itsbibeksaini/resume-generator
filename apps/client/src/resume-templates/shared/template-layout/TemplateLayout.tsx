@@ -7,6 +7,8 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import type { TemplateData } from "../../../core/template-data/TemplateData";
 import html2pdf from "html2pdf.js"
 import { resumeTemplateTheme } from "../../../core/themes/customTheme";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const TemplateLayout: FC = () => {
 
@@ -21,21 +23,42 @@ const TemplateLayout: FC = () => {
     const [resumeData] = useState<TemplateData>(location.state);
 
     const pdfOptions: any = {
-        filename: resumeData.fullName + '_resume.pdf',        
+        filename: resumeData.fullName + '_resume.pdf',
         image: { type: "jpeg" as "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
-        margin: [16,0,16,0],
+        margin: [16, 0, 16, 0],
         jsPDF: { unit: 'px', format: 'letter', orientation: 'portrait', hotfixes: ["px_scaling"] },
         // pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-        
+
     }
 
-    const convertToPdf = () => {    
+    const downloadPDF = async () => {
+        const content = templateRef.current;
+        if (!content) return;
+
+        const canvas = await html2canvas(content, {
+            scale: 2,
+            useCORS: true,
+        })
+
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = 295; // A4 height in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        pdf.save('hexagon-report.pdf');
+
+
+    }
+
+    const convertToPdf = () => {
         const content = templateRef.current;
         if (!content) return;
         html2pdf().set(pdfOptions).from(content).save();
     }
-    
+
 
     return (
         <Box className={`${styles.templateWrapper}`} sx={(theme) => ({
@@ -50,7 +73,7 @@ const TemplateLayout: FC = () => {
             </Grid>
             <ThemeProvider theme={resumeTemplateTheme}>
                 <CssBaseline enableColorScheme />
-                <Outlet context={{ setTemplateRef }}  />            
+                <Outlet context={{ setTemplateRef }} />
             </ThemeProvider>
             <footer>
                 <Button variant="contained" color="primary" onClick={convertToPdf}>Generate</Button>

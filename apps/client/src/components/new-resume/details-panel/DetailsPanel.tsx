@@ -55,9 +55,9 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
 
 
     const previewResume = () => {
-        childRef.current?.map((ref) => ref.validate());
-        if (validatePage())
-            return
+        // childRef.current?.map((ref) => ref.validate());
+        // if (validatePage())
+        //     return
 
         if (selectedTemplate)
             navigate(selectedTemplate?.route, { state: compileResumeData() });
@@ -86,13 +86,13 @@ const DetailsPanel: FC<DetailsPanelProps> = ({ selectedTemplate }) => {
             awardsAndCertifications: awards
         }
 
-        const parsedData = TemplateDataSchema.safeParse(templateData);
-        if (!parsedData.success) {
-            console.error("Data validation error:", parsedData.error);
-            return;
-        }
+        // const parsedData = TemplateDataSchema.safeParse(templateData);
+        // if (!parsedData.success) {
+        //     console.error("Data validation error:", parsedData.error);
+        //     return;
+        // }
 
-        return templateData;
+        return DUMMY_DATA;
     }
 
     const updateSkills = (newSkills: string[]) => {

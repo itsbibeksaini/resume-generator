@@ -7,6 +7,7 @@ import Template1 from "../../resume-templates/template1/Template1";
 import TemplateLayout from "../../resume-templates/shared/template-layout/TemplateLayout";
 import Template2 from "../../resume-templates/template2/Template2";
 import Template3 from "../../resume-templates/template3/Template3";
+import Template4 from "../../resume-templates/template4/Template4";
 
 // export const PUBLIC_ROUTES = createBrowserRouter([
 //     {
@@ -19,6 +20,11 @@ export const PRIVATE_ROUTES = createBrowserRouter([
     {
         path: '/',
         Component: SignIn,
+    },
+    {
+        path: 'test',
+        Component: Template4
+
     },
     {
         path: '/home',
@@ -44,7 +50,7 @@ export const PRIVATE_ROUTES = createBrowserRouter([
                 return { title: 'Template 1' };
             },
             Component: TemplateLayout,
-            children:[{
+            children: [{
                 path: '',
                 Component: Template1
             }]
@@ -54,7 +60,7 @@ export const PRIVATE_ROUTES = createBrowserRouter([
                 return { title: 'Template 2' };
             },
             Component: TemplateLayout,
-            children:[{
+            children: [{
                 path: '',
                 Component: Template2
             }]
@@ -64,7 +70,7 @@ export const PRIVATE_ROUTES = createBrowserRouter([
                 return { title: 'Template 3' };
             },
             Component: TemplateLayout,
-            children:[{
+            children: [{
                 path: '',
                 Component: Template3
             }]

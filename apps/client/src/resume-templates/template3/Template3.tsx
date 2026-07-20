@@ -150,18 +150,18 @@ const Template3: FC = () => {
                     <Grid className={`${styles.section}`}>
                         <Grid container gap={0.5} className={`${styles.skills}`}>
                             {
-                                resumeData.skills.map((skill, index) => (
-                                    <Grid container key={index}>
-                                        <Grid sx={{ padding: '0.25rem' }}>
-                                            <Typography className={resumeStyles.resumeBody}>{skill}</Typography>
-                                        </Grid>
-                                        {index !== (resumeData.skills.length - 1) &&
-                                            <Grid>
-                                                <Divider orientation="vertical" sx={{ marginLeft: '0.5rem' }} />
-                                            </Grid>
-                                        }
-                                    </Grid>
-                                ))
+                                // resumeData.skills.map((skill, index) => (
+                                //     <Grid container key={index}>
+                                //         <Grid sx={{ padding: '0.25rem' }}>
+                                //             <Typography className={resumeStyles.resumeBody}>{skill}</Typography>
+                                //         </Grid>
+                                //         {index !== (resumeData.skills.length - 1) &&
+                                //             <Grid>
+                                //                 <Divider orientation="vertical" sx={{ marginLeft: '0.5rem' }} />
+                                //             </Grid>
+                                //         }
+                                //     </Grid>
+                                // ))
                             }
                         </Grid>
                     </Grid>
